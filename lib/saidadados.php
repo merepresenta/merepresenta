@@ -3,6 +3,10 @@
     public static function peloFormato($formato) {
       return ($formato === 'csv') ? new SaidaDadosCSV() : new SaidaDadosJSON();
     }
+
+    public static function json() {
+      return new SaidaDadosJSON();
+    }
   }
 
   /**

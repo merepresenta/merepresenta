@@ -1,11 +1,21 @@
 var merepresenta_query = function() {
   var retorno =  { };
-  sigla_estado = jQuery("input:checked[name='sigla_estado']").map(function(k,v){return v.value;}).toArray().join(',');
+  var sigla_estado = jQuery("input:checked[name='sigla_estado']").map(function(k,v){return v.value;}).toArray().join(',');
   if (sigla_estado != '')
     retorno.sigla_estado = sigla_estado;
-  sigla_partido = jQuery("input:checked[name='sigla_partido']").map(function(k,v){return v.value;}).toArray().join(',');
+
+  var sigla_partido = jQuery("input:checked[name='sigla_partido']").map(function(k,v){return v.value;}).toArray().join(',');
   if (sigla_partido != '')
     retorno.sigla_partido = sigla_partido;
+
+  var nota_partido = [jQuery("input[name='nota_partido_inicio']")[0].value,
+                   jQuery("input[name='nota_partido_fim']")[0].value];
+  if (nota_partido[0] != '' && nota_partido[1] != '')
+    retorno.nota_partido = nota_partido[0] + "," + nota_partido[1];
+
+  var cidade = jQuery("input[name='cidade']")[0].value;
+  if (cidade '')
+    retorno.nome_cidade = cidade;
   return retorno;
 };
 

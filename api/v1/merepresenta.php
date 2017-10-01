@@ -8,7 +8,14 @@
   $limits = array();
   $where = array();
   foreach ($input['query'] as $key => $value) {
-    $where[] = $key . ' = "' . $value . '"';
+    if (($key == 'sigla_estado')||($key == 'sigla_partido')) {
+      $values = array_map(function($dado){return '"'.$dado.'"';}, explode(",", $value));
+      $where[] = $key . ' in (' . implode(",",$values) . ')';
+    } else if ($key == 'nota_partido') {
+      $values = explode(",", $value);
+      $where[] = $key . " between $values[0] and $values[1] ";
+    } else
+      $where[] = $key . ' like "%' . $value . '%"';
   }
 
   if (sizeof($where)>0) {
@@ -27,7 +34,7 @@
 
   $leitor = new LeitorDados($sql);
 
-  SaidaDadosFactory::peloFormato($input['format'])->
+  SaidaDadosFactory::peloFormato(array_key_exists ( 'format' , $input ) ? $input['format'] : null)->
     exporta( $leitor->leDados() );
 ?>
 

@@ -1,3 +1,4 @@
+/* Cria o objeto de pesquisa a ser enviado ao backend */
 var merepresenta_query = function() {
   var retorno =  { };
   var sigla_estado = jQuery("input:checked[name='sigla_estado']").map(function(k,v){return v.value;}).toArray().join(',');
@@ -19,6 +20,7 @@ var merepresenta_query = function() {
   return retorno;
 };
 
+/* Carrega os partidos, cria os checkboxes */
 var carregaPartidos = function() {
   jQuery.ajax({
     url: "/api/v1/partidos.php",
@@ -34,6 +36,7 @@ var carregaPartidos = function() {
   });
 };
 
+/* Carrega os estados, cria os checkboxes */
 var carregaEstados = function() {
   jQuery.ajax({
     url: "/api/v1/estados.php",
@@ -90,6 +93,7 @@ var buscaDados = function() {
   });
 };
 
+/* Inicializa os componentes, liga eventos aos botões */
 jQuery(window).load( function() {
   carregaPartidos();
   carregaEstados();

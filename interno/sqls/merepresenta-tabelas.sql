@@ -17,7 +17,7 @@ create table Estado (
    primary key (id),
    unique(sigla),
    unique(nome)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Cidade (
@@ -29,7 +29,7 @@ create table Cidade (
   old_id int,
   primary key (id),
   foreign key(estado_id) references Estado (id)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Coligacao (
@@ -37,7 +37,7 @@ create table Coligacao (
   nome varchar(200) not null,
   unidade_eleitoral_id int,
   primary key(id)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Partido (
@@ -47,7 +47,7 @@ create table Partido (
   numero int not null,
   nota decimal,
   primary key(id)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Coligacao_Partido (
@@ -57,7 +57,7 @@ create table Coligacao_Partido (
   primary key(id),
   foreign key(partido_id) references Partido(id),
   foreign key(coligacao_id) references Coligacao(id)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Eleicao (
@@ -65,7 +65,7 @@ create table Eleicao (
   ano int not null,
   unidade_eleitoral_type varchar(200) not null,
   primary key(id)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Pessoa (
@@ -79,7 +79,7 @@ create table Pessoa (
   email varchar(200) not null,
   fb_id varchar(200),
   primary key(id)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Candidatura (
@@ -98,14 +98,14 @@ create table Candidatura (
   foreign key(pessoa_id) references Pessoa(id),
   foreign key(eleicao_id) references Eleicao(id),
   foreign key(partido_id) references Partido(id)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Pergunta (
   id int not null auto_increment,
   texto text,
   primary key(id)
-);
+) charset=utf8 COLLATE=utf8_general_ci;
 
 
 create table Resposta (
@@ -116,5 +116,4 @@ create table Resposta (
   primary key(id),
   foreign key(pessoa_id) references Pessoa(id),
   foreign key(pergunta_id) references Pergunta(id)
-);
-
+) charset=utf8 COLLATE=utf8_general_ci;

@@ -1,6 +1,6 @@
 <?php
-  include "../../lib/leitordados.php";
-  include "../../lib/saidadados.php";
+  require_once realpath(dirname(__FILE__)."/../../lib/leitordados.php");
+  require_once realpath(dirname(__FILE__)."/../../lib/saidadados.php");
 
   $estados = $_GET['estados'];
   $sql = "select c.nome as nome_cidade from Cidade c";

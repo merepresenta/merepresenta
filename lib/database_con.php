@@ -1,8 +1,10 @@
 <?php
+  require_once realpath(dirname(__FILE__)."/../wp-config.php");
+
   class DatabaseConnFactory {
     public static function getDatabaseConn() {
-      $mysqli = new mysqli("172.17.0.1", "merepresenta", "12345678", "merepresenta");
-      $mysqli->set_charset("utf8");
+      $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+      $mysqli->set_charset(DB_CHARSET);
       return $mysqli;
     }
   }

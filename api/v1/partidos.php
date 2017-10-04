@@ -1,6 +1,6 @@
 <?php
-  include "../../lib/leitordados.php";
-  include "../../lib/saidadados.php";
+  require_once realpath(dirname(__FILE__)."/../../lib/leitordados.php");
+  require_once realpath(dirname(__FILE__)."/../../lib/saidadados.php");
 
   $leitor = new LeitorDados("select sigla as sigla_partido from Partido order by 1");
 

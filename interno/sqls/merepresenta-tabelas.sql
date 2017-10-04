@@ -1,13 +1,15 @@
-drop table Resposta ;
-drop table Pergunta ;
-drop table Candidatura ;
-drop table Pessoa ;
-drop table Eleicao;
-drop table Coligacao_Partido;
-drop table Partido;
-drop table Coligacao ;
-drop table Cidade ;
-drop table Estado;
+use merepresenta;
+
+drop table if exists Resposta;
+drop table if exists Pergunta;
+drop table if exists Candidatura;
+drop table if exists Pessoa;
+drop table if exists Eleicao;
+drop table if exists Coligacao_Partido;
+drop table if exists Partido;
+drop table if exists Coligacao;
+drop table if exists Cidade;
+drop table if exists Estado;
 
 create table Estado (
    id int not null auto_increment,

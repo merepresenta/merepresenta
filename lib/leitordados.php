@@ -1,5 +1,5 @@
 <?php
-  include "../../lib/database_con.php";
+  require_once realpath(dirname(__FILE__)."/database_con.php");
 
   class LeitorDados {
     private $mysqli = null;

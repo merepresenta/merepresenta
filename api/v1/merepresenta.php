@@ -1,6 +1,6 @@
 <?php
-  include "../../lib/leitordados.php";
-  include "../../lib/saidadados.php";
+  require_once realpath(dirname(__FILE__)."/../../lib/leitordados.php");
+  require_once realpath(dirname(__FILE__)."/../../lib/saidadados.php");
 
   $input = json_decode(file_get_contents('php://input'),true);
 

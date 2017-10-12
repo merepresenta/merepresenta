@@ -22,7 +22,7 @@ update merepresenta2016.cities set name='Assu' where id =2400208;
 drop table if exists tse.cidade;
 
 create table tse.cidade (
-  siglaUE varchar(255) not null,
+  siglaUE varchar(191) not null,
   descricaoUE varchar(255) not null,
   siglaUF char(2) not null,
   primary key (siglaUE)

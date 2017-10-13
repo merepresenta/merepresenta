@@ -89,7 +89,7 @@ INSERT INTO merepresenta.Pessoa(id, nome, email, cor_tse, genero_tse, genero_aut
           when false then 'FEMININO'
           else ''
         end as genero_autodeclarado
-      , if (c.born_at is null, STR_TO_DATE('21/04/1500', '%d/%m/%Y'), c.born_at) as data_nascimento
+      , c.born_at as data_nascimento
       , if (c.bio is null, '', c.bio) as minibio
     from merepresenta2016.users u
     inner join merepresenta2016.candidates c

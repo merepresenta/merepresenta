@@ -13,6 +13,7 @@
 
   merepresenta2016.cities: Grafia diferente para Açu/RN no banco de dados do TSE, por isso estamos alterando para a grafia local: Assu     
 */
+use merepresenta;
 update merepresenta2016.cities set name='Assu' where id =2400208;
 
 
@@ -41,7 +42,7 @@ create index idx_cidade_descricao_e_uf on tse.cidade(descricaoUE,siglaUF);
 /**
  * Preenchimento da tabela de estados
  */
-insert into merepresenta.Estado (sigla, nome)
+insert into Estado (sigla, nome)
 	select distinct 
         state
       , state
@@ -51,10 +52,10 @@ insert into merepresenta.Estado (sigla, nome)
 /**
  * Preenchimento da tabela de cidade
  */
-INSERT INTO merepresenta.Cidade (nome, estado_id, old_id, codigo_tse, codigo_ibge)
+INSERT INTO Cidade (nome, estado_id, old_id, codigo_tse, codigo_ibge)
   select 
   		  c.name as nome
-      , (select e.id from merepresenta.Estado e where e.sigla = c.state ) as estado_id
+      , (select e.id from Estado e where e.sigla = c.state ) as estado_id
       , c.id as old_id
       , cid.siglaUE as codigo_tse
       , c.id as codigo_ibge
@@ -67,7 +68,7 @@ INSERT INTO merepresenta.Cidade (nome, estado_id, old_id, codigo_tse, codigo_ibg
 /**
  * Prenchimento das perguntas utilizadas
  */
-INSERT INTO merepresenta.Pergunta (id, texto)
+INSERT INTO Pergunta (id, texto)
     select
           id
         , text
@@ -77,7 +78,7 @@ INSERT INTO merepresenta.Pergunta (id, texto)
 /**
  * Importação das pessoas 
  */
-INSERT INTO merepresenta.Pessoa(id, nome, email, cor_tse, genero_tse, genero_autodeclarado, data_nascimento, minibio)
+INSERT INTO Pessoa(id, nome, email, cor_tse, genero_tse, genero_autodeclarado, data_nascimento, minibio, fb_id)
   select 
         u.id
       , if (c.name is null, u.name, c.name) as nome
@@ -91,13 +92,15 @@ INSERT INTO merepresenta.Pessoa(id, nome, email, cor_tse, genero_tse, genero_aut
         end as genero_autodeclarado
       , if (c.born_at is null, STR_TO_DATE('21/04/1500', '%d/%m/%Y'), c.born_at) as data_nascimento
       , if (c.bio is null, '', c.bio) as minibio
+      , aut.uid as fb_id
+      , ( select aut.uid from merepresenta2016.authorizations aut where (aut.user_id = u.id) order by aut.id desc limit 0,1) as fb_id
     from merepresenta2016.users u
     inner join merepresenta2016.candidates c
        on c.id = u.id
     inner join merepresenta2016.cities cit
-      on cit.id = c.city_id
+       on cit.id = c.city_id
     left join tse.tse_candidato tsec
-      on  (tsec.numeroCandidato = c.number)
+       on (tsec.numeroCandidato = c.number)
       and (tsec.descricaoUE = upper(cit.name))
       and (tsec.siglaUF = cit.state)
       and (tsec.codSitTotTurno>0)
@@ -110,14 +113,14 @@ INSERT INTO merepresenta.Pessoa(id, nome, email, cor_tse, genero_tse, genero_aut
 /**
  * Cadastramento da eleição municipal de 2016
  */
-INSERT INTO merepresenta.Eleicao (id, ano, unidade_eleitoral_type)
+INSERT INTO Eleicao (id, ano, unidade_eleitoral_type)
   VALUES (1, 2016, "Vereador");
 
 
 /**
  * Cadastro das respostas dos candidatos
  */
-INSERT INTO merepresenta.Resposta (pessoa_id, pergunta_id, resposta)
+INSERT INTO Resposta (pessoa_id, pergunta_id, resposta)
 	select
         a.responder_id
       , a.question_id 
@@ -133,7 +136,7 @@ INSERT INTO merepresenta.Resposta (pessoa_id, pergunta_id, resposta)
 /**
  * Cadastro de partidos
  */
-INSERT INTO merepresenta.Partido (id, nome, sigla, numero, nota)
+INSERT INTO Partido (id, nome, sigla, numero, nota)
   select 
         p.id as id
       , p.symbol as nome
@@ -146,7 +149,7 @@ INSERT INTO merepresenta.Partido (id, nome, sigla, numero, nota)
 /**
  * Cadastro das coligações
  */
-INSERT INTO merepresenta.Coligacao (id, nome, unidade_eleitoral_id)
+INSERT INTO Coligacao (id, nome, unidade_eleitoral_id)
   select
         id
       , name as nome
@@ -157,7 +160,7 @@ INSERT INTO merepresenta.Coligacao (id, nome, unidade_eleitoral_id)
 /**
  * Ligações entre coligações e partidos participantes
  */
-INSERT INTO merepresenta.Coligacao_Partido(partido_id, coligacao_id)
+INSERT INTO Coligacao_Partido(partido_id, coligacao_id)
   select
         pu.party_id as partido_id
       , pu.union_id as coligacao_id
@@ -167,14 +170,14 @@ INSERT INTO merepresenta.Coligacao_Partido(partido_id, coligacao_id)
 /**
  * Cadastro das candidaturas
  */
-INSERT INTO merepresenta.Candidatura(pessoa_id, eleicao_id, partido_id, nome_urna, numero_candidato, unidade_eleitoral_id, sequencial_candidato)
+INSERT INTO Candidatura(pessoa_id, eleicao_id, partido_id, nome_urna, numero_candidato, unidade_eleitoral_id, sequencial_candidato)
   select
         c.id as pessoa_id
       , 1 as eleicao_id
       , c.party_id as partido_id
       , if (c.nickname is null, c.name, c.nickname) as nome_urna
       , if(c.number is null, 0, c.number) as numero_candidato
-      , (select cid.id from merepresenta.Cidade cid where cid.old_id = c.city_id) as unidade_eleitoral_id
+      , (select cid.id from Cidade cid where cid.old_id = c.city_id) as unidade_eleitoral_id
       , c.id
     from merepresenta2016.candidates c
     where 

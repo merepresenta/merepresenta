@@ -1,13 +1,12 @@
 <?php
   require_once realpath(dirname(__FILE__)."/../../../../wp-config.php");
   
-  class QueryRunnerWordpress {
+  class QueryRunner {
     private $mysqli;
 
     function __construct(){
-      $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-      $mysqli->set_charset(DB_CHARSET);
-      return $mysqli;
+      $this->mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+      $this->mysqli->set_charset(DB_CHARSET);
     }
 
     function __destruct() {
@@ -16,7 +15,7 @@
 
     function get_results($sql) {
       $ret = array();
-      $result = $this->mysqli->query($this->sql);
+      $result = $this->mysqli->query($sql);
       while ($reg = $result->fetch_object()) {
         $ret[] = $reg;
       }

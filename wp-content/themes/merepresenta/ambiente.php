@@ -1,4 +1,7 @@
 <?php
+  define("EXP_JSON", 1);
+  define("EXP_CSV", 2);
+
   class Ambiente {
     private $templateDir;
    
@@ -30,6 +33,30 @@
         return $wpdb;
       $this->loadLib("query_runner.php");
       return new QueryRunner();
+    }
+
+    function exporter($type) {
+      $this->loadLib("output/saida_dados.php");
+
+      if($type === EXP_CSV)
+        return new SaidaDadosCSV();
+      else if($type === EXP_JSON)
+        return new SaidaDadosJSON();
+      return null;
+    }
+
+    function empacota($dados, $qtde, $primeiro, $por_pagina) {
+        $retorno = [];
+        $paginacao = [];
+        $retorno['data'] = $dados;
+
+        $paginacao['first'] = $primeiro;
+        $paginacao['quantity'] = $por_pagina;
+        $paginacao['count'] = $qtde;
+
+        $retorno['pagination'] = $paginacao;
+
+        return $retorno;
     }
 
   }

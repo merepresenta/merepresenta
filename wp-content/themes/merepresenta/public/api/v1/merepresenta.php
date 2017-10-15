@@ -1,6 +1,8 @@
 <?php
-  require_once realpath(dirname(__FILE__)."/../../lib/leitordados.php");
-  require_once realpath(dirname(__FILE__)."/../../lib/saidadados.php");
+  require_once realpath(dirname(__FILE__)."/../../../ambiente.php");
+
+  $ambiente = new Ambiente();
+  $queryRunner = $ambiente->queryRunner();
 
   $input = json_decode(file_get_contents('php://input'),true);
 
@@ -31,13 +33,19 @@
     if ($input['limites']['quantidade']) $limits[1] = $input['limites']['quantidade'];
 
   }
+  
+
   if (sizeof($limits) > 0)
     $sqlLimite = " limit " . join(",", $limits);
 
-  $leitor = new LeitorDados("select * $sql $sqlLimite", "select count(*) as contagem $sql", $limits[0], $limits[1]);
+  $dados = $queryRunner->get_results("select * $sql $sqlLimite");
+  $qtde = ($queryRunner->get_results("select count(*) as contagem $sql"))[0]->contagem;
 
-  SaidaDadosFactory::peloFormato(array_key_exists ( 'format' , $input ) ? $input['format'] : null)->
-    exporta( $leitor->leDados(['id_cidade', 'id_partido', 'id_estado']) );
+  $retorno = $ambiente->empacota($dados, $qtde, $limits[0], $limits[1]);
+
+  ($ambiente->exporter(EXP_JSON))->exporta($retorno);
+//  SaidaDadosFactory::peloFormato(array_key_exists ( 'format' , $input ) ? $input['format'] : null)->
+//    exporta( $leitor->leDados(['id_cidade', 'id_partido', 'id_estado']) );
 ?>
 
 

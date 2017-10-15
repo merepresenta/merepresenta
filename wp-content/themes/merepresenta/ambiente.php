@@ -20,11 +20,11 @@
     }
 
     function generateCssURI($file) {
-      return "$this->templateURI/assets/css/$file";
+      return "$this->templateURI/public/assets/css/$file";
     }
 
     function generateJsURI($file) {
-      return "$this->templateURI/assets/js/$file";
+      return "$this->templateURI/public/assets/js/$file";
     }
 
     function queryRunner() {

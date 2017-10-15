@@ -4,7 +4,9 @@
 
   $input = json_decode(file_get_contents('php://input'),true);
 
-  $sql = "select * from all_data";
+  $sql = "from all_data";
+  $sqlLimite = "";
+
   $limits = array();
   $where = array();
   foreach ($input['query'] as $key => $value) {
@@ -23,19 +25,19 @@
   }
 
   if ($input['limites']) {
-    $limits[] = 1;
+    $limits[] = 0;
     $limits[] = 10;
     if ($input['limites']['primeiro']) $limits[0] = $input['limites']['primeiro'];
-    if ($input['limites']['ultimo']) $limits[1] = $input['limites']['ultimo'];
+    if ($input['limites']['quantidade']) $limits[1] = $input['limites']['quantidade'];
 
   }
   if (sizeof($limits) > 0)
-    $sql .= " limit " . join(",", $limits);
+    $sqlLimite = " limit " . join(",", $limits);
 
-  $leitor = new LeitorDados($sql);
+  $leitor = new LeitorDados("select * $sql $sqlLimite", "select count(*) as contagem $sql", $limits[0], $limits[1]);
 
   SaidaDadosFactory::peloFormato(array_key_exists ( 'format' , $input ) ? $input['format'] : null)->
-    exporta( $leitor->leDados() );
+    exporta( $leitor->leDados(['id_cidade', 'id_partido', 'id_estado']) );
 ?>
 
 

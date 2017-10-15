@@ -1,13 +1,20 @@
 <?php
+  require_once("ambiente.php");
+  $ambiente = new Ambiente();
+  
   global $wpdb;
 
-  
   $ufs = $wpdb->get_results("select sigla from Estado order by sigla");
   $partidos = $wpdb->get_results("select id, sigla from Partido order by sigla");
   $pautas = $wpdb->get_results("select id, texto from Pergunta order by id");
   $generos = $wpdb->get_results("select distinct genero_tse from Pessoa order by genero_tse");
   $cores = $wpdb->get_results("select distinct cor_tse from Pessoa order by cor_tse");
 ?>
+
+<form id="download-files" action="<?= get_template_directory_uri() ?>/download.php" method="post" target="_blank">
+  <input type="hidden" name="query">
+</form>
+
 <div class="container">
   <div id="dados_menu">
     <div id="filtro_uf">
@@ -77,18 +84,25 @@
 <script>
   var query = null;
   var quantidade_pagina = 10;
+  var cDadosFiltrados = $("#dados_filtrados");
+
+  var downloadAllData = function() {
+    $("#download-files input").val(query);
+    $("#download-files").submit();
+  };
 
   var requisita_dados = function(inicial) {
     $.ajax({
       url: "/api/v1/merepresenta.php",
       data: JSON.stringify({ 
         query: query,
-        limites: {primeiro: (inicial - 1) * quantidade_pagina , ultimo: quantidade_pagina}
+        limites: {primeiro: (inicial - 1) * quantidade_pagina , quantidade: quantidade_pagina}
       }),
       dataType: "json",
       type: "post",
-      success: function(result) {
+      success: function(resultado) {
         var saida = null;
+        var result = resultado.data;
         if(result.length > 0) {
           var keys = Object.keys(result[0]);
           
@@ -108,10 +122,35 @@
                 $("<td>", {text: r[value]}).appendTo(linha);          
             });
           });
+          var painel = $("<div>"),
+              paginaAtual = (resultado.pagination.first / resultado.pagination.quantity)+1;
+
+          Array.apply(null, {length: resultado.pagination.count / resultado.pagination.quantity}).
+            map(Number.call, Number).
+            forEach(function(rec){
+              var pagina = rec + 1;
+              if (pagina == paginaAtual)
+                c = $("<div>", {text: pagina, class: 'lnk-paginacao'});
+              else {
+                c = $("<a>", {text: pagina, href: '#', class: 'lnk-paginacao'});
+                c.on("click", function(){
+                  requisita_dados(pagina);
+                });
+              }
+
+              c.appendTo(painel);
+              return c;
+            });
+
+          var lnkDownload = $("<a>", {text: "download", href: "#"});
+          lnkDownload.on("click", downloadAllData);
+          cDadosFiltrados.html(saida);
+          cDadosFiltrados.append(painel);
+          cDadosFiltrados.append(lnkDownload);
         } else {
           saida = $("<h3>", {text: "Sem dados ligados à requisição"});
+          cDadosFiltrados.html(saida);
         }
-        $("#dados_filtrados").html(saida);
       }
     });
   }

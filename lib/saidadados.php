@@ -30,9 +30,8 @@
 
       header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
       header("Content-Length: $tamanho");
-      header("Content-type: application/csv");
+      header("Content-Type: application/csv; charset=utf-8");
       header("Content-Disposition: attachment; filename=merepresenta.csv");
-      
       fpassthru($f);
     }
   }
@@ -43,7 +42,7 @@
   class SaidaDadosJSON
   {
     public function exporta($dados) {
-      header('Content-type: application/json');
+      header('Content-Type: application/json; charset=utf-8');
       echo json_encode($dados);
     }
   }

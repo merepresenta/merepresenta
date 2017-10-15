@@ -57,3 +57,9 @@ $politico = $wpdb->get_results("select * from politico where candidatura_id=$can
     </div>
   </div>
 </main>
+
+<script>
+  $(window).onload(function(){
+    alert("Olá");
+  });
+</script>

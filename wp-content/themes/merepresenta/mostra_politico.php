@@ -1,16 +1,18 @@
-<?php 
-$cand_id = $_GET['cand_id'];
-
-global $wpdb;
-
-$respostas = $wpdb->get_results("select p.texto , r.resposta from Pergunta p join Candidatura c on ( c.id = $cand_id ) left join Resposta r on (r.pessoa_id=c.pessoa_id) and (r.pergunta_id = p.id) order by p.id");
-
-$politico = $wpdb->get_results("select * from politico where candidatura_id=$cand_id")[0];
-
-?>
-
 <main>
   <div class="container">
+<?php 
+  require_once("ambiente.php");
+  $ambiente = new Ambiente();
+  $queryRunner = $ambiente->queryRunner();
+
+  $cand_id = $_GET['cand_id'];
+
+  $r = $queryRunner->get_results("select * from politico where candidatura_id=$cand_id");
+  if (sizeof($r) > 0) {
+    $respostas = $queryRunner->get_results("select p.texto , r.resposta from Pergunta p join Candidatura c on ( c.id = $cand_id ) left join Resposta r on (r.pessoa_id=c.pessoa_id) and (r.pergunta_id = p.id) order by p.id");
+    $politico = $r[0];
+?>
+
     <div class="flex">
       <div class="info-basica">
         <?php if (isset($politico->fb_id)) { ?>
@@ -55,11 +57,8 @@ $politico = $wpdb->get_results("select * from politico where candidatura_id=$can
         </tbody>
       </table>
     </div>
+<?php } else { ?>
+    <h1>Não existe candidatura correspondente.</h1>
+<?php } ?>
   </div>
 </main>
-
-<script>
-  $(window).onload(function(){
-    alert("Olá");
-  });
-</script>

@@ -24,5 +24,13 @@
       return "$this->templateURI/assets/js/$file";
     }
 
+    function queryRunner() {
+      global $wpdb;
+      if (isset($wpdb))
+        return $wpdb;
+      $this->loadLib("query_runner.php");
+      return new QueryRunner();
+    }
+
   }
 ?>

@@ -2,13 +2,13 @@
   require_once("ambiente.php");
   $ambiente = new Ambiente();
   
-  global $wpdb;
+  $queryRunner = $ambiente->queryRunner();
 
-  $ufs = $wpdb->get_results("select sigla from Estado order by sigla");
-  $partidos = $wpdb->get_results("select id, sigla from Partido order by sigla");
-  $pautas = $wpdb->get_results("select id, texto from Pergunta order by id");
-  $generos = $wpdb->get_results("select distinct genero_tse from Pessoa order by genero_tse");
-  $cores = $wpdb->get_results("select distinct cor_tse from Pessoa order by cor_tse");
+  $ufs = $queryRunner->get_results("select sigla from Estado order by sigla");
+  $partidos = $queryRunner->get_results("select id, sigla from Partido order by sigla");
+  $pautas = $queryRunner->get_results("select id, texto from Pergunta order by id");
+  $generos = $queryRunner->get_results("select distinct genero_tse from Pessoa order by genero_tse");
+  $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa order by cor_tse");
 ?>
 
 <form id="download-files" action="<?= get_template_directory_uri() ?>/download.php" method="post" target="_blank">

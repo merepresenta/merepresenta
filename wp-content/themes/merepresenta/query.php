@@ -11,8 +11,7 @@
   $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa order by cor_tse");
 ?>
 
-<form id="download-files" action="<?= get_template_directory_uri() ?>/download.php" method="post" target="_blank">
-  <input type="hidden" name="query">
+<form id="download-files" action="<?= get_template_directory_uri() ?>/download.php" method="post" >
 </form>
 
 <div class="container">
@@ -87,8 +86,12 @@
   var cDadosFiltrados = $("#dados_filtrados");
 
   var downloadAllData = function() {
-    $("#download-files input").val(query);
-    $("#download-files").submit();
+    var frm = $("#download-files");
+    $("#download-files input").remove();
+    Object.keys(query).forEach(function(field,y) {
+      var o = $("<input>", {type: "hidden", name: field,value: JSON.stringify(query[field])}).appendTo(frm);
+    });
+    frm.submit();
   };
 
   var requisita_dados = function(inicial) {
@@ -158,23 +161,23 @@
   var configura_query = function() {
     query =  { };
 
-    var estados = $(".chk_estado:checked").map(function(i,obj){return obj.value});
-    if (estados.length>0) query.estados = estados;
+    var estados = $(".chk_estado:checked").map(function(i,obj){return obj.value}).toArray();
+    if (estados.length>0) query.sigla_estado = estados;
 
-    var cidades = $(".chk-cidade:checked").map(function(i,obj){return $(obj).attr("cid_id")});
-    if (cidades.length>0) query.cidades = cidades;
+    var cidades = $(".chk-cidade:checked").map(function(i,obj){return $(obj).attr("cid_id")}).toArray();
+    if (cidades.length>0) query.id_cidade = cidades;
 
-    var partidos = $(".chk-partido:checked").map(function(i,obj){return obj.value});
-    if (partidos.length>0) query.partidos = partidos;
+    var partidos = $(".chk-partido:checked").map(function(i,obj){return obj.value}).toArray();
+    if (partidos.length>0) query.id_partido = partidos;
 
-    var pautas = $(".chk-pauta:checked").map(function(i,obj){return obj.value});
+    var pautas = $(".chk-pauta:checked").map(function(i,obj){return obj.value}).toArray();
     if (pautas.length>0) query.pautas = pautas;
 
     var genero = $("#sel-genero").val();
     if (genero!='') query.genero = genero;
 
     var cor = $("#sel-cor").val();
-    if (cor!='') query.cor = cor;
+    if (cor!='') query.cor_tse = cor;
 
     var cNotaInicial = $("#nota_partido_inicio"),
         cNotaFinal = $("#nota_partido_fim");

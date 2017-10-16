@@ -128,7 +128,7 @@
           var painel = $("<div>"),
               paginaAtual = (resultado.pagination.first / resultado.pagination.quantity)+1;
 
-          Array.apply(null, {length: resultado.pagination.count / resultado.pagination.quantity}).
+          Array.apply(null, {length: Math.ceil(resultado.pagination.count / resultado.pagination.quantity)}).
             map(Number.call, Number).
             forEach(function(rec){
               var pagina = rec + 1;

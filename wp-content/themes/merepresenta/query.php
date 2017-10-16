@@ -80,7 +80,11 @@
   </div>
 </div>
 
-<script>
+<script type="text/javascript">
+  var siteUrl = "<?= site_url() ?>";
+</script>
+
+<script type="text/javascript">
   var query = null;
   var quantidade_pagina = 10;
   var cDadosFiltrados = $("#dados_filtrados");
@@ -113,18 +117,22 @@
           var h = $("<thead>").appendTo(saida);
           var tr = $("<tr>").appendTo(h);
           $(keys).each(function(idx, value) {
-            if( value != "minibio")
+            if( value != "id_candidatura")
               $("<th>", {text: value}).appendTo(tr);          
           })
+          $("<td>", {text: 'link'}).appendTo(tr);          
           
           var tbody = $("<tbody>").appendTo(saida);
           $(result).each(function(idx,r) {
             var linha = $("<tr>").appendTo(tbody);
             $(keys).each(function(idx, value) {
-              if( value != "minibio")
-                $("<td>", {text: r[value]}).appendTo(linha);          
+              $("<td>", {text: r[value]}).appendTo(linha);          
             });
+
+            var col = $("<td>").appendTo(linha);
+            $("<a>",{text: 'visite', href: siteUrl + '/show-politician/?cand_id='+r['id_candidatura']}).appendTo(col);
           });
+
           var painel = $("<div>"),
               paginaAtual = (resultado.pagination.first / resultado.pagination.quantity)+1;
 

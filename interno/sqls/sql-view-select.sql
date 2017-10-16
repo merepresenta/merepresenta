@@ -3,7 +3,8 @@ use wordpress;
 create or replace view all_data
 as
     select 
-              cid.id as id_cidade
+              c.id as id_candidatura
+            , cid.id as id_cidade
             , par.id as id_partido
             , est.id as id_estado
             , c.nome_urna as nome_urna

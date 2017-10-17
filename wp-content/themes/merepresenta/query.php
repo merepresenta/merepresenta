@@ -224,7 +224,7 @@
           success: function( data ) {
             response( data.map(function(valor){
               return {
-                label: valor.nome_cidade,
+                label: valor.nome_cidade + ', ' + valor.uf,
                 value: valor.id
               };
             }) );

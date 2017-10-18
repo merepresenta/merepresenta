@@ -1,14 +1,4 @@
 <?php
-  class SaidaDadosFactory {
-    public static function peloFormato($formato) {
-      return ($formato === 'csv') ? new SaidaDadosCSV() : new SaidaDadosJSON();
-    }
-
-    public static function json() {
-      return new SaidaDadosJSON();
-    }
-  }
-
   /**
   * 
   */
@@ -23,16 +13,14 @@
         foreach ($dados as $key => $value) {
           fputcsv($f, get_object_vars($value));
         }
-        
       }
       $tamanho = ftell($f);
       rewind($f);        
 
       header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
       header("Content-Length: $tamanho");
-      header("Content-type: application/csv");
+      header("Content-Type: application/csv; charset=utf-8");
       header("Content-Disposition: attachment; filename=merepresenta.csv");
-      
       fpassthru($f);
     }
   }
@@ -43,7 +31,7 @@
   class SaidaDadosJSON
   {
     public function exporta($dados) {
-      header('Content-type: application/json');
+      header('Content-Type: application/json; charset=utf-8');
       echo json_encode($dados);
     }
   }

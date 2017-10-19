@@ -10,7 +10,18 @@
  */
 ?>
 
-<?php get_header(); ?>
+<?php 
+	get_header(); 
+
+  $file_dir = get_template_directory();
+  if(is_page('show-politician')) {
+    require_once($file_dir . "/mostra_politico.php");
+  }
+  elseif (is_page('query-politician')) {
+    require_once($file_dir . "/query.php");
+  }
+  else {
+?>
 
 <div class="spacer"></div>
 
@@ -52,4 +63,7 @@
 
 </div>
 
-<?php get_footer(); ?>
+<?php 
+	}
+	get_footer(); 
+?>

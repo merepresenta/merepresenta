@@ -1,4 +1,14 @@
 /*
+drop index idxcandidato01 on tse.tse_candidato;
+
+
+create index idxcandidato01 on tse.tse_candidato  (numeroCandidato, siglaUE,codSitTotTurno,codigoSituacaoCandidatura);
+create index idxcandidatovoto01 on tse.tse_candidato_Voto (sqCandidato);
+create index idxAuth on merepresenta2016.authorizations (user_id)
+
+  */
+
+/*
   Informações:
   
   Estado: 
@@ -14,6 +24,7 @@
   merepresenta2016.cities: Grafia diferente para Açu/RN no banco de dados do TSE, por isso estamos alterando para a grafia local: Assu     
 */
 use merepresenta;
+
 update merepresenta2016.cities set name='Assu' where id =2400208;
 
 
@@ -88,11 +99,10 @@ INSERT INTO Pessoa(id, nome, email, cor_tse, genero_tse, genero_autodeclarado, d
       , case c.male
           when true then 'MASCULINO'
           when false then 'FEMININO'
-          else ''
+          else if (tsec.descricaoSexo is null, '', tsec.descricaoSexo)
         end as genero_autodeclarado
       , c.born_at as data_nascimento
       , if (c.bio is null, '', c.bio) as minibio
-      , aut.uid as fb_id
       , ( select aut.uid from merepresenta2016.authorizations aut where (aut.user_id = u.id) order by aut.id desc limit 0,1) as fb_id
     from merepresenta2016.users u
     inner join merepresenta2016.candidates c
@@ -170,16 +180,24 @@ INSERT INTO Coligacao_Partido(partido_id, coligacao_id)
 /**
  * Cadastro das candidaturas
  */
-INSERT INTO Candidatura(pessoa_id, eleicao_id, partido_id, nome_urna, numero_candidato, unidade_eleitoral_id, sequencial_candidato)
+INSERT INTO Candidatura(pessoa_id, eleicao_id, partido_id, nome_urna, numero_candidato, unidade_eleitoral_id, sequencial_candidato, votacao)
   select
         c.id as pessoa_id
       , 1 as eleicao_id
       , c.party_id as partido_id
       , if (c.nickname is null, c.name, c.nickname) as nome_urna
       , if(c.number is null, 0, c.number) as numero_candidato
-      , (select cid.id from Cidade cid where cid.old_id = c.city_id) as unidade_eleitoral_id
-      , c.id
+      , cid.id as unidade_eleitoral_id
+      , if (tsec.sequencialCandidato is null,-1,tsec.sequencialCandidato) as sequencialCandidato
+      , if (tsec.sequencialCandidato is null,0,(select sum(cv.totalVotos) from tse.tse_candidato_Voto cv where cv.sqCandidato = tsec.sequencialCandidato )) as votacao
     from merepresenta2016.candidates c
+    left join Cidade cid
+      on cid.old_id = c.city_id
+    left join tse.tse_candidato tsec
+       on (tsec.numeroCandidato = c.number)
+      and (tsec.siglaUE = cid.codigo_tse)
+      and (tsec.codSitTotTurno>0)
+      and (tsec.codigoSituacaoCandidatura <> 7)
     where 
           ( c.finished_at is not null )
       and ( length(c.number) = 5 );

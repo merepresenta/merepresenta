@@ -20,7 +20,7 @@ create table Estado (
    unique(sigla),
    unique(nome)
 ) charset=utf8 COLLATE=utf8_general_ci;
-
+create index ixEstado on Estado(sigla);
 
 create table Cidade (
   id int not null auto_increment,
@@ -34,19 +34,20 @@ create table Cidade (
 ) charset=utf8 COLLATE=utf8_general_ci;
 
 
-create table Coligacao (
-  id int not null auto_increment,
-  nome varchar(200) not null,
-  unidade_eleitoral_id int,
-  primary key(id)
-) charset=utf8 COLLATE=utf8_general_ci;
-
-
 create table Partido (
   id int not null auto_increment,
   nome varchar(200) not null,
   sigla varchar(10) not null,
   numero int not null,
+  nota decimal,
+  primary key(id)
+) charset=utf8 COLLATE=utf8_general_ci;
+
+
+create table Coligacao (
+  id int not null auto_increment,
+  nome varchar(200) not null,
+  unidade_eleitoral_id int,  
   nota decimal,
   primary key(id)
 ) charset=utf8 COLLATE=utf8_general_ci;
@@ -95,7 +96,7 @@ create table Candidatura (
   situacao_candidatura varchar(45),
   votacao int,
   situacao_eleitoral varchar(45),
-  sequencial_candidato int not null,
+  sequencial_candidato bigint not null,
   primary key(id),
   foreign key(pessoa_id) references Pessoa(id),
   foreign key(eleicao_id) references Eleicao(id),

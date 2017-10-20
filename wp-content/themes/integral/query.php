@@ -8,7 +8,7 @@
   $partidos = $queryRunner->get_results("select id, sigla from Partido order by sigla");
   $pautas = $queryRunner->get_results("select id, texto from Pergunta order by id");
   $generos = $queryRunner->get_results("select distinct genero_tse from Pessoa order by genero_tse");
-  $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa order by cor_tse");
+  $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa where cor_tse <> '' order by cor_tse");
 ?>
 
 <form id="download-files" action="<?= get_template_directory_uri() ?>/download.php" method="post" >
@@ -60,11 +60,11 @@
       </div>
       <div id="filtro_cor">
         <h3>Cor</h3>
-        <select name="" id="sel-cor">
-          <?php foreach ($cores as $cor) { ?>
-            <option value="<?= $cor->cor_tse ?>"><?= $cor->cor_tse ?></option>
-          <?php } ?>        
-        </select>
+        <?php foreach ($cores as $cor) { ?>
+          <label>
+            <input type="checkbox" value="<?= $cor->cor_tse ?>" id="partido_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+          </label>
+        <?php } ?>
       </div>
       <div id="filtro_nota_partido">
         <h3>Nota do Partido</h3>
@@ -187,8 +187,8 @@
     var genero = jQuery("#sel-genero").val();
     if (genero!='') query.genero = genero;
 
-    var cor = jQuery("#sel-cor").val();
-    if (cor!='') query.cor_tse = cor;
+    var cores = jQuery(".chk-cor:checked").map(function(i,obj){return obj.value}).toArray();
+    if (cores.length>0) query.cor_tse = cores;
 
     var cNotaInicial = jQuery("#nota_partido_inicio"),
         cNotaFinal = jQuery("#nota_partido_fim");

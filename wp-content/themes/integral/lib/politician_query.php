@@ -46,12 +46,12 @@
       $where = array();
       
       foreach ($this->input['query'] as $key => $value) {
-        if ($key == 'sigla_estado') {
+        if (($key == 'sigla_estado')||($key == 'cor_tse')) {
           $values = array_map(function($dado){return '"'.$dado.'"';}, $value);
           $where[] = "$key in (" . implode(",",$values) . ')';
         } else if(($key == 'id_cidade')||($key == 'id_partido')) {
           $where[] = "$key in (" . implode(",",$value) . ')';
-        } else if (($key == 'genero')||($key == 'cor_tse')) {
+        } else if ($key == 'genero') {
           $where[] = "$key = \"$value\"";
         } else if ($key == 'pautas') {
           $or = array_map(function($id){return "resposta_$id = \"S\"";}, $value);

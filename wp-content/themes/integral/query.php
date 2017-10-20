@@ -118,22 +118,23 @@
           saida = jQuery("<table>", {class: "tabela-dados table table-striped"});
           var h = jQuery("<thead>").appendTo(saida);
           var tr = jQuery("<tr>").appendTo(h);
+          jQuery("<th>", {text: 'Link'}).appendTo(tr);          
           jQuery(keys).each(function(idx, value) {
             if( value != "id_candidatura")
               jQuery("<th>", {text: value}).appendTo(tr);          
           })
-          jQuery("<td>", {text: 'link'}).appendTo(tr);          
           
           var tbody = jQuery("<tbody>").appendTo(saida);
           jQuery(result).each(function(idx,r) {
             var linha = jQuery("<tr>").appendTo(tbody);
+
+            var col = jQuery("<td>").appendTo(linha);
+            jQuery("<a>",{text: 'visite', href: siteUrl + '/show-politician/?cand_id='+r['id_candidatura']}).appendTo(col);
+
             jQuery(keys).each(function(idx, value) {
               if( value != "id_candidatura")
                 jQuery("<td>", {text: r[value]}).appendTo(linha);          
             });
-
-            var col = jQuery("<td>").appendTo(linha);
-            jQuery("<a>",{text: 'visite', href: siteUrl + '/show-politician/?cand_id='+r['id_candidatura']}).appendTo(col);
           });
 
           var painel = jQuery("<div>"),

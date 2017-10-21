@@ -17,7 +17,7 @@
   if(is_page('show-politician')) {
     require_once($file_dir . "/mostra_politico.php");
   }
-  elseif (is_page('query-politician')) {
+  elseif (is_page('representou')) {
     require_once($file_dir . "/query.php");
   }
   else {

@@ -15,6 +15,13 @@
 </form>
 
 <main>
+  <div id="spinner-home"  class="invisible">
+    <div class="box">
+      <div id="spinner"></div>
+      <span>Carregando...</span>
+    </div>
+
+  </div>
   <div class="container">
     <div id="dados_menu">
       <div id="filtro_uf">
@@ -90,6 +97,7 @@
   var query = null;
   var quantidade_pagina = 10;
   var cDadosFiltrados = jQuery("#dados_filtrados");
+  var spinner = jQuery("#spinner-home");
 
   var downloadAllData = function() {
     var frm = jQuery("#download-files");
@@ -101,6 +109,7 @@
   };
 
   var requisita_dados = function(inicial) {
+    spinner.removeClass("invisible");
     jQuery.ajax({
       url: "/api/v1/merepresenta.php",
       data: JSON.stringify({ 
@@ -109,6 +118,9 @@
       }),
       dataType: "json",
       type: "post",
+      complete: function() {
+        spinner.addClass("invisible");
+      },
       success: function(resultado) {
         var saida = null;
         var result = resultado.data;

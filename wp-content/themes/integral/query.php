@@ -73,13 +73,6 @@
           </label>
         <?php } ?>
       </div>
-      <div id="filtro_nota_partido">
-        <h3>Nota do Partido</h3>
-        <label for="nota_partido_inicio">Nota mínima</label>
-        <input type="number" min="0" max="100" id="nota_partido_inicio" />
-        <label for="nota_partido_fim">Nota máxima</label>
-        <input type="number" min="0" max="100" id="nota_partido_fim" />
-      </div>
       <button id="bt_filtro">Filtro</button>
     </div>
 
@@ -202,22 +195,6 @@
 
     var cores = jQuery(".chk-cor:checked").map(function(i,obj){return obj.value}).toArray();
     if (cores.length>0) query.cor_tse = cores;
-
-    var cNotaInicial = jQuery("#nota_partido_inicio"),
-        cNotaFinal = jQuery("#nota_partido_fim");
-    var nota_partido = [parseInt(cNotaInicial.val()),
-                        parseInt(cNotaFinal.val())];
-    if ((!isNaN(nota_partido[0]))  || (!isNaN(nota_partido[1])) ) {
-      if (isNaN(nota_partido[0])) { 
-        nota_partido[0] = 0;
-        cNotaInicial.val(0);
-      }
-      if (isNaN(nota_partido[1])) {
-        nota_partido[1] = 100;
-        cNotaFinal.val(100);
-      }
-      query.nota_partido = nota_partido;
-    }
   };
 
   jQuery(window).on("load",function(){

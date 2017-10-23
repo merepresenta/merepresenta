@@ -134,7 +134,7 @@
             var linha = jQuery("<tr>").appendTo(tbody);
 
             var col = jQuery("<td>").appendTo(linha);
-            jQuery("<a>",{text: 'visite', href: siteUrl + '/show-politician/?cand_id='+r['id_candidatura']}).appendTo(col);
+            jQuery("<a>",{text: 'visite', href: siteUrl + '/politicos/?cand_id='+r['id_candidatura']}).appendTo(col);
 
             jQuery(keys).each(function(idx, value) {
               if( value != "id_candidatura")

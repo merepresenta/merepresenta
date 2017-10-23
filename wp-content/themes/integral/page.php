@@ -14,7 +14,7 @@
 	get_header(); 
 
   $file_dir = get_template_directory();
-  if(is_page('show-politician')) {
+  if(is_page('politicos')) {
     require_once($file_dir . "/mostra_politico.php");
   }
   elseif (is_page('representou')) {

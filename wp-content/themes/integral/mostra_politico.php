@@ -16,9 +16,9 @@
     <div class="flex">
       <div class="info-basica">
         <?php if (isset($politico->fb_id)) { ?>
-          <img class="can-pic" src="http://graph.facebook.com/v2.6/<?= $politico->fb_id ?>/picture?type=large" alt="Foto da/o vereador(a)">
+          <img class="can-pic" src="http://graph.facebook.com/v2.6/<?= $politico->fb_id ?>/picture?type=large" alt="Foto da/o política(o)">
         <?php } else { ?>
-          <img class="can-pic" src="https://okeducationtruths.files.wordpress.com/2016/09/not-pictured.png" alt="Foto da/o vereador(a)">
+          <img class="can-pic" src="https://okeducationtruths.files.wordpress.com/2016/09/not-pictured.png" alt="Foto da/o política(o)">
         <?php } ?>
         <span class="info-text name">
           <?= $politico->nome_urna ?>
@@ -35,14 +35,14 @@
       </div>
       <div class="info-bio">
         <div class="bio">
-          <h3>Sobre a/o vereador(a)</h3>
+          <h3>Sobre a/o política(o)</h3>
           <textarea readonly rows="11" cols="40"><?= $politico->minibio ?></textarea>
         </div>
       </div>
     </div>
 
     <div class="respostas">
-      <h2>Veja o que a/o vereador(a) respondeu:</h2>
+      <h2>Veja o que a/o política(o) respondeu:</h2>
       <table>
         <tbody>
           <?php for($i=0;$i<sizeof($respostas);$i++) {

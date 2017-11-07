@@ -91,6 +91,7 @@
   var quantidade_pagina = 10;
   var cDadosFiltrados = jQuery("#dados_filtrados");
   var spinner = jQuery("#spinner-home");
+  var necessitaRevisaoFiltros = false;
 
   var downloadAllData = function() {
     var frm = jQuery("#download-files");
@@ -101,13 +102,14 @@
     frm.submit();
   };
 
-  var requisita_dados = function(inicial) {
+  var requisitaDados = function(inicial) {
     spinner.removeClass("invisible");
     jQuery.ajax({
       url: "/api/v1/merepresenta.php",
       data: JSON.stringify({ 
         query: query,
-        limites: {primeiro: (inicial - 1) * quantidade_pagina , quantidade: quantidade_pagina}
+        limites: {primeiro: (inicial - 1) * quantidade_pagina , quantidade: quantidade_pagina},
+        revisaoFiltros: (inicial > 1) ? false : necessitaRevisaoFiltros
       }),
       dataType: "json",
       contentType: "application/json; charset=utf-8",
@@ -155,7 +157,7 @@
               else {
                 c = jQuery("<a>", {text: pagina, href: '#', class: 'lnk-paginacao'});
                 c.on("click", function(){
-                  requisita_dados(pagina);
+                  requisitaDados(pagina);
                 });
               }
 
@@ -176,7 +178,8 @@
     });
   }
 
-  var configura_query = function() {
+  var configuraQuery = function() {
+    var oldPautas = (! query) ? [] : query.pautas;
     query =  { };
 
     var estados = jQuery(".chk_estado:checked").map(function(i,obj){return obj.value}).toArray();
@@ -190,6 +193,7 @@
 
     var pautas = jQuery(".chk-pauta:checked").map(function(i,obj){return obj.value}).toArray();
     if (pautas.length>0) query.pautas = pautas;
+    necessitaRevisaoFiltros = !(typeof(oldPautas) == typeof(query.pautas) && oldPautas.length==query.pautas.length && oldPautas.every(function(v,i) { return v === query.pautas[i]}));
 
     var genero = jQuery("#sel-genero").val();
     if (genero!='') query.genero = genero;
@@ -256,8 +260,8 @@
     });
 
     cBtnFiltro.on("click", function() {
-      configura_query();
-      requisita_dados(1);
+      configuraQuery();
+      requisitaDados(1);
     });
   });
 </script>

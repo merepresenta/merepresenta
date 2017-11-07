@@ -110,6 +110,7 @@
         limites: {primeiro: (inicial - 1) * quantidade_pagina , quantidade: quantidade_pagina}
       }),
       dataType: "json",
+      contentType: "application/json; charset=utf-8",
       type: "post",
       complete: function() {
         spinner.addClass("invisible");
@@ -210,6 +211,7 @@
           url: "/api/v1/cidades.php",
           method: "get",
           accept: "application/json",
+          contentType: "application/json; charset=utf-8",
           dataType: "json",
           data: {
             nome: request.term

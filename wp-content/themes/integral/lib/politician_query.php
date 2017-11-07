@@ -6,6 +6,10 @@
       $this->input = $input;
     }
 
+    function requestQuery() {
+      return $this->input['query'];
+    }
+
     function hasFiltersRequest() {
       return $this->input['revisaoFiltros'];
     }

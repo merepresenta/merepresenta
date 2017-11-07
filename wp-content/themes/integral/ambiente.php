@@ -45,7 +45,7 @@
       return null;
     }
 
-    function empacota($dados, $qtde, $primeiro, $por_pagina, $partidos = null, $estados = null, $generos = null, $cores = null) {
+    function empacota($dados, $qtde, $primeiro, $por_pagina, $query = null, $partidos = null, $estados = null, $generos = null, $cores = null) {
         $paginacao = [];
         $paginacao['first'] = $primeiro;
         $paginacao['quantity'] = $por_pagina;
@@ -55,14 +55,15 @@
         $retorno['data'] = $dados;
         $retorno['pagination'] = $paginacao;
         
-        if (($partidos != null) || ($estados != null) || ($generos != null) || ($cores != null)) {
+        if ($query != null) {
           $filtros = [];
-          if ($partidos != null)  $filtros['partidos'] = $partidos;
-          if ($estados != null)   $filtros['estados'] = $estados;
-          if ($generos != null)   $filtros['generos'] = $generos;
-          if ($cores != null)     $filtros['cores'] = $cores;
+          $filtros['partidos'] = $partidos;
+          $filtros['estados'] = $estados;
+          $filtros['generos'] = $generos;
+          $filtros['cores'] = $cores;
 
           $retorno['filter_data'] = $filtros;          
+          $retorno['query'] = $query;          
         }
 
         return $retorno;

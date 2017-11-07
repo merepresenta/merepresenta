@@ -102,6 +102,71 @@
     frm.submit();
   };
 
+  var desenhaTabelaDados = function(dados){
+    var saida = null;
+
+    var keys = Object.keys(dados[0]);
+
+    saida = jQuery("<table>", {class: "tabela-dados table table-striped"});
+    var h = jQuery("<thead>").appendTo(saida);
+    var tr = jQuery("<tr>").appendTo(h);
+    jQuery("<th>", {text: 'Link'}).appendTo(tr);          
+    jQuery(keys).each(function(idx, value) {
+      if( value != "id_candidatura")
+        jQuery("<th>", {text: value}).appendTo(tr);          
+    })
+
+    var tbody = jQuery("<tbody>").appendTo(saida);
+    jQuery(dados).each(function(idx,r) {
+      var linha = jQuery("<tr>").appendTo(tbody);
+
+      var col = jQuery("<td>").appendTo(linha);
+      jQuery("<a>",{text: 'visite', href: siteUrl + '/politicos/?cand_id='+r['id_candidatura']}).appendTo(col);
+
+      jQuery(keys).each(function(idx, value) {
+        if( value != "id_candidatura")
+          jQuery("<td>", {text: r[value]}).appendTo(linha);          
+      });
+    });
+
+    return saida;
+  }
+
+  var desenhaPainelPaginas = function(pagination) {
+    var painel = jQuery("<div>"),
+        paginaAtual = (pagination.first / pagination.quantity)+1;
+
+    Array.apply(null, {length: Math.ceil(pagination.count / pagination.quantity)}).
+      map(Number.call, Number).
+      forEach(function(rec){
+        var pagina = rec + 1;
+        if (pagina == paginaAtual)
+          c = jQuery("<div>", {text: pagina, class: 'lnk-paginacao'});
+        else {
+          c = jQuery("<a>", {text: pagina, href: '#', class: 'lnk-paginacao'});
+          c.on("click", function(){
+            requisitaDados(pagina);
+          });
+        }
+
+        c.appendTo(painel);
+      });    
+    return painel;
+  }
+
+  var desenhaLinkDownload = function() {
+    var lnkDownload = jQuery("<a>", {text: "download", href: "#"});
+    lnkDownload.on("click", downloadAllData);    
+    return lnkDownload;
+  }
+
+  var desenhaDadosFiltrados = function(resultado) {
+    cDadosFiltrados.html(desenhaTabelaDados(resultado.data));
+    cDadosFiltrados.append(desenhaPainelPaginas(resultado.pagination));
+    cDadosFiltrados.append(desenhaLinkDownload());
+  }
+
+
   var requisitaDados = function(inicial) {
     spinner.removeClass("invisible");
     jQuery.ajax({
@@ -118,58 +183,8 @@
         spinner.addClass("invisible");
       },
       success: function(resultado) {
-        var saida = null;
-        var result = resultado.data;
-        if(result.length > 0) {
-          var keys = Object.keys(result[0]);
-          
-          saida = jQuery("<table>", {class: "tabela-dados table table-striped"});
-          var h = jQuery("<thead>").appendTo(saida);
-          var tr = jQuery("<tr>").appendTo(h);
-          jQuery("<th>", {text: 'Link'}).appendTo(tr);          
-          jQuery(keys).each(function(idx, value) {
-            if( value != "id_candidatura")
-              jQuery("<th>", {text: value}).appendTo(tr);          
-          })
-          
-          var tbody = jQuery("<tbody>").appendTo(saida);
-          jQuery(result).each(function(idx,r) {
-            var linha = jQuery("<tr>").appendTo(tbody);
-
-            var col = jQuery("<td>").appendTo(linha);
-            jQuery("<a>",{text: 'visite', href: siteUrl + '/politicos/?cand_id='+r['id_candidatura']}).appendTo(col);
-
-            jQuery(keys).each(function(idx, value) {
-              if( value != "id_candidatura")
-                jQuery("<td>", {text: r[value]}).appendTo(linha);          
-            });
-          });
-
-          var painel = jQuery("<div>"),
-              paginaAtual = (resultado.pagination.first / resultado.pagination.quantity)+1;
-
-          Array.apply(null, {length: Math.ceil(resultado.pagination.count / resultado.pagination.quantity)}).
-            map(Number.call, Number).
-            forEach(function(rec){
-              var pagina = rec + 1;
-              if (pagina == paginaAtual)
-                c = jQuery("<div>", {text: pagina, class: 'lnk-paginacao'});
-              else {
-                c = jQuery("<a>", {text: pagina, href: '#', class: 'lnk-paginacao'});
-                c.on("click", function(){
-                  requisitaDados(pagina);
-                });
-              }
-
-              c.appendTo(painel);
-              return c;
-            });
-
-          var lnkDownload = jQuery("<a>", {text: "download", href: "#"});
-          lnkDownload.on("click", downloadAllData);
-          cDadosFiltrados.html(saida);
-          cDadosFiltrados.append(painel);
-          cDadosFiltrados.append(lnkDownload);
+        if(resultado.data.length > 0) {
+          desenhaDadosFiltrados(resultado);
         } else {
           saida = jQuery("<h3>", {text: "Sem dados ligados à requisição"});
           cDadosFiltrados.html(saida);
@@ -179,7 +194,7 @@
   }
 
   var configuraQuery = function() {
-    var oldPautas = (! query) ? [] : query.pautas;
+    var oldPautas = ((! query)||(typeof(query.pautas) == "undefined")) ? [] : query.pautas;
     query =  { };
 
     var estados = jQuery(".chk_estado:checked").map(function(i,obj){return obj.value}).toArray();

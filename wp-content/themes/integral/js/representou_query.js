@@ -160,7 +160,7 @@ function ViewObject(siteUrl) {
    */
   classe._atualizaFiltroCores = function (cores) {
     pCores.html(this._createHeader("Cútis"));
-    cores.forEach(function(elemento) {
+    cores.filter(function(c){ return c.cor_tse.trim() != '' }).forEach(function(elemento) {
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.cor_tse, id: "cutis_"+elemento.cor_tse, class: 'chk-cor' } ) );
       lbl.append(elemento.cor_tse);

@@ -57,7 +57,7 @@
       </div>
       <div id="filtro_genero">
         <h3>Gêneros</h3>
-        <select name="" id="sel_genero" class="sel_genero">
+        <select name="" id="sel_genero" class="sel-genero">
           <?php foreach ($generos as $genero) { ?>
             <label>
               <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
@@ -124,6 +124,8 @@
           viewObject.desenhaDadosFiltrados(resultado);
           if (typeof(resultado.filter_data) != 'undefined') {
             viewObject.atualizaFiltros(resultado.filter_data);
+            viewObject.marcaFiltro(resultado.query);
+            query = resultado.query;
           }
         } 
         else {

@@ -178,5 +178,38 @@ function ViewObject(siteUrl) {
     this._atualizaFiltroGeneros(filtros.generos);
     this._atualizaFiltroCores(filtros.cores);
   }
+
+  classe._marcaEstados = function(sigla_estados) {
+    sigla_estados.forEach(function(estado) {
+      jQuery('#estado_' + estado).attr('checked','checked');
+    });
+  }
+
+  classe._marcaPartidos = function(id_partidos) {
+    id_partidos.forEach(function(id) {
+      jQuery('.chk-partido[value='+id+']').attr('checked','checked');
+    });
+  }
+
+  classe._marcaGenero = function(genero) {
+    jQuery('.sel-genero > option[value="' + genero+'"]').attr('selected','selected');
+  }
+
+  classe._marcaCutis = function(cores_tse) {
+    cores_tse.forEach(function(cutis) {
+      jQuery('#cutis_' + cutis).attr('checked','checked');
+    });
+  }
+
+  classe.marcaFiltro = function( query ) {
+    if (typeof(query.sigla_estado) != 'undefined')
+      this._marcaEstados(query.sigla_estado);
+    if (typeof(query.id_partido) != 'undefined')
+      this._marcaPartidos(query.id_partido);
+    if (typeof(query.genero) != 'undefined')
+      this._marcaGenero(query.genero);
+    if (typeof(query.cor_tse) != 'undefined')
+      this._marcaCutis(query.cor_tse);
+  }
   return classe;
 }

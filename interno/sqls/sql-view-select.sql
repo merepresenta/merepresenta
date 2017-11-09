@@ -42,6 +42,7 @@ as
             , p.cor_tse as cor_tse
             , if (p.genero_autodeclarado is null, p.genero_tse, p.genero_autodeclarado) as genero
             , c.situacao_candidatura as situacao_candidatura
+            , c.situacao_eleitoral as situacao_eleitoral
         from Candidatura c
         inner join Pessoa p
             on c.pessoa_id = p.id

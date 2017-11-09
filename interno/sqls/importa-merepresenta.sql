@@ -180,7 +180,7 @@ INSERT INTO Coligacao_Partido(partido_id, coligacao_id)
 /**
  * Cadastro das candidaturas
  */
-INSERT INTO Candidatura(pessoa_id, eleicao_id, partido_id, nome_urna, numero_candidato, unidade_eleitoral_id, sequencial_candidato, situacao_candidatura, votacao)
+INSERT INTO Candidatura(pessoa_id, eleicao_id, partido_id, nome_urna, numero_candidato, unidade_eleitoral_id, sequencial_candidato, situacao_candidatura, situacao_eleitoral, votacao)
   select
         c.id as pessoa_id
       , 1 as eleicao_id
@@ -189,7 +189,8 @@ INSERT INTO Candidatura(pessoa_id, eleicao_id, partido_id, nome_urna, numero_can
       , if(c.number is null, 0, c.number) as numero_candidato
       , cid.id as unidade_eleitoral_id
       , if (tsec.sequencialCandidato is null,-1,tsec.sequencialCandidato) as sequencialCandidato
-      , tsec.descSitTotTurno as situacao_candidatura
+      , tsec.desSituacaoCandidatura as situacao_candidatura
+      , tsec.descSitTotTurno as situacao_eleitoral
       , if (tsec.sequencialCandidato is null,0,(select sum(cv.totalVotos) from tse.tse_candidato_Voto cv where cv.sqCandidato = tsec.sequencialCandidato )) as votacao
     from merepresenta2016.candidates c
     left join Cidade cid

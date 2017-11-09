@@ -7,6 +7,15 @@ li {
   text-align: justify;
 }
 
+.copyrightinfo p {
+    color: #fff;
+}
+
+.copyrightinfo p a {
+    color: #eee;
+    text-decoration: underline;
+}
+
 .navbar-brand {
     width: 250px;
     height: 25px;
@@ -63,11 +72,80 @@ li {
   100% { transform: rotate(360deg); }
 }
 
+/* PAGINA REPRESENTOU id 6 */
+
+.page-id-6 main {
+  background: #643d99;
+  padding-top: 67px;
+  color: #fff
+}
+
+.page-id-6 .navbar {
+  background: #643d99;
+}
+
+.page-id-6 .navbar-nav .menu-item  a {
+  color: #fff;
+}
+
+.page-id-6 .navbar-brand {
+    width: 250px;
+    height: 25px;
+    background-image: url('../images/logo_horizon_blue.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    text-indent: -9999px;
+}
+
+.page-id-6 .table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #845da9;
+}
+
+.page-id-6 .table-striped a {
+    text-decoration: underline;
+    color: #fff;
+}
+
+.page-id-6 .lnk-paginacao {
+    display: block;
+    float: left;
+    margin: 2px;
+    text-decoration: none;
+    background-color: #845da9;
+    color: #fff;
+    padding: 2px 5px 2px 5px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    border-radius: 5px;
+}
+
+.page-id-6 button, .page-id-6 input, .page-id-6 select {
+    color: #555;
+}
 
 /* Home page */
 
 section.hero {
   background-image: url('../images/welcome_background.png');
+}
+
+.page-template-template_home .navbar {
+  background: #643d99;
+}
+
+.page-template-template_home .navbar-nav .menu-item  a {
+  color: #fff;
+}
+
+.page-template-template_home .navbar-brand {
+    width: 250px;
+    height: 25px;
+    background-image: url('../images/logo_horizon_blue.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    text-indent: -9999px;
 }
 
 /* Pagina politicos */
@@ -108,8 +186,7 @@ section.hero {
   color: #fff
 }
 
-/** TODO: remover */
-.page-id-20 .bio textarea {
+.page-id-20 .bio p {
   background: none;
   border: none;
   width: 100%;
@@ -137,19 +214,25 @@ section.hero {
   margin: 25px;
 }
 
-/* PAGINA REPRESENTOU id 6 */
+/* Pagina eleitas e eleitos */
 
-.page-id-6 main {
-  background: #643d99;
-  padding-top: 67px;
-  color: #fff
+table.eleitxs {
+  padding-top: 5px;
+  border-collapse: unset;
+  border-spacing: 12px;
+  width: 100%;
 }
 
-.page-id-6 .navbar-brand {
-    width: 250px;
-    height: 25px;
-    background-image: url('../images/logo_horizon_blue.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    text-indent: -9999px;
+.eleitxs td {
+  color: #643d99;
+  border: 2px solid #643d99;
+  border-radius: 10px;
+  padding: 10px;
+  width: 33%;
+}
+
+/* Politica de privacidade */
+
+.page-id-14 li {
+    margin-top: 5px;
 }

@@ -85,7 +85,7 @@
       <button id="bt_filtro">Filtro</button>
     </div>
 
-    <div id="dados_filtrados" style="overflow-x: scroll; width: 50%">
+    <div id="dados_filtrados" style="overflow-x: auto; width: 100%">
 
     </div>
   </div>

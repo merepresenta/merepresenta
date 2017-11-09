@@ -36,7 +36,7 @@
       <div class="info-bio">
         <div class="bio">
           <h3>Sobre a/o política(o)</h3>
-          <textarea readonly rows="11" cols="40"><?= $politico->minibio ?></textarea>
+          <p><?= $politico->minibio ?></p>
         </div>
       </div>
     </div>

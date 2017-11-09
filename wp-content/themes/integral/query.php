@@ -9,6 +9,7 @@
   $pautas = $queryRunner->get_results("select id, texto from Pergunta order by id");
   $generos = $queryRunner->get_results("select distinct genero_tse from Pessoa order by genero_tse");
   $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa where cor_tse <> '' order by cor_tse");
+  $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleitoral from Candidatura where situacao_eleitoral <> '' order by situacao_eleitoral");
 ?>
 
 <form id="download-files" action="<?= get_template_directory_uri() ?>/download.php" method="post" >
@@ -70,6 +71,14 @@
         <?php foreach ($cores as $cor) { ?>
           <label>
             <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+          </label>
+        <?php } ?>
+      </div>
+      <div id="filtro_sit_eleitoral">
+        <h3>Situação Eleitoral</h3>
+        <?php foreach ($situacoesEleitorais as $sit) { ?>
+          <label>
+            <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
           </label>
         <?php } ?>
       </div>
@@ -157,6 +166,9 @@
 
     var cores = jQuery(".chk-cor:checked").map(function(i,obj){return obj.value}).toArray();
     if (cores.length>0) query.cor_tse = cores;
+
+    var situacoesEleitorais = jQuery(".chk-sit-eleit:checked").map(function(i,obj){return obj.value}).toArray();
+    if (situacoesEleitorais.length>0) query.situacao_eleitoral = situacoesEleitorais;    
   };
 
   jQuery(window).on("load",function(){

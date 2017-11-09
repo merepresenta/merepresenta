@@ -58,7 +58,7 @@
       $where = array();
       
       foreach ($this->input['query'] as $key => $value) {
-        if (($key == 'sigla_estado')||($key == 'cor_tse')) {
+        if (($key == 'sigla_estado')||($key == 'cor_tse')||($key=='situacao_eleitoral')) {
           $values = array_map(function($dado){return '"'.$dado.'"';}, $value);
           $where[] = "$key in (" . implode(",",$values) . ')';
         } else if(($key == 'id_cidade')||($key == 'id_partido')) {

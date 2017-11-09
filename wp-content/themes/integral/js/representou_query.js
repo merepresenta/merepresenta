@@ -12,6 +12,9 @@ function ViewObject(siteUrl) {
   var pGeneros = jQuery("#filtro_genero");
   /* Painel com dados de pigmentação da cútis */
   var pCores = jQuery("#filtro_cor");
+  /* Painel com dados de situações eleitorais */
+  var pSituacoes = jQuery("#filtro_sit_eleitoral");
+
 
   /** 
    * Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados) 
@@ -126,7 +129,7 @@ function ViewObject(siteUrl) {
 
   /**
    * Redesenha o filtro de partidos
-   * @param estados Dados de partido
+   * @param partidos Dados de partido
    */
   classe._atualizaFiltroPartidos = function (partidos) {
     pPartidos.html(this._createHeader("Partidos"));
@@ -140,7 +143,7 @@ function ViewObject(siteUrl) {
 
   /**
    * Redesenha o filtro de generos
-   * @param estados Dados de genero
+   * @param generos Dados de genero
    */
   classe._atualizaFiltroGeneros = function (generos) {
     pGeneros.html(this._createHeader("Gêneros"));
@@ -156,15 +159,29 @@ function ViewObject(siteUrl) {
 
   /**
    * Redesenha o filtro de pigmentação da cútis
-   * @param estados Dados de pigmentação da cútis
+   * @param cores Dados de pigmentação da cútis
    */
-  classe._atualizaFiltroCores = function (cores) {
+  classe._atualizaFiltroCores = function(cores) {
     pCores.html(this._createHeader("Cútis"));
     cores.filter(function(c){ return c.cor_tse.trim() != '' }).forEach(function(elemento) {
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.cor_tse, id: "cutis_"+elemento.cor_tse, class: 'chk-cor' } ) );
       lbl.append(elemento.cor_tse);
       pCores.append(lbl);
+    });
+  };
+
+  /**
+   * Redesenha o filtro de situações eleitorais
+   * @param situacoes Dados de situações eleitorais
+   */
+  classe._atualizaFiltroSituacoesEleitorais = function(situacoes) {
+    pSituacoes.html(this._createHeader("Situações Eleitorais"));
+    situacoes.filter(function(c){ return c.situacao_eleitoral != null && c.situacao_eleitoral.trim() != '' }).forEach(function(elemento) {
+      var lbl = jQuery("<label>");
+      lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.situacao_eleitoral, id: "situacao_"+elemento.situacao_eleitoral.replace(/\s/g, '_'), class: 'chk-sit-eleit' } ) );
+      lbl.append(elemento.situacao_eleitoral);
+      pSituacoes.append(lbl);
     });
   };
 
@@ -177,30 +194,61 @@ function ViewObject(siteUrl) {
     this._atualizaFiltroPartidos(filtros.partidos);
     this._atualizaFiltroGeneros(filtros.generos);
     this._atualizaFiltroCores(filtros.cores);
+    this._atualizaFiltroSituacoesEleitorais(filtros.situacoes_eleitorais);
   }
 
+  /**
+   * Marca os checkboxes correspondentes as siglas passadas
+   * @param sigla_estados lista de siglas
+   */
   classe._marcaEstados = function(sigla_estados) {
     sigla_estados.forEach(function(estado) {
       jQuery('#estado_' + estado).attr('checked','checked');
     });
   }
 
+  /**
+   * Marca os checkboxes correspondentes aos partidos passados
+   * @param id_partidos lista de partidos
+   */
   classe._marcaPartidos = function(id_partidos) {
     id_partidos.forEach(function(id) {
       jQuery('.chk-partido[value='+id+']').attr('checked','checked');
     });
   }
 
+  /**
+   * Marca o item correspondente ao genero passado
+   * @param genero genero
+   */
   classe._marcaGenero = function(genero) {
     jQuery('.sel-genero > option[value="' + genero+'"]').attr('selected','selected');
   }
 
+  /**
+   * Marca os checkboxes correspondentes às cores passadas
+   * @param cores_tse lista de cores
+   */
   classe._marcaCutis = function(cores_tse) {
     cores_tse.forEach(function(cutis) {
       jQuery('#cutis_' + cutis).attr('checked','checked');
     });
   }
 
+  /**
+   * Marca os checkboxes correspondentes às situacoes eleitorais passadas
+   * @param situacoes_eleitorais lista de situacoes eleitorais
+   */
+  classe._marcaSituacoesEleitorais = function(situacoes_eleitorais) {
+    situacoes_eleitorais.forEach(function(situacao_eleitoral) {
+      jQuery('#situacao_' + situacao_eleitoral.replace(/\s/g, '_')).attr('checked','checked');
+    });
+  }
+
+  /**
+   * Marca as opções de acordo com o demonstrado na query realizada
+   * @param query Query usada para fazer a requição, contém os dados a serem marcados
+   */
   classe.marcaFiltro = function( query ) {
     if (typeof(query.sigla_estado) != 'undefined')
       this._marcaEstados(query.sigla_estado);
@@ -210,6 +258,8 @@ function ViewObject(siteUrl) {
       this._marcaGenero(query.genero);
     if (typeof(query.cor_tse) != 'undefined')
       this._marcaCutis(query.cor_tse);
+    if (typeof(query.situacao_eleitoral) != 'undefined')
+      this._marcaSituacoesEleitorais(query.situacao_eleitoral);
   }
   return classe;
 }

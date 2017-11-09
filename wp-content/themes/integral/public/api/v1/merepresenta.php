@@ -19,6 +19,7 @@
   $sqlEstados = $politicianQuery->generateDistinctFieldQuery('sigla_estado as sigla');
   $sqlGeneros = $politicianQuery->generateDistinctFieldQuery('genero');
   $sqlCores = $politicianQuery->generateDistinctFieldQuery('cor_tse');
+  $sqlSituacoesEleitorais = $politicianQuery->generateDistinctFieldQuery('situacao_eleitoral');
 
   $dados = $queryRunner->get_results($sql);
   $qtde = ($queryRunner->get_results($sqlCount))[0]->contagem;
@@ -28,6 +29,7 @@
     $estados = $queryRunner->get_results($sqlEstados);
     $generos = $queryRunner->get_results($sqlGeneros);
     $cores = $queryRunner->get_results($sqlCores);
+    $situacoesEleitorais = $queryRunner->get_results($sqlSituacoesEleitorais);
     $retorno = $ambiente->empacota(
       PoliticianQuery::freeUnexportedFields($dados), 
       $qtde, 
@@ -37,7 +39,8 @@
       $partidos,
       $estados,
       $generos,
-      $cores
+      $cores,
+      $situacoesEleitorais
     );
   }
   else {

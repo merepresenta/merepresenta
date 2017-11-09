@@ -45,7 +45,7 @@
       return null;
     }
 
-    function empacota($dados, $qtde, $primeiro, $por_pagina, $query = null, $partidos = null, $estados = null, $generos = null, $cores = null) {
+    function empacota($dados, $qtde, $primeiro, $por_pagina, $query = null, $partidos = null, $estados = null, $generos = null, $cores = null, $situacoes_eleitorais = null) {
         $paginacao = [];
         $paginacao['first'] = $primeiro;
         $paginacao['quantity'] = $por_pagina;
@@ -61,6 +61,7 @@
           $filtros['estados'] = $estados;
           $filtros['generos'] = $generos;
           $filtros['cores'] = $cores;
+          $filtros['situacoes_eleitorais'] = $situacoes_eleitorais;
 
           $retorno['filter_data'] = $filtros;          
           $retorno['query'] = $query;          

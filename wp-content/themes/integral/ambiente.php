@@ -45,19 +45,29 @@
       return null;
     }
 
-    function empacota($dados, $qtde, $primeiro, $por_pagina) {
-        $retorno = [];
+    function empacota($dados, $qtde, $primeiro, $por_pagina, $query = null, $partidos = null, $estados = null, $generos = null, $cores = null, $situacoes_eleitorais = null) {
         $paginacao = [];
-        $retorno['data'] = $dados;
-
         $paginacao['first'] = $primeiro;
         $paginacao['quantity'] = $por_pagina;
         $paginacao['count'] = $qtde;
 
+        $retorno = [];
+        $retorno['data'] = $dados;
         $retorno['pagination'] = $paginacao;
+        
+        if ($query != null) {
+          $filtros = [];
+          $filtros['partidos'] = $partidos;
+          $filtros['estados'] = $estados;
+          $filtros['generos'] = $generos;
+          $filtros['cores'] = $cores;
+          $filtros['situacoes_eleitorais'] = $situacoes_eleitorais;
+
+          $retorno['filter_data'] = $filtros;          
+          $retorno['query'] = $query;          
+        }
 
         return $retorno;
     }
-
   }
 ?>

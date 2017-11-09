@@ -9,6 +9,7 @@
   $pautas = $queryRunner->get_results("select id, texto from Pergunta order by id");
   $generos = $queryRunner->get_results("select distinct genero_tse from Pessoa order by genero_tse");
   $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa where cor_tse <> '' order by cor_tse");
+  $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleitoral from Candidatura where situacao_eleitoral <> '' order by situacao_eleitoral");
 ?>
 
 <form id="download-files" action="<?= get_template_directory_uri() ?>/download.php" method="post" >
@@ -25,7 +26,7 @@
   <div class="container">
     <div id="dados_menu">
       <div id="filtro_uf">
-        <h3>Estado:</h3>
+        <h3>Estados</h3>
         <?php foreach ($ufs as $estado) { ?>
           <label>
             <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
@@ -33,14 +34,14 @@
         <?php } ?>
       </div>
       <div id="filtro_cidade">
-        <h3>Cidades:</h3>
+        <h3>Cidades</h3>
         <input type="text" name="cidade" id="filtro-cidade-escolha" />
         <button id="btn-add-city">+</button>
         <div id="cidades-escolhidas">
         </div>
       </div>
       <div id="filtro_partido">
-        <h3>Partidos:</h3>
+        <h3>Partidos</h3>
         <?php foreach ($partidos as $partido) { ?>
           <label>
             <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
@@ -56,8 +57,8 @@
         <?php } ?>
       </div>
       <div id="filtro_genero">
-        <h3>Genero</h3>
-        <select name="" id="sel-genero">
+        <h3>Gêneros</h3>
+        <select name="" id="sel_genero" class="sel-genero">
           <?php foreach ($generos as $genero) { ?>
             <label>
               <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
@@ -66,10 +67,18 @@
         </select>
       </div>
       <div id="filtro_cor">
-        <h3>Cor</h3>
+        <h3>Cútis</h3>
         <?php foreach ($cores as $cor) { ?>
           <label>
-            <input type="checkbox" value="<?= $cor->cor_tse ?>" id="partido_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+            <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+          </label>
+        <?php } ?>
+      </div>
+      <div id="filtro_sit_eleitoral">
+        <h3>Situação Eleitoral</h3>
+        <?php foreach ($situacoesEleitorais as $sit) { ?>
+          <label>
+            <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
           </label>
         <?php } ?>
       </div>
@@ -86,11 +95,14 @@
   var siteUrl = "<?= site_url() ?>";
 </script>
 
+<script type='text/javascript' src="<?= get_template_directory_uri() ?>/js/representou_query.js"></script>
+
 <script type="text/javascript">
   var query = null;
   var quantidade_pagina = 10;
-  var cDadosFiltrados = jQuery("#dados_filtrados");
   var spinner = jQuery("#spinner-home");
+  var necessitaRevisaoFiltros = false;
+  var viewObject = ViewObject(siteUrl);
 
   var downloadAllData = function() {
     var frm = jQuery("#download-files");
@@ -101,81 +113,39 @@
     frm.submit();
   };
 
-  var requisita_dados = function(inicial) {
+  var requisitaDados = function(inicial) {
     spinner.removeClass("invisible");
     jQuery.ajax({
       url: "/api/v1/merepresenta.php",
       data: JSON.stringify({ 
         query: query,
-        limites: {primeiro: (inicial - 1) * quantidade_pagina , quantidade: quantidade_pagina}
+        limites: {primeiro: (inicial - 1) * quantidade_pagina , quantidade: quantidade_pagina},
+        revisaoFiltros: (inicial > 1) ? false : necessitaRevisaoFiltros
       }),
       dataType: "json",
+      contentType: "application/json; charset=utf-8",
       type: "post",
       complete: function() {
         spinner.addClass("invisible");
       },
       success: function(resultado) {
-        var saida = null;
-        var result = resultado.data;
-        if(result.length > 0) {
-          var keys = Object.keys(result[0]);
-          
-          saida = jQuery("<table>", {class: "tabela-dados table table-striped"});
-          var h = jQuery("<thead>").appendTo(saida);
-          var tr = jQuery("<tr>").appendTo(h);
-          jQuery("<th>", {text: 'Link'}).appendTo(tr);          
-          jQuery(keys).each(function(idx, value) {
-            if( value != "id_candidatura")
-              jQuery("<th>", {text: value}).appendTo(tr);          
-          })
-          
-          var tbody = jQuery("<tbody>").appendTo(saida);
-          jQuery(result).each(function(idx,r) {
-            var linha = jQuery("<tr>").appendTo(tbody);
-
-            var col = jQuery("<td>").appendTo(linha);
-            jQuery("<a>",{text: 'visite', href: siteUrl + '/politicos/?cand_id='+r['id_candidatura']}).appendTo(col);
-
-            jQuery(keys).each(function(idx, value) {
-              if( value != "id_candidatura")
-                jQuery("<td>", {text: r[value]}).appendTo(linha);          
-            });
-          });
-
-          var painel = jQuery("<div>"),
-              paginaAtual = (resultado.pagination.first / resultado.pagination.quantity)+1;
-
-          Array.apply(null, {length: Math.ceil(resultado.pagination.count / resultado.pagination.quantity)}).
-            map(Number.call, Number).
-            forEach(function(rec){
-              var pagina = rec + 1;
-              if (pagina == paginaAtual)
-                c = jQuery("<div>", {text: pagina, class: 'lnk-paginacao'});
-              else {
-                c = jQuery("<a>", {text: pagina, href: '#', class: 'lnk-paginacao'});
-                c.on("click", function(){
-                  requisita_dados(pagina);
-                });
-              }
-
-              c.appendTo(painel);
-              return c;
-            });
-
-          var lnkDownload = jQuery("<a>", {text: "download", href: "#"});
-          lnkDownload.on("click", downloadAllData);
-          cDadosFiltrados.html(saida);
-          cDadosFiltrados.append(painel);
-          cDadosFiltrados.append(lnkDownload);
-        } else {
-          saida = jQuery("<h3>", {text: "Sem dados ligados à requisição"});
-          cDadosFiltrados.html(saida);
+        if(resultado.data.length > 0) {
+          viewObject.desenhaDadosFiltrados(resultado);
+          if (typeof(resultado.filter_data) != 'undefined') {
+            viewObject.atualizaFiltros(resultado.filter_data);
+            viewObject.marcaFiltro(resultado.query);
+            query = resultado.query;
+          }
+        } 
+        else {
+          viewObject.desenhaDadosFiltradosVazio("Sem dados ligados à requisição");
         }
       }
     });
   }
 
-  var configura_query = function() {
+  var configuraQuery = function() {
+    var oldPautas = ((! query)||(typeof(query.pautas) == "undefined")) ? [] : query.pautas;
     query =  { };
 
     var estados = jQuery(".chk_estado:checked").map(function(i,obj){return obj.value}).toArray();
@@ -189,12 +159,16 @@
 
     var pautas = jQuery(".chk-pauta:checked").map(function(i,obj){return obj.value}).toArray();
     if (pautas.length>0) query.pautas = pautas;
+    necessitaRevisaoFiltros = !(typeof(oldPautas) == typeof(query.pautas) && oldPautas.length==query.pautas.length && oldPautas.every(function(v,i) { return v === query.pautas[i]}));
 
-    var genero = jQuery("#sel-genero").val();
+    var genero = jQuery("#sel_genero").val();
     if (genero!='') query.genero = genero;
 
     var cores = jQuery(".chk-cor:checked").map(function(i,obj){return obj.value}).toArray();
     if (cores.length>0) query.cor_tse = cores;
+
+    var situacoesEleitorais = jQuery(".chk-sit-eleit:checked").map(function(i,obj){return obj.value}).toArray();
+    if (situacoesEleitorais.length>0) query.situacao_eleitoral = situacoesEleitorais;    
   };
 
   jQuery(window).on("load",function(){
@@ -210,6 +184,7 @@
           url: "/api/v1/cidades.php",
           method: "get",
           accept: "application/json",
+          contentType: "application/json; charset=utf-8",
           dataType: "json",
           data: {
             nome: request.term
@@ -254,8 +229,8 @@
     });
 
     cBtnFiltro.on("click", function() {
-      configura_query();
-      requisita_dados(1);
+      configuraQuery();
+      requisitaDados(1);
     });
   });
 </script>

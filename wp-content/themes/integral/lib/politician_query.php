@@ -6,12 +6,24 @@
       $this->input = $input;
     }
 
+    function requestQuery() {
+      return $this->input['query'];
+    }
+
+    function hasFiltersRequest() {
+      return $this->input['revisaoFiltros'];
+    }
+
     function generateUnlimitedQuery() {
       return "select * " . $this->genericQuery();
     }
 
     function generateCountQuery() {
       return "select count(*) as contagem " . $this->genericQuery();
+    }
+
+    function generateDistinctFieldQuery($field_list) {
+      return "select distinct $field_list " . $this->genericDistinctQuery() . " order by 1";
     }
     
     function generateQuery() {
@@ -46,7 +58,7 @@
       $where = array();
       
       foreach ($this->input['query'] as $key => $value) {
-        if (($key == 'sigla_estado')||($key == 'cor_tse')) {
+        if (($key == 'sigla_estado')||($key == 'cor_tse')||($key=='situacao_eleitoral')) {
           $values = array_map(function($dado){return '"'.$dado.'"';}, $value);
           $where[] = "$key in (" . implode(",",$values) . ')';
         } else if(($key == 'id_cidade')||($key == 'id_partido')) {
@@ -54,8 +66,8 @@
         } else if ($key == 'genero') {
           $where[] = "$key = \"$value\"";
         } else if ($key == 'pautas') {
-          $or = array_map(function($id){return "resposta_$id = \"S\"";}, $value);
-          $where[] = "(" . implode(" or ", $or) . ")";
+          $and = array_map(function($id){return "resposta_$id = \"S\"";}, $value);
+          $where[] = "(" . implode(" and ", $and) . ")";
         }
       }
 
@@ -63,6 +75,24 @@
         $sql = $sql . " where " . join(" and ", $where);
       }
       return $sql;
+    }
+
+    private function genericDistinctQuery() {
+      $sql = "from all_data";
+
+      $where = array();
+      
+      foreach ($this->input['query'] as $key => $value) {
+        if ($key == 'pautas') {
+          $and = array_map(function($id){return "resposta_$id = \"S\"";}, $value);
+          $where[] = "(" . implode(" and ", $and) . ")";
+        }
+      }
+
+      if (sizeof($where)>0) {
+        $sql = $sql . " where " . join(" and ", $where);
+      }
+      return $sql;      
     }
 
     static function freeUnexportedFields($data) {

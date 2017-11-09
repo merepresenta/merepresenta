@@ -24,7 +24,8 @@
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 <link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/jquery-ui.min.css">
-<link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/candidatou.css">
+<link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/merepresenta.css">
+<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png" />
 <?php wp_head(); ?>
 <script type="text/javascript" src="<?= get_template_directory_uri()?>/js/jquery-ui.min.js"></script>
 </head>

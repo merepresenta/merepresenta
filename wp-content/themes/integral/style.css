@@ -1705,3 +1705,131 @@ object {
 /* Custom CSS
 /* - Override the themes default styling here. You can also use the section entitled [Custom CSS] in the theme options panel.
 ================================================== */
+
+.ui-autocomplete-loading {
+  background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+#spinner-home {
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  background-color: rgba(64,64,64,0.6);
+
+}
+#spinner {
+  border-top: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s ease-in-out infinite;
+  top: 38%;
+  left: 42%;
+  position: relative;
+}
+.box {
+  width: 14ch;
+  height: 14ch;
+  top: 50%;
+  left: 50%;
+  position: relative;
+  background: none;
+  border: none;
+}
+.box>span {
+  color : #fff;
+  position: absolute;
+  bottom: .5em;
+  left: .7em;
+}
+.invisible {
+  display: none;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+p {
+  text-align: justify;
+}
+
+li {
+text-align: justify;
+}
+
+/* Pagina politicos */
+
+.page-id-20 main {
+  background: #00a99d;
+  padding-top: 67px;
+}
+
+.page-id-20 .info-basica {
+  background-image: url('http://www.merepresenta.org.br/wp-content/uploads/2017/11/zig_zag_recorte.png');
+  background-size: 100%;
+}
+
+.page-id-20 .navbar {
+  background: #00a99d;
+}
+
+.page-id-20 .navbar-nav .menu-item  a {
+  color: #fff;
+}
+
+.page-id-20 .can-pic {
+  border-radius: 50%;
+}
+
+.page-id-20 .info-text.name {
+  font-size: 36px;
+  padding: 0px 50px 0px 0px;
+}
+
+.page-id-20 .info-text {
+  color: #fff;
+  font-size: 18px;
+}
+
+.page-id-20 .bio {
+  color: #fff
+}
+
+.page-id-20 .bio textarea {
+  background: none;
+  border: none;
+  width: 100%;
+  height: auto;
+}
+
+.page-id-20 h2 {
+ color: #fff;
+}
+
+.page-id-20 .respostas table {
+  padding-top: 5px;
+  border-collapse: unset;
+  border-spacing: 12px;
+}
+
+.page-id-20 td {
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.page-id-20 .can-pic {
+  margin: 25px;
+}
+
+/* PAGINA REPRESENTOU id 6 */
+
+.page-id-6 main {
+  background: #643d99;
+  padding-top: 67px;
+  color: #fff
+}

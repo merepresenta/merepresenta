@@ -180,15 +180,20 @@
     cBtnCity.prop("disabled", true);
     cBusca.autocomplete({
       source: function( request, response ) {
+        function dadosCidades() {
+          var dados = { nome: request.term };
+          if (query && typeof(query.pautas) != 'undefined')
+            dados.pautas = query.pautas.join(',');
+          return dados;
+        }
+
         jQuery.ajax( {
           url: "/api/v1/cidades.php",
           method: "get",
           accept: "application/json",
           contentType: "application/json; charset=utf-8",
           dataType: "json",
-          data: {
-            nome: request.term
-          },
+          data: dadosCidades(),
           success: function( data ) {
             response( data.map(function(valor){
               return {

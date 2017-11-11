@@ -1,17 +1,11 @@
 <?php
   require_once realpath(dirname(__FILE__)."/../../../ambiente.php");
 
-  function file_get_contents_utf8($fn) {
-       $content = file_get_contents($fn);
-        return mb_convert_encoding($content, 'UTF-8',
-            mb_detect_encoding($content, 'UTF-8, ISO-8859-1', true));
-  }
-
   $ambiente = new Ambiente();
   $ambiente->loadLib("politician_query.php");
   $queryRunner = $ambiente->queryRunner();
 
-  $politicianQuery = new PoliticianQuery(json_decode(file_get_contents_utf8('php://input'),true));
+  $politicianQuery = new PoliticianQuery(json_decode($ambiente->file_get_contents_utf8('php://input'),true));
 
   $sql = $politicianQuery->generateQuery();
   $sqlCount = $politicianQuery->generateCountQuery();
@@ -54,6 +48,3 @@
 
   ($ambiente->exporter(EXP_JSON))->exporta($retorno);
 ?>
-
-
-

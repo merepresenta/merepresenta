@@ -12,7 +12,8 @@
     'pautas' => $_POST['pautas'],
     'genero' => $_POST['genero'],
     'cor_tse' => $_POST['cor_tse'],
-    'nota_partido' => $_POST['nota_partido']
+    'nota_partido' => $_POST['nota_partido'],
+    'situacao_eleitoral' => $_POST['situacao_eleitoral']
   );
 
   foreach ($query as $key => $value) {

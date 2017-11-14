@@ -80,7 +80,7 @@ li {
   color: #fff
 }
 
-.page-id-6 .navbar, .page-id-60 .navbar {
+.page-id-6 .navbar, .page-id-60 .navbar, section.work h2.bigtitle span {
   background: #643d99;
 }
 
@@ -106,7 +106,7 @@ li {
     color: #fff;
 }
 
-.filtro_pautas label {
+#filtro_pautas label {
     display: block;
 }
 
@@ -251,19 +251,19 @@ section.hero {
 }
 
 /* Pagina quem somos id 39 */
-body.page-id-39, section.about {
+body.page-id-39, section.about, section.about h2.bigtitle span {
     background-color: #d8b22a;
-color: #582985;
+    color: #582985;
 }
 
 body.page-id-39 container a {
     color: #666666;
 }
 
-.page-id-20 .navbar, .page-id-14 .navbar {
+.page-id-39 .navbar {
   background-color: #d8b22a;
 }
 
-.page-id-20 .navbar-nav .menu-item  a, .page-id-14 .navbar-nav .menu-item a {
+.page-id-39 .navbar-nav .menu-item  a {
   color: #582985;
 }

@@ -37,7 +37,7 @@
       </div>
       <button id="bt_filtro">Filtro</button>
 
-        <div id="dados_filtrados" style="overflow-x: auto; width: 100%; heigth: 800px;">
+        <div id="dados_filtrados" style="overflow-x: auto; width: 100%; height-min: 800px;">
             Seus resultados vão aparecer aqui...
         </div>
     <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>

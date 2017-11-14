@@ -24,7 +24,23 @@
 
   </div>
   <div class="container">
+   <p> Escolha as pautas importantes para você ou para sua entidade e clique em "Filtrar" para mostrar candidatas e 
+    candidatos de 2016 que responderam Sim para essas questões!</p>
     <div id="dados_menu">
+      <div id="filtro_pautas">
+        <h3>Pautas</h3>
+        <?php foreach ($pautas as $pauta) { ?>
+          <label>
+            <input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?>
+          </label>
+        <?php } ?>
+      </div>
+      <button id="bt_filtro">Filtro</button>
+
+        <div id="dados_filtrados" style="overflow-x: auto; width: 100%; heigth: 800px;">
+            Seus resultados vão aparecer aqui...
+        </div>
+    <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
       <div id="filtro_uf">
         <h3>Estados</h3>
         <?php foreach ($ufs as $estado) { ?>
@@ -45,14 +61,6 @@
         <?php foreach ($partidos as $partido) { ?>
           <label>
             <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
-          </label>
-        <?php } ?>
-      </div>
-      <div id="filtro_pautas">
-        <h3>Pautas</h3>
-        <?php foreach ($pautas as $pauta) { ?>
-          <label>
-            <input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?>
           </label>
         <?php } ?>
       </div>
@@ -82,11 +90,6 @@
           </label>
         <?php } ?>
       </div>
-      <button id="bt_filtro">Filtro</button>
-    </div>
-
-    <div id="dados_filtrados" style="overflow-x: auto; width: 100%">
-
     </div>
   </div>
 </main>

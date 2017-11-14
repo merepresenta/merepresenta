@@ -72,23 +72,23 @@ li {
   100% { transform: rotate(360deg); }
 }
 
-/* PAGINA REPRESENTOU id 6 */
+/* PAGINA REPRESENTOU id 6 + pagina eleitxs id 60 */
 
-.page-id-6 main {
+.page-id-6 main, body.page-id-60 {
   background: #643d99;
   padding-top: 67px;
   color: #fff
 }
 
-.page-id-6 .navbar {
+.page-id-6 .navbar, .page-id-60 .navbar {
   background: #643d99;
 }
 
-.page-id-6 .navbar-nav .menu-item  a {
+.page-id-6 .navbar-nav .menu-item  a, .page-id-60 .navbar-nav .menu-item a {
   color: #fff;
 }
 
-.page-id-6 .navbar-brand {
+.page-id-6 .navbar-brand, .page-id-60 .navbar-brand {
     width: 250px;
     height: 25px;
     background-image: url('../images/logo_horizon_blue.png');
@@ -104,6 +104,10 @@ li {
 .page-id-6 .table-striped a {
     text-decoration: underline;
     color: #fff;
+}
+
+.filtro_pautas label {
+    display: block;
 }
 
 .page-id-6 .lnk-paginacao {
@@ -124,6 +128,34 @@ li {
 .page-id-6 button, .page-id-6 input, .page-id-6 select {
     color: #555;
 }
+
+/* Pagina eleitas e eleitos */
+
+section.work {
+  background: #643d99;
+  color: #fff
+}
+
+table.eleitxs {
+  padding-top: 5px;
+  border-collapse: unset;
+  border-spacing: 12px;
+  width: 100%;
+}
+
+.eleitxs td {
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 10px;
+  width: 33%;
+}
+
+.eleitxs td a {
+    text-decoration: underline;
+    color: #fff;
+}
+
 
 /* Home page */
 
@@ -148,9 +180,9 @@ section.hero {
     text-indent: -9999px;
 }
 
-/* Pagina politicos */
+/* Pagina politicos id 20 + pagina politica de privacidade id 14*/
 
-.page-id-20 main {
+.page-id-20 main, body.page-id-14 {
   background: #00a99d;
   padding-top: 67px;
 }
@@ -160,11 +192,11 @@ section.hero {
   background-size: 100%;
 }
 
-.page-id-20 .navbar {
+.page-id-20 .navbar, .page-id-14 .navbar {
   background: #00a99d;
 }
 
-.page-id-20 .navbar-nav .menu-item  a {
+.page-id-20 .navbar-nav .menu-item  a, .page-id-14 .navbar-nav .menu-item a {
   color: #fff;
 }
 
@@ -214,25 +246,24 @@ section.hero {
   margin: 25px;
 }
 
-/* Pagina eleitas e eleitos */
-
-table.eleitxs {
-  padding-top: 5px;
-  border-collapse: unset;
-  border-spacing: 12px;
-  width: 100%;
-}
-
-.eleitxs td {
-  color: #643d99;
-  border: 2px solid #643d99;
-  border-radius: 10px;
-  padding: 10px;
-  width: 33%;
-}
-
-/* Politica de privacidade */
-
 .page-id-14 li {
     margin-top: 5px;
+}
+
+/* Pagina quem somos id 39 */
+body.page-id-39, section.about {
+    background-color: #d8b22a;
+color: #582985;
+}
+
+body.page-id-39 container a {
+    color: #666666;
+}
+
+.page-id-20 .navbar, .page-id-14 .navbar {
+  background-color: #d8b22a;
+}
+
+.page-id-20 .navbar-nav .menu-item  a, .page-id-14 .navbar-nav .menu-item a {
+  color: #582985;
 }

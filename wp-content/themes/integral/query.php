@@ -29,17 +29,23 @@
     candidatos de 2016 que responderam Sim para essas questões!</p>
     <div id="dados_menu" class="row">
       <div class="col-md-4">
-        <h3>Pautas</h3>
-        <select name="filtro_pautas" id="filtro_pautas">
-          <?php foreach ($pautas as $pauta) { ?>
-            <option value="<?= $pauta->id ?>"><?= $pauta->texto ?></option>
-          <?php } ?>
-        </select>
+  <div id="list3" class="dropdown-check-list" tabindex="100">
+<span class="anchor">Pautas</span>
+<ul class="items">
+<?php foreach ($pautas as $pauta) { ?>
+  <label>
+    <input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?>
+  </label><br>
+<?php } ?>
+      <!-- <li><input id="answers_2529_the-lawns" name="answers[2529][answers][]" type="checkbox" value="The Lawns"/><label for="answers_2529_the-lawns">The Lawns</label></li>
+      <li><input id="answers_2529_the-residence" name="answers[2529][answers][]" type="checkbox" value="The Residence"/><label for="answers_2529_the-residence">The Residence</label></li> -->
+  </ul>
+</div>
 
         <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
 
         <!-- -->
-        <ul class="nav nav-tabs nav-stacked" role="tablist">
+        <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#filtro_uf" aria-controls="filtro_uf" role="tab" data-toggle="tab">Estados</a></li>
           <li role="presentation"><a href="#filtro_cidade" aria-controls="filtro_cidade" role="tab" data-toggle="tab">Cidades</a></li>
           <li role="presentation"><a href="#filtro_partido" aria-controls="filtro_partido" role="tab" data-toggle="tab">Partidos</a></li>
@@ -48,67 +54,137 @@
           <li role="presentation"><a href="#filtro_sit_eleitoral" aria-controls="filtro_sit_eleitoral" role="tab" data-toggle="tab">Situação Eleitoral</a></li>
         </ul>
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active">
+          <div role="tabpanel" class="tab-pane active" id="filtro_uf">
             <h3>Estados</h3>
-            <select name="filtro_uf" id="filtro_uf">
             <?php foreach ($ufs as $estado) { ?>
-              <option value="<?= $estado->sigla ?>"><?= $estado->sigla ?></option>
+              <label>
+                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
+              </label>
             <?php } ?>
-            </select>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_cidade">
             <h3>Cidades</h3>
             <input type="text" name="cidade" id="filtro-cidade-escolha" />
-            <button id="btn-add-city" class="btn">+</button>
-            <div id="cidades-escolhidas"></div>
+            <button id="btn-add-city">+</button>
+            <div id="cidades-escolhidas">
+            </div>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_partido">
             <h3>Partidos</h3>
-            <ul class="list-unstyled">
             <?php foreach ($partidos as $partido) { ?>
-              <li><input type="checkbox" id="partido_<?= $partido->id ?>" value="<?= $partido->id ?>"><?= $partido->sigla ?></li>
+              <label>
+                <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
+              </label>
             <?php } ?>
-            </ul>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_genero">
             <h3>Gêneros</h3>
-            <ul id="sel_genero" class="sel-genero">
+            <select name="" id="sel_genero" class="sel-genero">
               <?php foreach ($generos as $genero) { ?>
-                <li><input type="checkbox" id="<?= $genero->genero_tse ?>" value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></li>
+                <label>
+                  <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
+                </label>
               <?php } ?>
-            </ul>
+            </select>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_cor">
             <h3>Cútis</h3>
-            <ul class="list-unstyled">
             <?php foreach ($cores as $cor) { ?>
-              <li>
+              <label>
                 <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
-              </li>
+              </label>
             <?php } ?>
-            </ul>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_sit_eleitoral">
             <h3>Situação Eleitoral</h3>
-            <ul class="list-unstyled">
             <?php foreach ($situacoesEleitorais as $sit) { ?>
-              <li>
+              <label>
                 <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
-              </li>
+              </label>
             <?php } ?>
-            </ul>
           </div>
         </div>
         <!-- -->
         <button id="bt_filtro" class="btn btn-default" role="button">Filtro</button>
       </div>
       <div class="col-md-8">
-        <div id="dados_filtrados">
+        <div id="dados_filtrados" class="row">
             Seus resultados vão aparecer aqui...
         </div>
       </div>
     </div>
   </div>
+<style>
+.dropdown-check-list{
+display: inline-block;
+width: 100%;
+}
+.dropdown-check-list:focus{
+outline:0;
+}
+.dropdown-check-list .anchor {
+width: 98%;
+position: relative;
+cursor: pointer;
+display: inline-block;
+padding-top:5px;
+padding-left:5px;
+padding-bottom:5px;
+border:1px #ccc solid;
+}
+.dropdown-check-list .anchor:after {
+position: absolute;
+content: "";
+border-left: 2px solid black;
+border-top: 2px solid black;
+padding: 5px;
+right: 10px;
+top: 20%;
+-moz-transform: rotate(-135deg);
+-ms-transform: rotate(-135deg);
+-o-transform: rotate(-135deg);
+-webkit-transform: rotate(-135deg);
+transform: rotate(-135deg);
+}
+.dropdown-check-list .anchor:active:after {
+right: 8px;
+top: 21%;
+}
+.dropdown-check-list ul.items {
+padding: 2px;
+display: none;
+margin: 0;
+border: 1px solid #ccc;
+border-top: none;
+}
+.dropdown-check-list ul.items li {
+list-style: none;
+}
+.dropdown-check-list.visible .anchor {
+color: #0094ff;
+}
+.dropdown-check-list.visible .items {
+display: block;
+}
+</style>
+
+<script>
+jQuery(function ($) {
+        var checkList = $('.dropdown-check-list');
+        checkList.on('click', 'span.anchor', function(event){
+            var element = $(this).parent();
+
+            if ( element.hasClass('visible') )
+            {
+                element.removeClass('visible');
+            }
+            else
+            {
+                element.addClass('visible');
+            }
+        });
+    });
+</script>
 </main>
 
 <script type="text/javascript">
@@ -259,3 +335,4 @@
     });
   });
 </script>
+

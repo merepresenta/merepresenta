@@ -1,3 +1,4 @@
+
 /* Object de view */
 function ViewObject(siteUrl) {
   var classe = { };
@@ -35,12 +36,14 @@ function ViewObject(siteUrl) {
     var cnt = 1;
       data = '<div class="row">';
     jQuery(dados).each(function(idx,r) {
+      console.log(r);
       data += '<div class="col-md-4">';
       data += '<div class="panel panel-default">';
 
       data += '<div class="panel-heading"><h3 class="panel-title"><a href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">'+r["nome_candidato"]+'</a></h3></div>';
 
       data += '<div class="panel-body" style="color: #000;"><ul class="list-unstyled">';
+      data += '<li>'+r["id_candidatura"]+'</li>';
       data += '<li><b>Sigla Estado:</b> '+r["sigla_estado"]+'</li>';
       data += '<li><b>Cidade:</b> '+r["nome_cidade"]+'</li>';
       data += '<li><b>Sigla partido:</b> '+r["sigla_partido"]+'</li>';
@@ -59,7 +62,6 @@ function ViewObject(siteUrl) {
 
     return data;
   }
-
 
   /**
    * Desenha os links de paginação (Painel de dados)

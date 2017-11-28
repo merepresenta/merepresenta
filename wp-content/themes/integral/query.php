@@ -46,7 +46,7 @@
 
         <!-- -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#filtro_uf" aria-controls="filtro_uf" role="tab" data-toggle="tab">Estados</a></li>
+          <li role="presentation" class="active"><a href="#filtro_estado" aria-controls="filtro_estado" role="tab" data-toggle="tab">Estados</a></li>
           <li role="presentation"><a href="#filtro_cidade" aria-controls="filtro_cidade" role="tab" data-toggle="tab">Cidades</a></li>
           <li role="presentation"><a href="#filtro_partido" aria-controls="filtro_partido" role="tab" data-toggle="tab">Partidos</a></li>
           <li role="presentation"><a href="#filtro_genero" aria-controls="filtro_genero" role="tab" data-toggle="tab">Gêneros</a></li>
@@ -54,7 +54,7 @@
           <li role="presentation"><a href="#filtro_sit_eleitoral" aria-controls="filtro_sit_eleitoral" role="tab" data-toggle="tab">Situação Eleitoral</a></li>
         </ul>
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="filtro_uf">
+          <div role="tabpanel" class="tab-pane active" id="filtro_estado">
             <h3>Estados</h3>
             <?php foreach ($ufs as $estado) { ?>
               <label>

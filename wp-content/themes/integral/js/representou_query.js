@@ -70,12 +70,12 @@ function ViewObject(siteUrl) {
   classe._desenhaPainelPaginas = function(pagination) {
     var painel = jQuery('<nav aria-label="Navegacion">'),
         paginaAtual = (pagination.first / pagination.quantity)+1,
-        page_list_ul = jQuery('<ul>', {class:"pagination"}),
-        page_list_li = jQuery('<li>');
+        page_list_ul = jQuery('<ul>', {class:"pagination"});
 
     Array.apply(null, {length: Math.ceil(pagination.count / pagination.quantity)}).
       map(Number.call, Number).
       forEach(function(rec){
+        var page_list_li = jQuery('<li>');
         var pagina = rec + 1;
         if (pagina == paginaAtual)
           c = jQuery("<a>", {text: pagina});
@@ -85,7 +85,6 @@ function ViewObject(siteUrl) {
             requisitaDados(pagina);
           });
         }
-
         c.appendTo(page_list_li);
       });
 

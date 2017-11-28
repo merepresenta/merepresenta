@@ -56,11 +56,15 @@
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="filtro_estado">
             <h3>Estados</h3>
+            <ul class="list-unstyled">
             <?php foreach ($ufs as $estado) { ?>
-              <label>
-                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
-              </label>
+              <li>
+                <label>
+                  <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
+                </label>
+              </li>
             <?php } ?>
+            </ul>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_cidade">
             <h3>Cidades</h3>
@@ -71,11 +75,15 @@
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_partido">
             <h3>Partidos</h3>
+            <ul class="list-unstyled">
             <?php foreach ($partidos as $partido) { ?>
-              <label>
-                <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
-              </label>
+              <li>
+                <label>
+                  <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
+                </label>
+              </li>
             <?php } ?>
+            </ul>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_genero">
             <h3>Gêneros</h3>
@@ -89,11 +97,15 @@
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_cor">
             <h3>Cútis</h3>
+            <ul class="list-unstyled">
             <?php foreach ($cores as $cor) { ?>
-              <label>
-                <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
-              </label>
+              <li>
+                <label>
+                  <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+                </label>
+              </li>
             <?php } ?>
+            </ul>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_sit_eleitoral">
             <h3>Situação Eleitoral</h3>

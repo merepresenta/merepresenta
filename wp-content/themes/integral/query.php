@@ -45,6 +45,7 @@
         <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
 
         <!-- -->
+        <!--
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#filtro_estado" aria-controls="filtro_estado" role="tab" data-toggle="tab">Estados</a></li>
           <li role="presentation"><a href="#filtro_cidade" aria-controls="filtro_cidade" role="tab" data-toggle="tab">Cidades</a></li>
@@ -53,10 +54,11 @@
           <li role="presentation"><a href="#filtro_cor" aria-controls="filtro_cor" role="tab" data-toggle="tab">Cútis</a></li>
           <li role="presentation"><a href="#filtro_sit_eleitoral" aria-controls="filtro_sit_eleitoral" role="tab" data-toggle="tab">Situação Eleitoral</a></li>
         </ul>
+        -->
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="filtro_estado">
+          <div role="tabpanel" class="tabe-pane" id="filtro_estado">
             <h3>Estados</h3>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled list-inline">
             <?php foreach ($ufs as $estado) { ?>
               <li>
                 <label>
@@ -66,26 +68,26 @@
             <?php } ?>
             </ul>
           </div>
-          <div role="tabpanel" class="tab-pane" id="filtro_cidade">
+          <div role="tabpanel" class="tab-panee" id="filtro_cidade">
             <h3>Cidades</h3>
             <input type="text" name="cidade" id="filtro-cidade-escolha" />
-            <button id="btn-add-city">+</button>
+            <button id="btn-add-city" class="btn">+</button>
             <div id="cidades-escolhidas">
             </div>
           </div>
-          <div role="tabpanel" class="tab-pane" id="filtro_partido">
+          <div role="tabpanel" class="tab-panee" id="filtro_partido">
             <h3>Partidos</h3>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled list-inline">
             <?php foreach ($partidos as $partido) { ?>
               <li>
                 <label>
-                  <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
+                  <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->nome ?>(<?= $partido->sigla ?>)
                 </label>
               </li>
             <?php } ?>
             </ul>
           </div>
-          <div role="tabpanel" class="tab-pane" id="filtro_genero">
+          <div role="tabpanel" class="tab-panee" id="filtro_genero">
             <h3>Gêneros</h3>
             <select name="" id="sel_genero" class="sel-genero">
               <?php foreach ($generos as $genero) { ?>
@@ -95,9 +97,9 @@
               <?php } ?>
             </select>
           </div>
-          <div role="tabpanel" class="tab-pane" id="filtro_cor">
+          <div role="tabpanel" class="tab-panee" id="filtro_cor">
             <h3>Cútis</h3>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled list-inline">
             <?php foreach ($cores as $cor) { ?>
               <li>
                 <label>
@@ -107,7 +109,7 @@
             <?php } ?>
             </ul>
           </div>
-          <div role="tabpanel" class="tab-pane" id="filtro_sit_eleitoral">
+          <div role="tabpanel" class="tab-panee" id="filtro_sit_eleitoral">
             <h3>Situação Eleitoral</h3>
             <?php foreach ($situacoesEleitorais as $sit) { ?>
               <label>

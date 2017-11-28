@@ -68,24 +68,30 @@ function ViewObject(siteUrl) {
    * @return Painel contendo os links
    */
   classe._desenhaPainelPaginas = function(pagination) {
-    var painel = jQuery("<div>"),
-        paginaAtual = (pagination.first / pagination.quantity)+1;
+    var painel = jQuery('<nav aria-label="Navegacion">'),
+        paginaAtual = (pagination.first / pagination.quantity)+1,
+        page_list_ul = jQuery('<ul>', {class:"pagination"}),
+        page_list_li = jQuery('<li>');
 
     Array.apply(null, {length: Math.ceil(pagination.count / pagination.quantity)}).
       map(Number.call, Number).
       forEach(function(rec){
         var pagina = rec + 1;
         if (pagina == paginaAtual)
-          c = jQuery("<div>", {text: pagina, class: 'lnk-paginacao'});
+          c = jQuery("<a>", {text: pagina});
         else {
-          c = jQuery("<a>", {text: pagina, href: '#', class: 'lnk-paginacao'});
+          c = jQuery("<a>", {text: pagina, href: '#'});
           c.on("click", function(){
             requisitaDados(pagina);
           });
         }
 
-        c.appendTo(painel);
+        c.appendTo(page_list_li);
       });
+
+    page_list_li.appendTo(page_list_ul);
+    page_list_ul.appendTo(painel);
+
     return painel;
   }
 

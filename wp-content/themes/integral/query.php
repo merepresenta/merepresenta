@@ -119,7 +119,7 @@
           </div>
         </div>
         <!-- -->
-        <button id="bt_filtro" class="btn btn-default" role="button">Filtro</button>
+        <button id="bt_filtro" class="btn btn-primary btn-lg btn-block" role="button">Filtro</button>
       </div>
       <div class="col-md-8">
         <div id="dados_filtrados" class="row">

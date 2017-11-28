@@ -30,17 +30,16 @@
     <div id="dados_menu" class="row">
       <div class="col-md-4">
         <h3>Pautas</h3>
-        <div id="filtro_pautas" class="checkbox">
+        <select name="filtro_pautas" id="filtro_pautas">
           <?php foreach ($pautas as $pauta) { ?>
-            <label>
-              <input id="pauta_<?= $pauta->id ?>" class="chk-pauta" type="checkbox" value="<?= $pauta->id ?>"> <?= $pauta->texto ?>
-            </label>
+            <option value="<?= $pauta->id ?>"><?= $pauta->texto ?></option>
           <?php } ?>
-        </div>
+        </select>
+
         <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
 
         <!-- -->
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs nav-stacked" role="tablist">
           <li role="presentation" class="active"><a href="#filtro_uf" aria-controls="filtro_uf" role="tab" data-toggle="tab">Estados</a></li>
           <li role="presentation"><a href="#filtro_cidade" aria-controls="filtro_cidade" role="tab" data-toggle="tab">Cidades</a></li>
           <li role="presentation"><a href="#filtro_partido" aria-controls="filtro_partido" role="tab" data-toggle="tab">Partidos</a></li>
@@ -49,54 +48,55 @@
           <li role="presentation"><a href="#filtro_sit_eleitoral" aria-controls="filtro_sit_eleitoral" role="tab" data-toggle="tab">Situação Eleitoral</a></li>
         </ul>
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="filtro_uf">
+          <div role="tabpanel" class="tab-pane active">
             <h3>Estados</h3>
+            <select name="filtro_uf" id="filtro_uf">
             <?php foreach ($ufs as $estado) { ?>
-              <label>
-                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
-              </label>
+              <option value="<?= $estado->sigla ?>"><?= $estado->sigla ?></option>
             <?php } ?>
+            </select>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_cidade">
             <h3>Cidades</h3>
             <input type="text" name="cidade" id="filtro-cidade-escolha" />
-            <button id="btn-add-city">+</button>
-            <div id="cidades-escolhidas">
-            </div>
+            <button id="btn-add-city" class="btn">+</button>
+            <div id="cidades-escolhidas"></div>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_partido">
             <h3>Partidos</h3>
+            <ul class="list-unstyled">
             <?php foreach ($partidos as $partido) { ?>
-              <label>
-                <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
-              </label>
+              <li><input type="checkbox" id="partido_<?= $partido->id ?>" value="<?= $partido->id ?>"><?= $partido->sigla ?></li>
             <?php } ?>
+            </ul>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_genero">
             <h3>Gêneros</h3>
-            <select name="" id="sel_genero" class="sel-genero">
+            <ul id="sel_genero" class="sel-genero">
               <?php foreach ($generos as $genero) { ?>
-                <label>
-                  <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
-                </label>
+                <li><input type="checkbox" id="<?= $genero->genero_tse ?>" value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></li>
               <?php } ?>
-            </select>
+            </ul>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_cor">
             <h3>Cútis</h3>
+            <ul class="list-unstyled">
             <?php foreach ($cores as $cor) { ?>
-              <label>
+              <li>
                 <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
-              </label>
+              </li>
             <?php } ?>
+            </ul>
           </div>
           <div role="tabpanel" class="tab-pane" id="filtro_sit_eleitoral">
             <h3>Situação Eleitoral</h3>
+            <ul class="list-unstyled">
             <?php foreach ($situacoesEleitorais as $sit) { ?>
-              <label>
+              <li>
                 <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
-              </label>
+              </li>
             <?php } ?>
+            </ul>
           </div>
         </div>
         <!-- -->

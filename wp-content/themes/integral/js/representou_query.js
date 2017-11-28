@@ -88,7 +88,7 @@ function ViewObject(siteUrl) {
         c.appendTo(page_list_li);
       });
 
-    page_list_ul.appendTo(c);
+    page_list_li.appendTo(page_list_ul);
     page_list_ul.appendTo(painel);
 
     return painel;

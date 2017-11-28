@@ -41,7 +41,7 @@ function ViewObject(siteUrl) {
       data += '<div class="panel panel-default">';
       data += '<div class="panel-heading"><h3 class="panel-title"><a href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">'+r["nome_candidato"]+'</a></h3></div>';
       data += '<div class="panel-body" style="color: #000;">';
-      data += '<img src="http://graph.facebook.com/v2.6/'+r["fb_id"]+'/picture?type=large" class="img-responsive img-rounded" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
+      data += '<img src="//graph.facebook.com/v2.6/'+r["fb_id"]+'/picture?type=large" class="img-responsive img-rounded" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
       data += '<ul class="list-unstyled">';
       data += '<li><b>Sigla Estado:</b> '+r["sigla_estado"]+'</li>';
       data += '<li><b>Cidade:</b> '+r["nome_cidade"]+'</li>';

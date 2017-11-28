@@ -1,7 +1,7 @@
 <?php
   require_once("ambiente.php");
   $ambiente = new Ambiente();
-  
+
   $queryRunner = $ambiente->queryRunner();
 
   $ufs = $queryRunner->get_results("select sigla from Estado order by sigla");
@@ -24,71 +24,88 @@
 
   </div>
   <div class="container">
-   <p> Escolha as pautas importantes para você ou para sua entidade e clique em "Filtrar" para mostrar candidatas e 
+    <h1 class="page-header">Representou</h1>
+    <p> Escolha as pautas importantes para você ou para sua entidade e clique em "Filtrar" para mostrar candidatas e
     candidatos de 2016 que responderam Sim para essas questões!</p>
-    <div id="dados_menu">
-      <div id="filtro_pautas">
+    <div id="dados_menu" class="row">
+      <div class="col-md-4">
         <h3>Pautas</h3>
-        <?php foreach ($pautas as $pauta) { ?>
-          <label>
-            <input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?>
-          </label>
-        <?php } ?>
-      </div>
-      <button id="bt_filtro">Filtro</button>
-
-        <div id="dados_filtrados" style="overflow-x: auto; width: 100%; height-min: 800px;">
-            Seus resultados vão aparecer aqui...
-        </div>
-    <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
-      <div id="filtro_uf">
-        <h3>Estados</h3>
-        <?php foreach ($ufs as $estado) { ?>
-          <label>
-            <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
-          </label>
-        <?php } ?>
-      </div>
-      <div id="filtro_cidade">
-        <h3>Cidades</h3>
-        <input type="text" name="cidade" id="filtro-cidade-escolha" />
-        <button id="btn-add-city">+</button>
-        <div id="cidades-escolhidas">
-        </div>
-      </div>
-      <div id="filtro_partido">
-        <h3>Partidos</h3>
-        <?php foreach ($partidos as $partido) { ?>
-          <label>
-            <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
-          </label>
-        <?php } ?>
-      </div>
-      <div id="filtro_genero">
-        <h3>Gêneros</h3>
-        <select name="" id="sel_genero" class="sel-genero">
-          <?php foreach ($generos as $genero) { ?>
+        <div id="filtro_pautas" class="checkbox">
+          <?php foreach ($pautas as $pauta) { ?>
             <label>
-              <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
+              <input id="pauta_<?= $pauta->id ?>" class="chk-pauta" type="checkbox" value="<?= $pauta->id ?>"> <?= $pauta->texto ?>
             </label>
           <?php } ?>
-        </select>
+        </div>
+        <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
+
+        <!-- -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#filtro_uf" aria-controls="filtro_uf" role="tab" data-toggle="tab">Estados</a></li>
+          <li role="presentation"><a href="#filtro_cidade" aria-controls="filtro_cidade" role="tab" data-toggle="tab">Cidades</a></li>
+          <li role="presentation"><a href="#filtro_partido" aria-controls="filtro_partido" role="tab" data-toggle="tab">Partidos</a></li>
+          <li role="presentation"><a href="#filtro_genero" aria-controls="filtro_genero" role="tab" data-toggle="tab">Gêneros</a></li>
+          <li role="presentation"><a href="#filtro_cor" aria-controls="filtro_cor" role="tab" data-toggle="tab">Cútis</a></li>
+          <li role="presentation"><a href="#filtro_sit_eleitoral" aria-controls="filtro_sit_eleitoral" role="tab" data-toggle="tab">Situação Eleitoral</a></li>
+        </ul>
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="filtro_uf">
+            <h3>Estados</h3>
+            <?php foreach ($ufs as $estado) { ?>
+              <label>
+                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
+              </label>
+            <?php } ?>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="filtro_cidade">
+            <h3>Cidades</h3>
+            <input type="text" name="cidade" id="filtro-cidade-escolha" />
+            <button id="btn-add-city">+</button>
+            <div id="cidades-escolhidas">
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="filtro_partido">
+            <h3>Partidos</h3>
+            <?php foreach ($partidos as $partido) { ?>
+              <label>
+                <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
+              </label>
+            <?php } ?>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="filtro_genero">
+            <h3>Gêneros</h3>
+            <select name="" id="sel_genero" class="sel-genero">
+              <?php foreach ($generos as $genero) { ?>
+                <label>
+                  <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
+                </label>
+              <?php } ?>
+            </select>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="filtro_cor">
+            <h3>Cútis</h3>
+            <?php foreach ($cores as $cor) { ?>
+              <label>
+                <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+              </label>
+            <?php } ?>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="filtro_sit_eleitoral">
+            <h3>Situação Eleitoral</h3>
+            <?php foreach ($situacoesEleitorais as $sit) { ?>
+              <label>
+                <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
+              </label>
+            <?php } ?>
+          </div>
+        </div>
+        <!-- -->
+        <button id="bt_filtro" class="btn btn-default" role="button">Filtro</button>
       </div>
-      <div id="filtro_cor">
-        <h3>Cútis</h3>
-        <?php foreach ($cores as $cor) { ?>
-          <label>
-            <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
-          </label>
-        <?php } ?>
-      </div>
-      <div id="filtro_sit_eleitoral">
-        <h3>Situação Eleitoral</h3>
-        <?php foreach ($situacoesEleitorais as $sit) { ?>
-          <label>
-            <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
-          </label>
-        <?php } ?>
+      <div class="col-md-8">
+        <div id="dados_filtrados">
+            Seus resultados vão aparecer aqui...
+        </div>
       </div>
     </div>
   </div>
@@ -120,7 +137,7 @@
     spinner.removeClass("invisible");
     jQuery.ajax({
       url: "/api/v1/merepresenta.php",
-      data: JSON.stringify({ 
+      data: JSON.stringify({
         query: query,
         limites: {primeiro: (inicial - 1) * quantidade_pagina , quantidade: quantidade_pagina},
         revisaoFiltros: (inicial > 1) ? false : necessitaRevisaoFiltros
@@ -139,7 +156,7 @@
             viewObject.marcaFiltro(resultado.query);
             query = resultado.query;
           }
-        } 
+        }
         else {
           viewObject.desenhaDadosFiltradosVazio("Sem dados ligados à requisição");
         }
@@ -171,7 +188,7 @@
     if (cores.length>0) query.cor_tse = cores;
 
     var situacoesEleitorais = jQuery(".chk-sit-eleit:checked").map(function(i,obj){return obj.value}).toArray();
-    if (situacoesEleitorais.length>0) query.situacao_eleitoral = situacoesEleitorais;    
+    if (situacoesEleitorais.length>0) query.situacao_eleitoral = situacoesEleitorais;
   };
 
   jQuery(window).on("load",function(){

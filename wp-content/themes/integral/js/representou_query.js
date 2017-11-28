@@ -16,8 +16,8 @@ function ViewObject(siteUrl) {
   var pSituacoes = jQuery("#filtro_sit_eleitoral");
 
 
-  /** 
-   * Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados) 
+  /**
+   * Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados)
    * @param mensagem Mensagem a ser apresentada
    */
   classe.desenhaDadosFiltradosVazio = function(mensagem) {
@@ -25,42 +25,43 @@ function ViewObject(siteUrl) {
     pDadosFiltrados.html(saida);
   };
 
-  /** 
+  /**
    * Desenha os dados na tabela
    * @param dados dados a serem apresentados
    * @return Painel contendo os dados
    */
   classe._desenhaTabelaDados = function(dados){
-    var saida = null;
-    var keys = Object.keys(dados[0]);
-
-    saida = jQuery("<table>", {class: "tabela-dados table table-striped"});
-    var h = jQuery("<thead>").appendTo(saida);
-    var tr = jQuery("<tr>").appendTo(h);
-    jQuery("<th>", {text: 'Link'}).appendTo(tr);          
-    jQuery(keys).each(function(idx, value) {
-      if( value != "id_candidatura")
-        jQuery("<th>", {text: value}).appendTo(tr);          
-    })
-
-    var tbody = jQuery("<tbody>").appendTo(saida);
+    var data = '';
+    var cnt = 1;
+      data = '<div class="row">';
     jQuery(dados).each(function(idx,r) {
-      var linha = jQuery("<tr>").appendTo(tbody);
+      data += '<div class="col-md-4">';
+      data += '<div class="panel panel-default">';
 
-      var col = jQuery("<td>").appendTo(linha);
-      jQuery("<a>",{text: 'visite', href: siteUrl + '/politicos/?cand_id='+r['id_candidatura']}).appendTo(col);
+      data += '<div class="panel-heading"><h3 class="panel-title"><a href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">'+r["nome_candidato"]+'</a></h3></div>';
 
-      jQuery(keys).each(function(idx, value) {
-        if( value != "id_candidatura")
-          jQuery("<td>", {text: r[value]}).appendTo(linha);          
-      });
+      data += '<div class="panel-body" style="color: #000;"><ul class="list-unstyled">';
+      data += '<li><b>Sigla Estado:</b> '+r["sigla_estado"]+'</li>';
+      data += '<li><b>Cidade:</b> '+r["nome_cidade"]+'</li>';
+      data += '<li><b>Sigla partido:</b> '+r["sigla_partido"]+'</li>';
+      data += '<li><b>Votos recebidos:</b> '+r["votos_recebidos"]+'</li>';
+      data += '<li><b>Situacao candidatura:</b> '+r["situacao_candidatura"]+'</li>';
+      data += '</ul></div>';
+      data += '</div>';
+
+      if(cnt % 3 === 0)
+        data += '</div></div><div class="row">';
+      else
+        data += '</div>';
+      cnt++;
     });
+    data += '</div>';
 
-    return saida;
+    return data;
   }
 
 
-  /** 
+  /**
    * Desenha os links de paginação (Painel de dados)
    * @param pagination Dados de paginação
    * @return Painel contendo os links
@@ -83,21 +84,21 @@ function ViewObject(siteUrl) {
         }
 
         c.appendTo(painel);
-      });    
+      });
     return painel;
   }
 
-  /** 
+  /**
    * Desenha o link de download
    * @return Painel contendo o link
    */
   classe._desenhaLinkDownload = function() {
     var lnkDownload = jQuery("<a>", {text: "download", href: "#"});
-    lnkDownload.on("click", downloadAllData);    
+    lnkDownload.on("click", downloadAllData);
     return lnkDownload;
   };
 
-  /** 
+  /**
    * Desenha no painel de dados os dados de tabela, links de paginação e link de download.
    * @param resultado Resultado retornado na pesquisa
    * @return Painel contendo o link
@@ -107,7 +108,7 @@ function ViewObject(siteUrl) {
     pDadosFiltrados.append(this._desenhaPainelPaginas(resultado.pagination));
     pDadosFiltrados.append(this._desenhaLinkDownload());
   };
-  
+
 
   classe._createHeader = function(title) {
     return jQuery("<h3>", { text:title } );

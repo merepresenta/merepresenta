@@ -36,7 +36,6 @@ function ViewObject(siteUrl) {
     var cnt = 1;
       data = '<div class="row">';
     jQuery(dados).each(function(idx,r) {
-      console.log(r);
       data += '<div class="col-md-6">';
       data += '<div class="panel panel-default">';
       data += '<div class="panel-heading"><h3 class="panel-title"><a href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">'+r["nome_candidato"]+'</a></h3></div>';
@@ -75,10 +74,9 @@ function ViewObject(siteUrl) {
     Array.apply(null, {length: Math.ceil(pagination.count / pagination.quantity)}).
       map(Number.call, Number).
       forEach(function(rec){
-        var le_class = (pagina == paginaAtual) ? "active" : "";
-        console.log(le_class);
-        var page_list_li = jQuery('<li>',{class: le_class});
         var pagina = rec + 1;
+        var le_class = (pagina == paginaAtual) ? "active" : "";
+        var page_list_li = jQuery('<li>',{class: le_class});
         if (pagina == paginaAtual)
           c = jQuery("<a>", {text: pagina});
         else {

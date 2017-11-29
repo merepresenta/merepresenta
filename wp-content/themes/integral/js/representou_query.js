@@ -76,6 +76,7 @@ function ViewObject(siteUrl) {
       map(Number.call, Number).
       forEach(function(rec){
         var le_class = (pagina == paginaAtual) ? "active" : "";
+        console.log(le_class);
         var page_list_li = jQuery('<li>',{class: le_class});
         var pagina = rec + 1;
         if (pagina == paginaAtual)

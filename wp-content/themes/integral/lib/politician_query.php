@@ -74,7 +74,7 @@
       if (sizeof($where)>0) {
         $sql = $sql . " where " . join(" and ", $where);
       }
-      return $sql." ORDER BY `id_candidatura` ASC";
+      return $sql;
     }
 
     private function genericDistinctQuery() {

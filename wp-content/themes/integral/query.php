@@ -36,7 +36,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
       <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
       <!-- -->
       <div class="tab-content">
-        <div role="tabpanel" class="tabe-pane" id="filtro_estado">
+        <div role="tabpanel" id="filtro_estado">
           <h3>Estados</h3>
           <ul class="list-unstyled list-inline">
             <?php foreach ($ufs as $estado) { ?>
@@ -48,26 +48,26 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php } ?>
           </ul>
         </div>
-        <div role="tabpanel" class="tab-panee" id="filtro_cidade">
+        <div role="tabpanel" id="filtro_cidade">
           <h3>Cidades</h3>
           <input type="text" name="cidade" id="filtro-cidade-escolha" />
           <button id="btn-add-city" class="btn">+</button>
           <div id="cidades-escolhidas">
           </div>
         </div>
-        <div role="tabpanel" class="tab-panee" id="filtro_partido">
+        <div role="tabpanel" id="filtro_partido">
           <h3>Partidos</h3>
           <ul class="list-unstyled list-inline">
             <?php foreach ($partidos as $partido) { ?>
             <li>
               <label>
-                <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->nome ?>(<?= $partido->sigla ?>)
+                <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
               </label>
             </li>
             <?php } ?>
           </ul>
         </div>
-        <div role="tabpanel" class="tab-panee" id="filtro_genero">
+        <div role="tabpanel" id="filtro_genero">
           <h3>Gêneros</h3>
           <select name="" id="sel_genero" class="sel-genero">
             <?php foreach ($generos as $genero) { ?>
@@ -77,7 +77,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php } ?>
           </select>
         </div>
-        <div role="tabpanel" class="tab-panee" id="filtro_cor">
+        <div role="tabpanel" id="filtro_cor">
           <h3>Cútis</h3>
           <ul class="list-unstyled list-inline">
             <?php foreach ($cores as $cor) { ?>
@@ -89,12 +89,14 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php } ?>
           </ul>
         </div>
-        <div role="tabpanel" class="tab-panee" id="filtro_sit_eleitoral">
+        <div role="tabpanel" id="filtro_sit_eleitoral">
           <h3>Situação Eleitoral</h3>
-          <ul class="list-unstyled">
+          <ul class="list-unstyled list-inline">
           <?php foreach ($situacoesEleitorais as $sit) { ?>
             <li>
+              <label>
               <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
+              </label>
             </li>
           <?php } ?>
           </ul>

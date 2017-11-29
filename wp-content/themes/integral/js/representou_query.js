@@ -40,7 +40,10 @@ function ViewObject(siteUrl) {
       data += '<div class="panel panel-default">';
       data += '<div class="panel-heading"><h3 class="panel-title"><a href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">'+r["nome_candidato"]+'</a></h3></div>';
       data += '<div class="panel-body" style="color: #000;">';
-      data += '<img src="//graph.facebook.com/v2.6/'+r["fb_id"]+'/picture?type=large" class="img-responsive img-rounded" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
+      if(!!r["fb_id"])
+        data += '<img src="//graph.facebook.com/v2.6/'+r["fb_id"]+'/picture?type=large" class="img-responsive img-rounded" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
+      else
+        data += '<img src="/wp-content/themes/integral/images/default-profile.jpg" class="img-responsive img-circle" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
       data += '<ul class="list-unstyled">';
       data += '<li><b>Sigla Estado:</b> '+r["sigla_estado"]+'</li>';
       data += '<li><b>Cidade:</b> '+r["nome_cidade"]+'</li>';
@@ -140,11 +143,14 @@ function ViewObject(siteUrl) {
    */
   classe._atualizaFiltroPartidos = function (partidos) {
     pPartidos.html(this._createHeader("Partidos"));
+    container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
     partidos.forEach(function(elemento) {
+      var container_li = jQuery("<li>");
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.id, id: "partido_"+elemento.sigla, class: 'chk-partido' } ) );
       lbl.append(elemento.sigla);
-      pPartidos.append(lbl);
+      container_li.append(lbl);
+      pPartidos.append(container_ul.append(container_li));
     });
   };
 
@@ -170,11 +176,14 @@ function ViewObject(siteUrl) {
    */
   classe._atualizaFiltroCores = function(cores) {
     pCores.html(this._createHeader("Cútis"));
+    container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
     cores.filter(function(c){ return c.cor_tse.trim() != '' }).forEach(function(elemento) {
+      var container_li = jQuery("<li>");
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.cor_tse, id: "cutis_"+elemento.cor_tse, class: 'chk-cor' } ) );
       lbl.append(elemento.cor_tse);
-      pCores.append(lbl);
+      container_li.append(lbl);
+      pCores.append(container_ul.append(container_li));
     });
   };
 
@@ -184,11 +193,14 @@ function ViewObject(siteUrl) {
    */
   classe._atualizaFiltroSituacoesEleitorais = function(situacoes) {
     pSituacoes.html(this._createHeader("Situações Eleitorais"));
+    container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
     situacoes.filter(function(c){ return c.situacao_eleitoral != null && c.situacao_eleitoral.trim() != '' }).forEach(function(elemento) {
+      var container_li = jQuery("<li>");
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.situacao_eleitoral, id: "situacao_"+elemento.situacao_eleitoral.replace(/\s/g, '_'), class: 'chk-sit-eleit' } ) );
       lbl.append(elemento.situacao_eleitoral);
-      pSituacoes.append(lbl);
+      container_li.append(lbl);
+      pSituacoes.append(container_ul.append(container_li));
     });
   };
 

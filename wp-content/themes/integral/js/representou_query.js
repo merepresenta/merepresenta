@@ -75,7 +75,8 @@ function ViewObject(siteUrl) {
     Array.apply(null, {length: Math.ceil(pagination.count / pagination.quantity)}).
       map(Number.call, Number).
       forEach(function(rec){
-        var page_list_li = jQuery('<li>');
+        var le_class = (pagina == paginaAtual) ? "active" : "";
+        var page_list_li = jQuery('<li>',{class: le_class});
         var pagina = rec + 1;
         if (pagina == paginaAtual)
           c = jQuery("<a>", {text: pagina});

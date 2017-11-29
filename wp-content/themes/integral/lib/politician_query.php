@@ -74,7 +74,7 @@
       if (sizeof($where)>0) {
         $sql = $sql . " where " . join(" and ", $where);
       }
-      return $sql;
+      return $sql." ORDER BY `id_candidatura` ASC limit 0,10";
     }
 
     private function genericDistinctQuery() {
@@ -92,7 +92,7 @@
       if (sizeof($where)>0) {
         $sql = $sql . " where " . join(" and ", $where);
       }
-      return $sql." limit 0,10";
+      return $sql." ORDER BY `id_candidatura` ASC limit 0,10";
     }
 
     static function freeUnexportedFields($data) {

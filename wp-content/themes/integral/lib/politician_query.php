@@ -1,4 +1,4 @@
-<?php 
+<?php
   class PoliticianQuery {
     private $input;
 
@@ -25,7 +25,7 @@
     function generateDistinctFieldQuery($field_list) {
       return "select distinct $field_list " . $this->genericDistinctQuery() . " order by 1";
     }
-    
+
     function generateQuery() {
       $sqlLimite = "";
 
@@ -35,7 +35,7 @@
         $limits[] = $this->input_first_record();
         $limits[] = $this->input_max_records();
       }
-      
+
       if (sizeof($limits) > 0)
         $sqlLimite = " limit " . join(",", $limits);
 
@@ -44,19 +44,19 @@
 
     function input_first_record() {
       $r = $this->input['limites']['primeiro'];
-      return  ($r) ? $r : 0; 
+      return  ($r) ? $r : 0;
     }
 
     function input_max_records() {
       $r = $this->input['limites']['quantidade'];
-      return  ($r) ? $r : 10; 
+      return  ($r) ? $r : 10;
     }
-    
+
     private function genericQuery() {
       $sql = "from all_data";
 
       $where = array();
-      
+
       foreach ($this->input['query'] as $key => $value) {
         if (($key == 'sigla_estado')||($key == 'cor_tse')||($key=='situacao_eleitoral')) {
           $values = array_map(function($dado){return '"'.$dado.'"';}, $value);
@@ -81,7 +81,7 @@
       $sql = "from all_data";
 
       $where = array();
-      
+
       foreach ($this->input['query'] as $key => $value) {
         if ($key == 'pautas') {
           $and = array_map(function($id){return "resposta_$id = \"S\"";}, $value);
@@ -92,7 +92,7 @@
       if (sizeof($where)>0) {
         $sql = $sql . " where " . join(" and ", $where);
       }
-      return $sql;      
+      return $sql." limit 0,10";
     }
 
     static function freeUnexportedFields($data) {

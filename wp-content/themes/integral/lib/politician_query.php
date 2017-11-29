@@ -92,7 +92,8 @@
       if (sizeof($where)>0) {
         $sql = $sql . " where " . join(" and ", $where);
       }
-      return $sql." ORDER BY `id_candidatura` ASC limit 0,10";
+
+      return $sql;
     }
 
     static function freeUnexportedFields($data) {

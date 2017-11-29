@@ -9,8 +9,7 @@
 
   $sql = $politicianQuery->generateQuery();
   $sqlCount = $politicianQuery->generateCountQuery();
-  $sqlPartidos = $politicianQuery->generateDistinctFieldQuery('sigla_partido as sigla, id_partido as id ');
-  echo $sqlPartidos;
+  $sqlPartidos = $politicianQuery->generateDistinctFieldQuery('sigla_partido as sigla, id_partido as id');
   $sqlEstados = $politicianQuery->generateDistinctFieldQuery('sigla_estado as sigla');
   $sqlGeneros = $politicianQuery->generateDistinctFieldQuery('genero');
   $sqlCores = $politicianQuery->generateDistinctFieldQuery('cor_tse');

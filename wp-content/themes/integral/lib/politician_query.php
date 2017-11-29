@@ -23,7 +23,7 @@
     }
 
     function generateDistinctFieldQuery($field_list) {
-      return "select distinct $field_list " . $this->genericDistinctQuery() . " order by 1";
+      return "select distinct $field_list " . $this->genericDistinctQuery();
     }
 
     function generateQuery() {

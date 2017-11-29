@@ -91,11 +91,13 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </div>
         <div role="tabpanel" class="tab-panee" id="filtro_sit_eleitoral">
           <h3>Situação Eleitoral</h3>
+          <ul class="list-unstyled">
           <?php foreach ($situacoesEleitorais as $sit) { ?>
-          <label>
-            <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
-          </label>
+            <li>
+              <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
+            </li>
           <?php } ?>
+          </ul>
         </div>
       </div>
       <!-- -->

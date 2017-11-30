@@ -102,7 +102,7 @@ function ViewObject(siteUrl) {
    * @return Painel contendo o link
    */
   classe._desenhaLinkDownload = function() {
-    var lnkDownload = jQuery("<a>", {text: "download", href: "#"});
+    var lnkDownload = jQuery("<a>", {text: "download", href: "#", class:"btn btn-default"});
     lnkDownload.on("click", downloadAllData);
     return lnkDownload;
   };

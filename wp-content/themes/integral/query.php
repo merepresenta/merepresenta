@@ -28,85 +28,86 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         <ul class="items list-unstyled">
           <?php foreach ($pautas as $pauta) { ?>
           <li>
-            <input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?>
+            <label>
+              <input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?>
+            </label>
           </li>
           <?php } ?>
         </ul>
       </div>
       <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
       <!-- -->
-      <div class="tab-content">
-        <div role="tabpanel" id="filtro_estado">
-          <h3>Estados</h3>
-          <ul class="list-unstyled list-inline">
-            <?php foreach ($ufs as $estado) { ?>
-            <li>
-              <label>
-                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
-              </label>
-            </li>
-            <?php } ?>
-          </ul>
-        </div>
-        <div role="tabpanel" id="filtro_cidade">
-          <h3>Cidades</h3>
-          <input type="text" name="cidade" id="filtro-cidade-escolha" />
-          <button id="btn-add-city" class="btn">+</button>
-          <div id="cidades-escolhidas">
-          </div>
-        </div>
-        <div role="tabpanel" id="filtro_partido">
-          <h3>Partidos</h3>
-          <ul class="list-unstyled list-inline">
-            <?php foreach ($partidos as $partido) { ?>
-            <li>
-              <label>
-                <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
-              </label>
-            </li>
-            <?php } ?>
-          </ul>
-        </div>
-        <div role="tabpanel" id="filtro_genero">
-          <h3>Gêneros</h3>
-          <select name="" id="sel_genero" class="sel-genero">
-            <?php foreach ($generos as $genero) { ?>
+      <div id="filtro_estado">
+        <h3>Estados</h3>
+        <ul class="list-unstyled list-inline">
+          <?php foreach ($ufs as $estado) { ?>
+          <li>
             <label>
-              <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
+              <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
             </label>
-            <?php } ?>
-          </select>
-        </div>
-        <div role="tabpanel" id="filtro_cor">
-          <h3>Cútis</h3>
-          <ul class="list-unstyled list-inline">
-            <?php foreach ($cores as $cor) { ?>
-            <li>
-              <label>
-                <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
-              </label>
-            </li>
-            <?php } ?>
-          </ul>
-        </div>
-        <div role="tabpanel" id="filtro_sit_eleitoral">
-          <h3>Situação Eleitoral</h3>
-          <ul class="list-unstyled list-inline">
-          <?php foreach ($situacoesEleitorais as $sit) { ?>
-            <li>
-              <label>
-              <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
-              </label>
-            </li>
+          </li>
           <?php } ?>
-          </ul>
+        </ul>
+      </div>
+      <div id="filtro_cidade">
+        <h3>Cidades</h3>
+        <div class="input-group">
+          <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ej: Recife">
+          <span class="input-group-btn">
+            <button id="btn-add-city" class="btn" type="button">+</button>
+          </span>
         </div>
+        <div id="cidades-escolhidas"></div>
+      </div>
+      <div id="filtro_partido">
+        <h3>Partidos</h3>
+        <ul class="list-unstyled list-inline">
+          <?php foreach ($partidos as $partido) { ?>
+          <li>
+            <label>
+              <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
+            </label>
+          </li>
+          <?php } ?>
+        </ul>
+      </div>
+      <div id="filtro_genero">
+        <h3>Gêneros</h3>
+        <select name="" id="sel_genero" class="sel-genero form-control">
+          <?php foreach ($generos as $genero) { ?>
+            <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
+          <?php } ?>
+        </select>
+      </div>
+      <div id="filtro_cor">
+        <h3>Cútis</h3>
+        <ul class="list-unstyled list-inline">
+          <?php foreach ($cores as $cor) { ?>
+          <li>
+            <label>
+              <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+            </label>
+          </li>
+          <?php } ?>
+        </ul>
+      </div>
+      <div id="filtro_sit_eleitoral">
+        <h3>Situação Eleitoral</h3>
+        <ul class="list-unstyled list-inline">
+        <?php foreach ($situacoesEleitorais as $sit) { ?>
+          <li>
+            <label>
+            <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
+            </label>
+          </li>
+        <?php } ?>
+        </ul>
       </div>
       <!-- -->
       <button id="bt_filtro" class="btn btn-primary btn-lg btn-block" role="button">Filtro</button>
     </div>
     <div class="col-md-8">
-      <div id="dados_filtrados" class="row">
+      <div id="dados_filtrados">
         Seus resultados vão aparecer aqui...
       </div>
     </div>
@@ -211,7 +212,7 @@ jQuery(window).on("load",function(){
         var dados = { nome: request.term };
         if (query && typeof(query.pautas) != 'undefined')
           dados.pautas = query.pautas.join(',');
-
+        console.log(dados);
         return dados;
       }
       jQuery.ajax({

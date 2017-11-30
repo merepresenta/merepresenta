@@ -212,7 +212,7 @@ jQuery(window).on("load",function(){
         var dados = { nome: request.term };
         if (query && typeof(query.pautas) != 'undefined')
           dados.pautas = query.pautas.join(',');
-        console.log(dados);
+
         return dados;
       }
       jQuery.ajax({

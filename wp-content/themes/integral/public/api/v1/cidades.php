@@ -14,7 +14,6 @@
               c.id
               , c.nome as nome_cidade
               , e.sigla as uf
-
           from Cidade c
           left join Estado e
               on e.id = c.estado_id
@@ -24,8 +23,7 @@
               on cand.pessoa_id = p.id
           ${sqlPautas}
           where c.nome like '%$nome%'
-          order by c.nome, e.sigla
-      ";
+          order by c.nome, e.sigla";
   }
   else {
     $sql = "select c.id, c.nome as nome_cidade, e.sigla as uf

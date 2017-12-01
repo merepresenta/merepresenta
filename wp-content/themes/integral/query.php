@@ -19,7 +19,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
 </div>
 <div class="container">
   <h1 class="page-header">Representou</h1>
-  <p> Escolha as pautas importantes para você ou para sua entidade e clique em "Filtrar" para mostrar candidatas e
+  <p>Escolha as pautas importantes para você ou para sua entidade e clique em "Filtrar" para mostrar candidatas e
   candidatos de 2016 que responderam Sim para essas questões!</p>
   <div id="dados_menu" class="row">
     <div class="col-md-4">
@@ -38,7 +38,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
       <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
       <!-- -->
       <div id="filtro_estado">
-        <h3>Estados</h3>
+        <h4 class="page-header">Estados</h4>
         <ul class="list-unstyled list-inline">
           <?php foreach ($ufs as $estado) { ?>
           <li>
@@ -50,17 +50,17 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </ul>
       </div>
       <div id="filtro_cidade">
-        <h3>Cidades</h3>
+        <h4 class="page-header">Cidades</h4>
         <div class="input-group">
           <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ej: Recife">
           <span class="input-group-btn">
-            <button id="btn-add-city" class="btn" type="button">+</button>
+            <button id="btn-add-city" class="btn btn-primary" type="button">Adicione</button>
           </span>
         </div>
         <div id="cidades-escolhidas"></div>
       </div>
       <div id="filtro_partido">
-        <h3>Partidos</h3>
+        <h4 class="page-header">Partidos</h4>
         <ul class="list-unstyled list-inline">
           <?php foreach ($partidos as $partido) { ?>
           <li>
@@ -72,7 +72,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </ul>
       </div>
       <div id="filtro_genero">
-        <h3>Gêneros</h3>
+        <h4 class="page-header">Gêneros</h4>
         <select name="" id="sel_genero" class="sel-genero form-control">
           <?php foreach ($generos as $genero) { ?>
             <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
@@ -80,7 +80,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </select>
       </div>
       <div id="filtro_cor">
-        <h3>Cútis</h3>
+        <h4 class="page-header">Cútis</h4>
         <ul class="list-unstyled list-inline">
           <?php foreach ($cores as $cor) { ?>
           <li>
@@ -92,7 +92,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </ul>
       </div>
       <div id="filtro_sit_eleitoral">
-        <h3>Situação Eleitoral</h3>
+        <h4 class="page-header">Situação Eleitoral</h4>
         <ul class="list-unstyled list-inline">
         <?php foreach ($situacoesEleitorais as $sit) { ?>
           <li>
@@ -269,7 +269,7 @@ jQuery(window).on("load",function(){
 });
 
 jQuery(window).on("change", function(){
-  if( jQuery("[type=checkbox]:checked").length >= 3  )
+  if( jQuery(".chk-pauta[type=checkbox]:checked").length >= 1 &&  jQuery("[type=checkbox]:checked").length >= 3 )
     jQuery("#bt_filtro").removeClass('disabled');
   else {
       if(!jQuery("#bt_filtro").hasClass( "foo" ))

@@ -26,6 +26,9 @@ li {
 }
 
 /** Página REPRESENTOU */
+main {
+  margin-bottom: 30px;
+}
 .ui-autocomplete-loading {
   background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
 }
@@ -113,6 +116,8 @@ li {
   margin: 0;
   border: 1px solid #ccc;
   border-top: none;
+  position: absolute;
+  background-color: #fff;
 }
 .dropdown-check-list.visible .anchor {
   color: #0094ff;

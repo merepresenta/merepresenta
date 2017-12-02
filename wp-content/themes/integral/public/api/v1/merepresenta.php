@@ -9,7 +9,7 @@
 
   $sql = $politicianQuery->generateQuery();
   $sqlCount = $politicianQuery->generateCountQuery();
-  $sqlPartidos = $politicianQuery->generateDistinctFieldQuery('sigla_partido as sigla, id_partido as id ');
+  $sqlPartidos = $politicianQuery->generateDistinctFieldQuery('sigla_partido as sigla, id_partido as id');
   $sqlEstados = $politicianQuery->generateDistinctFieldQuery('sigla_estado as sigla');
   $sqlGeneros = $politicianQuery->generateDistinctFieldQuery('genero');
   $sqlCores = $politicianQuery->generateDistinctFieldQuery('cor_tse');
@@ -25,9 +25,9 @@
     $cores = $queryRunner->get_results($sqlCores);
     $situacoesEleitorais = $queryRunner->get_results($sqlSituacoesEleitorais);
     $retorno = $ambiente->empacota(
-      PoliticianQuery::freeUnexportedFields($dados), 
-      $qtde, 
-      $politicianQuery->input_first_record(), 
+      PoliticianQuery::freeUnexportedFields($dados),
+      $qtde,
+      $politicianQuery->input_first_record(),
       $politicianQuery->input_max_records(),
       $politicianQuery->requestQuery(),
       $partidos,
@@ -39,11 +39,11 @@
   }
   else {
     $retorno = $ambiente->empacota(
-      PoliticianQuery::freeUnexportedFields($dados), 
-      $qtde, 
-      $politicianQuery->input_first_record(), 
+      PoliticianQuery::freeUnexportedFields($dados),
+      $qtde,
+      $politicianQuery->input_first_record(),
       $politicianQuery->input_max_records()
-    );    
+    );
   }
 
   ($ambiente->exporter(EXP_JSON))->exporta($retorno);

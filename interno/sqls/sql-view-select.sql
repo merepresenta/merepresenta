@@ -9,6 +9,7 @@ as
             , est.id as id_estado
             , c.nome_urna as nome_urna
             , p.nome as nome_candidato
+            , p.fb_id as fb_id
             , cid.nome as nome_cidade
             , est.sigla as sigla_estado
             , par.numero as numero_partido

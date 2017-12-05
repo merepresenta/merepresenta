@@ -9,21 +9,12 @@ as
             , est.id as id_estado
             , c.nome_urna as nome_urna
             , p.nome as nome_candidato
+            , p.fb_id as fb_id
             , cid.nome as nome_cidade
             , est.sigla as sigla_estado
             , par.numero as numero_partido
             , par.nota as nota_partido
             , par.sigla as sigla_partido
-            , ( 
-              select 
-                coli.nome 
-                from Coligacao_Partido CP 
-                        inner join Coligacao coli
-                        on 
-                  (CP.coligacao_id = coli.id)
-                where   coli.unidade_eleitoral_id = c.unidade_eleitoral_id and
-                    CP.partido_id = c.partido_id 
-            ) as nome_coligacao
             , (select r.resposta from Resposta r where pergunta_id = 1 and r.pessoa_id = c.pessoa_id) as resposta_1
             , (select r.resposta from Resposta r where pergunta_id = 2 and r.pessoa_id = c.pessoa_id) as resposta_2
             , (select r.resposta from Resposta r where pergunta_id = 3 and r.pessoa_id = c.pessoa_id) as resposta_3

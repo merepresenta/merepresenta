@@ -104,7 +104,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </ul>
       </div>
       <!-- -->
-      <button id="bt_filtro" class="btn btn-primary btn-lg btn-block disabled" role="button">Filtro</button>
+      <button id="bt_filtro" class="btn btn-primary btn-lg btn-block" role="button">Filtro</button>
     </div>
     <div class="col-md-8">
       <div id="dados_filtrados">
@@ -267,13 +267,4 @@ jQuery(window).on("load",function(){
 
 
 });
-
-jQuery(window).on("change", function(){
-  if( jQuery("[type=checkbox]:checked").length >= 3  )
-    jQuery("#bt_filtro").removeClass('disabled');
-  else {
-      if(!jQuery("#bt_filtro").hasClass( "foo" ))
-        jQuery("#bt_filtro").addClass('disabled');
-  }
-})
 </script>

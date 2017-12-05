@@ -35,14 +35,14 @@
       </div>
       <div class="info-bio">
         <div class="bio">
-          <h3>Sobre a/o política(o)</h3>
+          <h3>Sobre:</h3>
           <p><?= $politico->minibio ?></p>
         </div>
       </div>
     </div>
 
     <div class="respostas">
-      <h2>Veja o que a/o política(o) respondeu:</h2>
+      <h2>Veja o que ela/ele respondeu.</h2>
       <table>
         <tbody>
           <?php for($i=0;$i<sizeof($respostas);$i++) {

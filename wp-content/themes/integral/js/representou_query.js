@@ -11,7 +11,7 @@ function ViewObject(siteUrl) {
   var pPartidos = jQuery("#filtro_partido");
   /* Painel com dados de gênero */
   var pGeneros = jQuery("#filtro_genero");
-  /* Painel com dados de pigmentação da cútis */
+  /* Painel com dados de pigmentação da raça */
   var pCores = jQuery("#filtro_cor");
   /* Painel com dados de situações eleitorais */
   var pSituacoes = jQuery("#filtro_sit_eleitoral");
@@ -49,7 +49,7 @@ function ViewObject(siteUrl) {
       data += '</div>';
       data += '<div class="col-xs-6 col-sm-6 col-md-6">';
           data += '<ul class="list-unstyled">';
-          data += '<li><b>Cútis:</b> '+r["cor_tse"].toLowerCase()+'</li>';
+          data += '<li><b>Raça:</b> '+r["cor_tse"].toLowerCase()+'</li>';
           data += '<li><b>Genero:</b> '+r["genero"].toLowerCase()+'</li>';
           data += '<li><b>Sigla Estado:</b> '+r["sigla_estado"].toLowerCase()+'</li>';
           data += '<li><b>Cidade:</b> '+r["nome_cidade"].toLowerCase()+'</li>';
@@ -180,11 +180,11 @@ function ViewObject(siteUrl) {
   };
 
   /**
-   * Redesenha o filtro de pigmentação da cútis
-   * @param cores Dados de pigmentação da cútis
+   * Redesenha o filtro de pigmentação da raça
+   * @param cores Dados de pigmentação da raça
    */
   classe._atualizaFiltroCores = function(cores) {
-    pCores.html(this._createHeader("Cútis"));
+    pCores.html(this._createHeader("Raça"));
     container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
     cores.filter(function(c){ return c.cor_tse.trim() != '' }).forEach(function(elemento) {
       var container_li = jQuery("<li>");

@@ -38,7 +38,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
       <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
       <!-- -->
       <div id="filtro_estado">
-        <h3>Estados</h3>
+        <h3>Estado</h3>
         <ul class="list-unstyled list-inline">
           <?php foreach ($ufs as $estado) { ?>
           <li>
@@ -50,7 +50,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </ul>
       </div>
       <div id="filtro_cidade">
-        <h3>Cidades</h3>
+        <h3>Cidade</h3>
         <div class="input-group">
           <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ej: Recife">
           <span class="input-group-btn">
@@ -60,7 +60,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         <div id="cidades-escolhidas"></div>
       </div>
       <div id="filtro_partido">
-        <h3>Partidos</h3>
+        <h3>Partido</h3>
         <ul class="list-unstyled list-inline">
           <?php foreach ($partidos as $partido) { ?>
           <li>
@@ -72,7 +72,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </ul>
       </div>
       <div id="filtro_genero">
-        <h3>Gêneros</h3>
+        <h3><a href="/genero-e-raca/">Gênero</a></h3>
         <select name="" id="sel_genero" class="sel-genero form-control">
           <?php foreach ($generos as $genero) { ?>
             <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
@@ -80,7 +80,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </select>
       </div>
       <div id="filtro_cor">
-        <h3>Cútis</h3>
+        <h3><a href="/genero-e-raca/">Raça</a></h3>
         <ul class="list-unstyled list-inline">
           <?php foreach ($cores as $cor) { ?>
           <li>

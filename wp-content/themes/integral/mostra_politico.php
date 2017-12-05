@@ -50,7 +50,7 @@
             ?>
           <tr>
             <td class="pergunta "><?=$r->texto?></td>
-            <td class="resposta "><?=$r->resposta=="S"?"sim":"não"?></td>
+            <td class="resposta <?= $r->resposta=="S" ? '' : 'resp-negativa' ?> "><?=$r->resposta=="S"?"sim":"não"?></td>
           </tr>
           <?php } ?>
           </tr>

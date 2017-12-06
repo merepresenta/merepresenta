@@ -170,14 +170,17 @@ function ViewObject(siteUrl) {
    */
   classe._atualizaFiltroGeneros = function (generos) {
     pGeneros.html(this._createHeader("Gêneros"));
+    container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
 
-    if (generos.filter(function(g) { return g.genero.trim() == ''}).length == 0)
-      generos.splice(0,0,{genero: ''});
-    var sel = jQuery('<select>', {class: 'sel-genero', id:'sel_genero'});
-    pGeneros.append(sel);
-    generos.forEach(function(elemento){
-      sel.append(jQuery("<option>", {text: elemento.genero, value: elemento.genero}));
+    generos.forEach(function(elemento) {
+      var container_li = jQuery("<li>");
+      var lbl = jQuery("<label>");
+      lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.genero, id: "genero_"+elemento.genero, class: 'chk-genero' } ) );
+      lbl.append(elemento.genero);
+      container_li.append(lbl);
+      pGeneros.append(container_ul.append(container_li));
     });
+
   };
 
   /**
@@ -247,11 +250,13 @@ function ViewObject(siteUrl) {
   }
 
   /**
-   * Marca o item correspondente ao genero passado
-   * @param genero genero
+   * Marca os itens correspondentes aos generos passados
+   * @param generos generos
    */
-  classe._marcaGenero = function(genero) {
-    jQuery('.sel-genero > option[value="' + genero+'"]').attr('selected','selected');
+  classe._marcaGenero = function(generos) {
+    generos.forEach(function(genero) {
+      jQuery('.chk-genero[value='+genero+']').attr('checked','checked');
+    });
   }
 
   /**

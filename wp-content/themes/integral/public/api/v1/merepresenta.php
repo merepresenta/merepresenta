@@ -9,11 +9,13 @@
 
   $sql = $politicianQuery->generateQuery();
   $sqlCount = $politicianQuery->generateCountQuery();
-  $sqlPartidos = $politicianQuery->generateDistinctFieldQuery('sigla_partido as sigla, id_partido as id');
-  $sqlEstados = $politicianQuery->generateDistinctFieldQuery('sigla_estado as sigla');
-  $sqlGeneros = $politicianQuery->generateDistinctFieldQuery('genero');
-  $sqlCores = $politicianQuery->generateDistinctFieldQuery('cor_tse');
-  $sqlSituacoesEleitorais = $politicianQuery->generateDistinctFieldQuery('situacao_eleitoral');
+  $sqlPartidos = $politicianQuery->generateDistinctFieldQuery('sigla_partido as sigla, id_partido as id') . ' order by sigla_partido';
+  $sqlEstados = $politicianQuery->generateDistinctFieldQuery('sigla_estado as sigla') . ' order by sigla_estado';
+  $sqlGeneros = $politicianQuery->generateDistinctFieldQuery('genero') . ' where genero <> "" order by genero';
+  $sqlCores = $politicianQuery->generateDistinctFieldQuery('cor_tse') . ' where cor_tse <> "" order by cor_tse';
+  $sqlSituacoesEleitorais = $politicianQuery->generateDistinctFieldQuery('situacao_eleitoral') . ' order by situacao_eleitoral';
+
+  error_log($sqlCores);
 
   $dados = $queryRunner->get_results($sql);
   $qtde = ($queryRunner->get_results($sqlCount))[0]->contagem;

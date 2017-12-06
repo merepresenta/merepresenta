@@ -5,7 +5,7 @@ $queryRunner = $ambiente->queryRunner();
 $ufs = $queryRunner->get_results("select sigla from Estado order by sigla");
 $partidos = $queryRunner->get_results("select id, sigla from Partido order by sigla");
 $pautas = $queryRunner->get_results("select id, texto from Pergunta order by id");
-$generos = $queryRunner->get_results("select distinct genero_tse from Pessoa order by genero_tse");
+$generos = $queryRunner->get_results("select distinct genero_tse from Pessoa where genero_tse <> '' order by genero_tse");
 $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa where cor_tse <> '' order by cor_tse");
 $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleitoral from Candidatura where situacao_eleitoral <> '' order by situacao_eleitoral");
 ?>
@@ -97,7 +97,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             </ul>
           </div>
           <div class="col-md-6" id="filtro_cor">
-            <h3>Raza</h3>
+            <h3>Raça</h3>
             <ul class="list-unstyled list-inline">
               <?php foreach ($cores as $cor) { ?>
               <li>
@@ -203,8 +203,8 @@ var configuraQuery = function() {
 
   necessitaRevisaoFiltros = !(typeof(oldPautas) == typeof(query.pautas) && oldPautas.length==query.pautas.length && oldPautas.every(function(v,i) { return v === query.pautas[i]}));
 
-  var genero = jQuery("#sel_genero").val();
-  if (genero!='') query.genero = genero;
+  var genero = jQuery(".chk-genero:checked").map(function(i,obj){return obj.value}).toArray();
+  if (genero.length>0) query.genero = genero;
 
   var cores = jQuery(".chk-cor:checked").map(function(i,obj){return obj.value}).toArray();
   if (cores.length>0) query.cor_tse = cores;

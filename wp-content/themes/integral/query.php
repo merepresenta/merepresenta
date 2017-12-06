@@ -21,94 +21,104 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
   <h1 class="page-header">Representou</h1>
   <p> Escolha as pautas importantes para você ou para sua entidade e clique em "Filtrar" para mostrar candidatas e
   candidatos de 2016 que responderam Sim para essas questões!</p>
-  <div id="dados_menu" class="row">
-    <div class="col-md-4">
-      <div id="list3" class="dropdown-check-list" tabindex="100">
-        <span class="anchor">Pautas</span>
-        <ul class="items list-unstyled">
-          <?php foreach ($pautas as $pauta) { ?>
-          <li>
-            <label>
-              <input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?>
-            </label>
-          </li>
-          <?php } ?>
-        </ul>
-      </div>
-      <p>Se você quiser, use os filtros abaixo para selecionar candidatas e candidatos mais especificamente...</p>
-      <!-- -->
-      <div id="filtro_estado">
-        <h3>Estado</h3>
-        <ul class="list-unstyled list-inline">
-          <?php foreach ($ufs as $estado) { ?>
-          <li>
-            <label>
-              <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
-            </label>
-          </li>
-          <?php } ?>
-        </ul>
-      </div>
-      <div id="filtro_cidade">
-        <h3>Cidade</h3>
-        <div class="input-group">
-          <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ej: Recife">
-          <span class="input-group-btn">
-            <button id="btn-add-city" class="btn" type="button">+</button>
-          </span>
+  <div class="row">
+    <div id="filtros" class="col-md-12">
+      <div id="dados_menu">
+        <div class="row doble">
+          <div class="col-md-6">
+            <h3>Pautas</h3>
+            <ul class="list-unstyled">
+            <?php
+            foreach (array_slice($pautas, 0, 7) as $pauta) {
+            ?>
+              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?></label></li>
+            <?php
+            }
+            ?>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-unstyled">
+            <?php
+            foreach (array_slice($pautas, 8, 14) as $pauta) {
+            ?>
+              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?></label></li>
+            <?php
+            }
+            ?>
+            </ul>
+          </div>
         </div>
-        <div id="cidades-escolhidas"></div>
+        <div class="row doble">
+          <div class="col-md-6" id="filtro_estado">
+            <h3>Estado</h3>
+            <ul class="list-unstyled list-inline">
+              <?php foreach ($ufs as $estado) { ?>
+              <li>
+                <label>
+                  <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
+                </label>
+              </li>
+              <?php } ?>
+            </ul>
+          </div>
+          <div class="col-md-6" id="filtro_cidade">
+            <h3>Cidade</h3>
+            <div class="input-group">
+              <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ej: Recife">
+              <span class="input-group-btn">
+                <button id="btn-add-city" class="btn" type="button">+</button>
+              </span>
+            </div>
+            <div id="cidades-escolhidas"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" id="filtro_partido">
+            <h3>Partidos</h3>
+            <ul class="list-unstyled list-inline">
+              <?php foreach ($partidos as $partido) { ?>
+              <li>
+                <label>
+                  <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
+                </label>
+              </li>
+              <?php } ?>
+            </ul>
+          </div>
+        </div>
+        <div class="row doble">
+          <div class="col-md-6" id="filtro_genero">
+            <h3>Gêneros</h3>
+            <ul class="list-unstyled list-inline">
+              <?php foreach ($generos as $genero) { ?>
+                <li><label><input type="checkbox" value="<?= $genero->genero_tse ?>" id="genero_<?= $genero->genero_tse ?>" class="chk-genero"> <?= $genero->genero_tse ?></label></li>
+              <?php } ?>
+            </ul>
+          </div>
+          <div class="col-md-6" id="filtro_cor">
+            <h3>Raza</h3>
+            <ul class="list-unstyled list-inline">
+              <?php foreach ($cores as $cor) { ?>
+              <li>
+                <label>
+                  <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+                </label>
+              </li>
+              <?php } ?>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button id="bt_filtro" class="btn btn-primary btn-lg btn-block" role="button">Filtro</button>
+          </div>
+        </div>
       </div>
-      <div id="filtro_partido">
-        <h3>Partido</h3>
-        <ul class="list-unstyled list-inline">
-          <?php foreach ($partidos as $partido) { ?>
-          <li>
-            <label>
-              <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
-            </label>
-          </li>
-          <?php } ?>
-        </ul>
-      </div>
-      <div id="filtro_genero">
-        <h3><a href="/genero-e-raca/">Gênero</a></h3>
-        <select name="" id="sel_genero" class="sel-genero form-control">
-          <?php foreach ($generos as $genero) { ?>
-            <option value="<?= $genero->genero_tse ?>"><?= $genero->genero_tse ?></option>
-          <?php } ?>
-        </select>
-      </div>
-      <div id="filtro_cor">
-        <h3><a href="/genero-e-raca/">Raça</a></h3>
-        <ul class="list-unstyled list-inline">
-          <?php foreach ($cores as $cor) { ?>
-          <li>
-            <label>
-              <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
-            </label>
-          </li>
-          <?php } ?>
-        </ul>
-      </div>
-      <div id="filtro_sit_eleitoral">
-        <h3>Situação Eleitoral</h3>
-        <ul class="list-unstyled list-inline">
-        <?php foreach ($situacoesEleitorais as $sit) { ?>
-          <li>
-            <label>
-            <input type="checkbox" value="<?= $sit->situacao_eleitoral ?>" id="situacao_<?= str_replace(' ', '_', $sit->situacao_eleitoral) ?>" class="chk-sit-eleit"> <?= $sit->situacao_eleitoral ?>
-            </label>
-          </li>
-        <?php } ?>
-        </ul>
-      </div>
-      <!-- -->
-      <button id="bt_filtro" class="btn btn-primary btn-lg btn-block" role="button">Filtro</button>
     </div>
-    <div class="col-md-8">
+    <div id="resultado" class="col-md-12">
       <div id="dados_filtrados">
-        Seus resultados vão aparecer aqui...
+        <p>Seus resultados vão aparecer aqui...</p>
       </div>
     </div>
   </div>
@@ -161,6 +171,9 @@ var requisitaDados = function(inicial) {
     },
     success: function(resultado) {
       if(resultado.data.length > 0) {
+        jQuery("#filtros").removeClass("col-md-12").addClass("col-md-4");
+        jQuery("#resultado").removeClass("col-md-12").addClass("col-md-8");
+        jQuery(".doble").children().removeClass("col-md-6").addClass("col-md-12");
         viewObject.desenhaDadosFiltrados(resultado);
         if (typeof(resultado.filter_data) != 'undefined') {
           viewObject.atualizaFiltros(resultado.filter_data);

@@ -64,7 +64,7 @@
         } else if(($key == 'id_cidade')||($key == 'id_partido')) {
           $where[] = "$key in (" . implode(",",$value) . ')';
         } else if ($key == 'genero') {
-          $where[] = "$key = \"$value\"";
+          if (sizeof($value) == 1) $where[] = "$key = \"".$value[0]."\"";
         } else if ($key == 'pautas') {
           $and = array_map(function($id){return "resposta_$id = \"S\"";}, $value);
           $where[] = "(" . implode(" and ", $and) . ")";

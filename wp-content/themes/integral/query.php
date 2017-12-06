@@ -89,7 +89,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </div>
         <div class="row doble">
           <div class="col-md-6" id="filtro_genero">
-            <h3>Gêneros</h3>
+            <h3><a href="/genero-e-raca/">Gêneros</a></h3>
             <ul class="list-unstyled list-inline">
               <?php foreach ($generos as $genero) { ?>
                 <li><label><input type="checkbox" value="<?= $genero->genero_tse ?>" id="genero_<?= $genero->genero_tse ?>" class="chk-genero"> <?= $genero->genero_tse ?></label></li>
@@ -97,7 +97,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             </ul>
           </div>
           <div class="col-md-6" id="filtro_cor">
-            <h3>Raça</h3>
+            <h3><a href="/genero-e-raca/">Raça</a></h3>
             <ul class="list-unstyled list-inline">
               <?php foreach ($cores as $cor) { ?>
               <li>

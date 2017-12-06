@@ -164,12 +164,19 @@ function ViewObject(siteUrl) {
     });
   };
 
+  classe._linkRacaGenero = function (titulo) {
+    var link = jQuery("<a>", { href: '/genero-e-raca/' });
+    link.append(titulo);
+    return link;
+  }
+
   /**
    * Redesenha o filtro de generos
    * @param generos Dados de genero
    */
-  classe._atualizaFiltroGeneros = function (generos) {
-    pGeneros.html(this._createHeader("Gêneros"));
+  classe._atualizaFiltroGeneros = function(generos) {
+    pGeneros.html(this._linkRacaGenero(this._createHeader("Gêneros")));
+
     container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
 
     generos.forEach(function(elemento) {
@@ -188,7 +195,7 @@ function ViewObject(siteUrl) {
    * @param cores Dados de pigmentação da raça
    */
   classe._atualizaFiltroCores = function(cores) {
-    pCores.html(this._createHeader("Raça"));
+    pCores.html(this._linkRacaGenero(this._createHeader("Raça")));
     container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
     cores.filter(function(c){ return c.cor_tse.trim() != '' }).forEach(function(elemento) {
       var container_li = jQuery("<li>");

@@ -1,0 +1,14 @@
+update Pergunta set texto = 'Adoção de crianças por famílias LGBTs.' where id = 1;
+update Pergunta set texto = 'Uso de banheiros por pessoas travestis e transexuais de acordo com sua identidade de gênero.' where id = 2;
+update Pergunta set texto = 'Cota de 50% para mulheres no Legislativo, garantindo representatividade étnico-racial e respeito à identidade de gênero autodeclarada.' where id = 3;
+update Pergunta set texto = 'Promoção de igualdade de gênero e raça e o respeito às orientações sexuais e identidades de gênero nas escolas.' where id = 4;
+update Pergunta set texto = 'Cotas raciais e ações afirmativas para a população negra.' where id = 5;
+update Pergunta set texto = 'Proibição da realização de cultos e o uso de símbolos religiosos em repartições públicas.' where id = 6;
+update Pergunta set texto = 'Impedimento de ocupação de cargos públicos por homens que tenham agredido mulheres.' where id = 7;
+update Pergunta set texto = 'Descriminalização e legalização do aborto.' where id = 8;
+update Pergunta set texto = 'Criminalização da lesbofobia, homofobia, transfobia e bifobia.' where id = 9;
+update Pergunta set texto = 'Desmilitarização da polícia.' where id = 10;
+update Pergunta set texto = 'Desapropriação de imóveis abandonados para criação de moradias de interesse social.' where id = 11;
+update Pergunta set texto = 'Licenciamento ambiental que proteja populações vulneráveis e áreas atingidas por grandes empreendimentos.' where id = 12;
+update Pergunta set texto = 'Abertura de maiores espaços de participação direta da população na definição do orçamento municipal.' where id = 13;
+update Pergunta set texto = 'Quebra dos contratos com empresas de mobilidade que não têm auditoria de custos e uma gestão transparente.' where id = 14;

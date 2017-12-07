@@ -17,7 +17,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
     <span>Carregando...</span>
   </div>
 </div>
-<div class="container">
+<div class="container corpo">
   <h1 class="page-header">Representou</h1>
   <p> Escolha as pautas importantes para você ou para sua entidade e clique em "Filtrar" para mostrar candidatas e
   candidatos de 2016 que responderam Sim para essas questões!</p>

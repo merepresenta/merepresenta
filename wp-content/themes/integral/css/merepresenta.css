@@ -108,6 +108,9 @@ body #menu-menu-principal li.menu-item a {
 .page-id-6 a {
   color: #582985;
 }
+.page-id-6 a:focus, .page-id-6 a:hover {
+  color: #582985;
+}
 
 .page-id-6 li {
   text-align: unset;

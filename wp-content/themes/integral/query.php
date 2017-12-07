@@ -24,13 +24,13 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
     <div id="filtros" class="col-md-12">
       <div id="dados_menu">
         <div class="row doble">
+          <h3>Pautas</h3>
           <div class="col-md-6">
-            <h3>Pautas</h3>
             <ul class="list-unstyled">
             <?php
             foreach (array_slice($pautas, 0, 7) as $pauta) {
             ?>
-              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?></label></li>
+              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"><span><?= $pauta->texto ?></span></label></li>
             <?php
             }
             ?>
@@ -41,7 +41,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php
             foreach (array_slice($pautas, 8, 14) as $pauta) {
             ?>
-              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"> <?= $pauta->texto ?></label></li>
+              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"><span><?= $pauta->texto ?></span></label></li>
             <?php
             }
             ?>

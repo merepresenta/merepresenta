@@ -23,6 +23,28 @@ h1 {
   font-weight: bold;
   text-transform: uppercase;
 }
+.corpo input[type='checkbox'] {
+  display: none;
+}
+.corpo input[type='checkbox'] + span {
+  text-transform: uppercase;
+}
+.corpo input[type='checkbox'] + span::before {
+  content: '';
+  background-image: url('../images/aberto.svg');
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+}
+.corpo input[type='checkbox']:checked + span::before {
+  content: '';
+  background-image: url('../images/fechado.svg');
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+}
 /** Geral */
 p {
   text-align: justify;

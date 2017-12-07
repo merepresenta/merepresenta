@@ -90,7 +90,14 @@ li {
 }
 
 .page-id-6 .btn-primary {
+  color: #FFF;
   font-weight: bold;
+  background-color: #582985;
+  border-color: #582985;
+}
+
+.page-id-6 .btn-primary:active,
+.page-id-6 .btn-primary:focus {
   background-color: #582985;
   border-color: #582985;
 }
@@ -126,6 +133,10 @@ li {
   color: #FFF;
   text-decoration: underline;
   text-transform: uppercase;
+}
+
+.page-id-6 #dados_menu {
+  padding-bottom: 20px;
 }
 
 .ui-autocomplete-loading {

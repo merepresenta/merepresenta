@@ -11,8 +11,8 @@
   $sqlCount = $politicianQuery->generateCountQuery();
   $sqlPartidos = $politicianQuery->generateDistinctFieldQuery('sigla_partido as sigla, id_partido as id') . ' order by sigla_partido';
   $sqlEstados = $politicianQuery->generateDistinctFieldQuery('sigla_estado as sigla') . ' order by sigla_estado';
-  $sqlGeneros = $politicianQuery->generateDistinctFieldQuery('genero') . ' where genero <> "" order by genero';
-  $sqlCores = $politicianQuery->generateDistinctFieldQuery('cor_tse') . ' where cor_tse <> "" order by cor_tse';
+  $sqlGeneros = $politicianQuery->generateDistinctFieldQuery('genero', 'genero <> ""') . ' order by genero';
+  $sqlCores = $politicianQuery->generateDistinctFieldQuery('cor_tse', 'cor_tse <> ""') . ' order by cor_tse';
   $sqlSituacoesEleitorais = $politicianQuery->generateDistinctFieldQuery('situacao_eleitoral') . ' order by situacao_eleitoral';
 
   $dados = $queryRunner->get_results($sql);

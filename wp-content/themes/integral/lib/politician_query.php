@@ -22,8 +22,8 @@
       return "select count(*) as contagem " . $this->genericQuery();
     }
 
-    function generateDistinctFieldQuery($field_list) {
-      return "select distinct $field_list " . $this->genericDistinctQuery();
+    function generateDistinctFieldQuery($field_list, $extraWhere = nil) {
+      return "select distinct $field_list " . $this->genericDistinctQuery($extraWhere);
     }
 
     function generateQuery() {
@@ -77,10 +77,11 @@
       return $sql;
     }
 
-    private function genericDistinctQuery() {
+    private function genericDistinctQuery($extraWhere = nil) {
       $sql = "from all_data";
 
       $where = array();
+      if ($where) $where[] = $extraWhere;
 
       foreach ($this->input['query'] as $key => $value) {
         if ($key == 'pautas') {

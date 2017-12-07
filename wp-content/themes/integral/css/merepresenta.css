@@ -1,9 +1,24 @@
 /** O arquivo que deve ser alterado é o que está na pasta integral/less/merepresenta.less */
+.container.corpo {
+    margin-top: 10em;
+}
+body p.pesquisa {
+  display: block;
+}
+body p.resposta {
+  display: none;
+}
+body.resposta p.pesquisa {
+  display: none;
+}
+body.resposta p.resposta {
+  display: block;
+}
 h3,
 .corpo h1 {
-  font-family: 'ProximaNovaSoft-Bold';
+  font-family: 'Open Sans';
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: bolder;
   letter-spacing: .2em;
   font-size: 4em;
 }
@@ -11,11 +26,10 @@ h1 {
   text-weight: 900;
 }
 .corpo {
-  padding-top: 2em;
-  font-family: 'ProximaNovaSoft-Regular';
+  font-family: 'Open Sans';
 }
 .corpo .enfase {
-  font-family: 'ProximaNovaSoft-Bold';
+  font-family: 'Open Sans';
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -72,11 +86,21 @@ li {
 }
 /** Página REPRESENTOU */
 .page-id-6 {
+  background-color: #fff;
+  color: #582985;
+}
+.page-id-6.resposta {
   background-color: #d8b212;
   color: #582985;
 }
-
+body #menu-menu-principal li.menu-item a {
+  color: #582985;
+}
 .page-id-6 .navbar {
+  background-color: #fff;
+  color: #582985;
+}
+.page-id-6.resposta .navbar {
   background-color: #d8b212;
   color: #FFF;
 }

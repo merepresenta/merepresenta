@@ -17,9 +17,10 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
     <span>Carregando...</span>
   </div>
 </div>
-<div class="container corpo">
+<div class="container corpo pesquisa">
   <h1 class="page-header">Quem te representa?</h1>
-  <p>Escolha pautas importantes para você ou sua entidade e clique em <span class="enfase">pesquisar</span> para mostrar candidatas e candidatos de 2016 que disseram apoiar essas questões. (dependendo do número de candidaturas filtradas, pode ser que demore um pouquinho, tenha paciência :)</p>
+  <p class="pesquisa">Escolha pautas importantes para você ou sua entidade e clique em <span class="enfase">pesquisar</span> para mostrar candidatas e candidatos de 2016 que disseram apoiar essas questões. (dependendo do número de candidaturas filtradas, pode ser que demore um pouquinho, tenha paciência :)</p>
+  <p class="resposta">Clicando nos links das candidaturas você vê como a pessoa se posicionou em nossa plataforma. Você também pode filtrar esses resultados por pauta, partido, estado, cidade, gênero ou raça.</p>
   <div class="row">
     <div id="filtros" class="col-md-12">
       <div id="dados_menu">
@@ -176,6 +177,7 @@ var requisitaDados = function(inicial) {
           viewObject.marcaFiltro(resultado.query);
           query = resultado.query;
         }
+        jQuery("body").addClass('resposta');
       } else {
         viewObject.desenhaDadosFiltradosVazio("Sem dados ligados à requisição");
       }

@@ -15,8 +15,6 @@
   $sqlCores = $politicianQuery->generateDistinctFieldQuery('cor_tse') . ' where cor_tse <> "" order by cor_tse';
   $sqlSituacoesEleitorais = $politicianQuery->generateDistinctFieldQuery('situacao_eleitoral') . ' order by situacao_eleitoral';
 
-  error_log($sqlCores);
-
   $dados = $queryRunner->get_results($sql);
   $qtde = ($queryRunner->get_results($sqlCount))[0]->contagem;
   $retorno = null;

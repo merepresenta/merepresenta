@@ -171,7 +171,7 @@ function ViewObject(siteUrl) {
    * @param generos Dados de genero
    */
   classe._atualizaFiltroGeneros = function(generos) {
-    pGeneros.html(this._linkRacaGenero(this._createHeader("Gêneros")));
+    pGeneros.html(this._linkRacaGenero(this._createHeader("Gênero*")));
 
     container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
 
@@ -191,7 +191,7 @@ function ViewObject(siteUrl) {
    * @param cores Dados de pigmentação da raça
    */
   classe._atualizaFiltroCores = function(cores) {
-    pCores.html(this._linkRacaGenero(this._createHeader("Raça")));
+    pCores.html(this._linkRacaGenero(this._createHeader("Raça*")));
     container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
     cores.filter(function(c){ return c.cor_tse.trim() != '' }).forEach(function(elemento) {
       var container_li = jQuery("<li>");

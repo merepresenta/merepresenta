@@ -5,6 +5,7 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule api/(.*) /wp-content/themes/integral/public/api/$1 [END]
+  RewriteRule webfonts/(.*) /wp-content/themes/integral/fonts/$1 [END]
   RewriteRule wp-(.*) wp-$1 [END]
   RewriteRule . /index.php [L]
 </IfModule>

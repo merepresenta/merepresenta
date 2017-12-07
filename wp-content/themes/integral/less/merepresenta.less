@@ -1,16 +1,27 @@
 /** O arquivo que deve ser alterado é o que está na pasta integral/less/merepresenta.less */
 @cor_fundo: #fff;
 @cor_fonte: #572980;
+@title_font: 'ProximaNovaSoft-Bold';
+@general_font: 'ProximaNovaSoft-Regular';
 
-h3, h1 {
+h3, .corpo h1 {
+  font-family: @title_font;
   text-transform: uppercase;
-  text-weight: bold;
+  font-weight: bold;
+  letter-spacing: .2em;
+  font-size: 4em;
 }
 h1 {
   text-weight: 900;
 }
 .corpo {
   padding-top: 2em;
+  font-family: @general_font;
+}
+.corpo .enfase {
+  font-family: @title_font;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 /** Geral */
 p {

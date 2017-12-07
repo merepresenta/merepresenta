@@ -18,9 +18,8 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
   </div>
 </div>
 <div class="container corpo">
-  <h1 class="page-header">Representou</h1>
-  <p> Escolha as pautas importantes para você ou para sua entidade e clique em "Filtrar" para mostrar candidatas e
-  candidatos de 2016 que responderam Sim para essas questões!</p>
+  <h1 class="page-header">Quem te representa?</h1>
+  <p> Escolha as pautas importantes para você ou para sua entidade e clique em <span class="enfase">filtrar</span> para mostrar candidatas e candidatos de <span class="enfase">2016</span> que responderam <span class="enfase">sim</span> para essas questões!</p>
   <div class="row">
     <div id="filtros" class="col-md-12">
       <div id="dados_menu">

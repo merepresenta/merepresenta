@@ -334,25 +334,30 @@ section.hero {
   text-indent: -9999px;
 }
 /* Pagina politicos id 20 + pagina politica de privacidade id 14*/
-.page-id-20 main,
-body.page-id-14 {
-  background: #00a99d;
+body.page-id-14,
+body.page-id-20 {
   padding-top: 67px;
 }
-.page-id-20 .info-basica {
-  background-image: url('../images/zig_zag_recorte.png');
-  background-size: 100%;
+body.page-id-14 {
+  background: #00a99d;
+}
+.page-id-20 {
+  background-image: url('../images/zig_zag.png');
+  background-color: #00a99d;
 }
 .page-id-20 .navbar,
 .page-id-14 .navbar {
   background: #00a99d;
 }
+.page-id-20 .navbar-default .navbar-nav > li {
+    margin-left: 20px;
+}
 .page-id-20 .navbar-nav .menu-item a,
 .page-id-14 .navbar-nav .menu-item a {
   color: #fff;
 }
-.page-id-20 .can-pic {
-  border-radius: 50%;
+.page-id-20 .img-circle {
+  margin: 25px;
 }
 .page-id-20 .info-text.name {
   font-size: 36px;
@@ -362,17 +367,34 @@ body.page-id-14 {
   color: #fff;
   font-size: 18px;
 }
+.page-id-20 .bio-header {
+  color: #582985;
+  text-transform: uppercase;
+}
+.page-id-20 .bio-header .bio-txt {
+  padding-top: 20px;
+}
+.page-id-20 .bio-header .bio-txt h1 {
+  font-weight: 700;
+}
+.page-id-20 .bio-header .bio-txt h2 {
+  margin-top: 5px;
+  font-size: 24px;
+}
+.page-id-20 .bio-header span.badge-default {
+  color: #FFF;
+  background-color: #582985;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
 .page-id-20 .bio {
+  background-color: #00a99d;
   color: #fff;
+  padding: 100px 60px;
+  margin-bottom: 90px;
 }
-.page-id-20 .bio p {
-  background: none;
-  border: none;
-  width: 100%;
-  height: auto;
-}
-.page-id-20 h2 {
-  color: #fff;
+.page-id-20 h3 {
+  color: #582985;
 }
 .page-id-20 .respostas table {
   padding-top: 5px;
@@ -381,12 +403,22 @@ body.page-id-14 {
 }
 .page-id-20 td {
   color: #fff;
-  border: 2px solid #fff;
+  /*border: 2px solid #fff;*/
+  background-color: #582985;
   border-radius: 10px;
   padding: 10px;
+  text-transform: uppercase;
 }
+.page-id-20 td.nao {
+  color: #582985;
+  background-color: #d8b212;
+}
+
 .page-id-20 .can-pic {
   margin: 25px;
+}
+.page-id-20 .copyright {
+  background-color: #d8b212;
 }
 .page-id-14 li {
   margin-top: 5px;

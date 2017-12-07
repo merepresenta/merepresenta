@@ -248,6 +248,12 @@ jQuery(window).on("load",function(){
       return false;
     },
     change: function(event, ui){
+      if(ui.item) {
+        var lbl = jQuery("<label>", {text: ui.item.label}).appendTo(cPnlCities);
+        var checkbox = jQuery("<input>", {type: "checkbox", checked: "checked", cid_id: ui.item.value, class: "chk-cidade"}).appendTo(lbl);
+        checkbox.on("click", mataCheckbox);
+      }
+      cBusca.val("");
       return false;
     },
     select: function( event, ui ){

@@ -439,3 +439,9 @@ body.page-id-39 container a {
 .page-id-39 .navbar-nav .menu-item a {
   color: #582985;
 }
+input[type=checkbox].chk-cidade {
+  display: inline-block;
+}
+#cidades-escolhidas>label {
+    padding-right: .5em;
+}

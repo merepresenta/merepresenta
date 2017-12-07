@@ -37,26 +37,24 @@ function ViewObject(siteUrl) {
       data = '<div class="row">';
     jQuery(dados).each(function(idx,r) {
       data += '<div class="col-md-4">';
-      data += '<div class="panel panel-default">';
-      data += '<div class="panel-heading"><h3 class="panel-title"><a href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">'+r["nome_candidato"]+'</a></h3></div>';
-      data += '<div class="panel-body" style="color: #000;">';
-      //data += '<div class="row">';
-      //data += '<div class="col-xs-6 col-sm-6 col-md-6">';
+      var type_css_eleito = ((r["situacao_eleitoral"].toLowerCase() === 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() === 'eleito por qp')) ? ' eleito' : '';
+      var type_txt_eleito = ((r["situacao_eleitoral"].toLowerCase() === 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() === 'eleito por qp')) ? 'Eleito' : r["situacao_eleitoral"].toLowerCase();
+      data += '<div class="panel panel-default'+ type_css_eleito +'">';
+      data += '<div class="panel-body">';
           if(!!r["fb_id"])
             data += '<img src="//graph.facebook.com/v2.6/'+r["fb_id"]+'/picture?type=large" class="img-responsive img-rounded" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
           else
             data += '<img src="/wp-content/themes/integral/images/default-profile.jpg" class="img-responsive img-circle" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
-      //data += '</div>';
-      //data += '<div class="col-xs-6 col-sm-6 col-md-6">';
+          data += '<h4 class="title-name-politic"><a href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">'+r["nome_candidato"]+'</a></h4>';
           data += '<ul class="list-unstyled">';
           data += '<li><b>Raça:</b> '+r["cor_tse"].toLowerCase()+'</li>';
           data += '<li><b>Genero:</b> '+r["genero"].toLowerCase()+'</li>';
           data += '<li><b>Sigla Estado:</b> '+r["sigla_estado"].toLowerCase()+'</li>';
-          data += '<li><b>Cidade:</b> '+r["nome_cidade"].toLowerCase()+'</li>';
-          data += '<li><b>Sigla partido:</b> '+r["sigla_partido"].toLowerCase()+'</li>';
+          data += '<li><b>Cidade:</b> '+r["nome_cidade"].toUpperCase()+'</li>';
+          data += '<li><b>Sigla partido:</b> '+r["sigla_partido"].toUpperCase()+'</li>';
           data += '<li><b>Votos recebidos:</b> '+r["votos_recebidos"].toLowerCase()+'</li>';
           data += '<li><b>Situacao candidatura:</b> '+r["situacao_candidatura"].toLowerCase()+'</li>';
-          data += '<li><b>Situacao eleitoral:</b> '+r["situacao_eleitoral"].toLowerCase()+'</li>';
+          data += '<li><b>Situacao eleitoral:</b> '+type_txt_eleito+'</li>';
           data += '</ul>';
       //data += '</div>';
       //data += '</div>';

@@ -86,7 +86,7 @@ li {
 }
 /** Página REPRESENTOU */
 .page-id-6 {
-  background-color: #d8b212;
+  background-color: #fff;
   color: #582985;
 }
 .page-id-6.resposta {
@@ -97,7 +97,7 @@ body #menu-menu-principal li.menu-item a {
   color: #582985;
 }
 .page-id-6 .navbar {
-  background-color: #d8b212;
+  background-color: #fff;
   color: #582985;
 }
 .page-id-6.resposta .navbar {
@@ -129,13 +129,6 @@ body #menu-menu-principal li.menu-item a {
 .page-id-6 #filtro-cidade-escolha {
   border-radius: .5em;
   background-color: #fff;
-  border-color: #582985;
-  color: #582985;
-}
-
-.page-id-6 #filtro-cidade-escolha {
-  border-radius: .5em;
-  background-color: #d8b212;
   border-color: #582985;
   color: #582985;
 }

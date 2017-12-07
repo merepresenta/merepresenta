@@ -108,7 +108,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </div>
         <div class="row">
           <div class="col-md-12">
-            <button id="bt_filtro" class="btn btn-primary btn-lg btn-block" role="button">Filtro</button>
+            <button id="bt_filtro" class="btn btn-primary btn-lg btn-block" role="button">Pesquisar</button>
           </div>
         </div>
       </div>
@@ -248,6 +248,12 @@ jQuery(window).on("load",function(){
       return false;
     },
     change: function(event, ui){
+      if(ui.item) {
+        var lbl = jQuery("<label>", {text: ui.item.label}).appendTo(cPnlCities);
+        var checkbox = jQuery("<input>", {type: "checkbox", checked: "checked", cid_id: ui.item.value, class: "chk-cidade"}).appendTo(lbl);
+        checkbox.on("click", mataCheckbox);
+      }
+      cBusca.val("");
       return false;
     },
     select: function( event, ui ){

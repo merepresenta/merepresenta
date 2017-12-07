@@ -1,11 +1,22 @@
 /** O arquivo que deve ser alterado é o que está na pasta integral/less/merepresenta.less */
 .container .pagination>li>a {
-    background-color: #d9b40f;
-    border-color: #f3c809;
+  background-color: #d9b40f;
+  border-color: #f3c809;
 }
 .container .pagination>li.active>a {
-    background-color: #582985;
+  background-color: #582985;
 }
+#dados_filtrados>.btn {
+  background-color: #097e74;
+  border-color: #097e74;
+  color: #fff;
+  font-weight: bold;
+}
+#bt_filtro:hover {
+  background-color: #3e1d5f;
+  border-color: #3e1d5f;
+  color: #fff;
+} 
 .container.corpo {
   margin-top: 10em;
 }
@@ -139,6 +150,12 @@ body #menu-menu-principal li.menu-item a {
 .page-id-6 #filtro-cidade-escolha {
   border-radius: .5em;
   background-color: #fff;
+  border-color: #582985;
+  color: #582985;
+}
+.page-id-6.resposta #filtro-cidade-escolha {
+  border-radius: .5em;
+  background-color: #d9b40f;
   border-color: #582985;
   color: #582985;
 }

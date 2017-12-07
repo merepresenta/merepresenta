@@ -1,6 +1,6 @@
 /** O arquivo que deve ser alterado é o que está na pasta integral/less/merepresenta.less */
 .container.corpo {
-    margin-top: 10em;
+  margin-top: 10em;
 }
 body p.pesquisa {
   display: block;
@@ -128,10 +128,18 @@ body #menu-menu-principal li.menu-item a {
 
 .page-id-6 #filtro-cidade-escolha {
   border-radius: .5em;
+  background-color: #fff;
+  border-color: #582985;
+  color: #582985;
+}
+
+.page-id-6.resposta #filtro-cidade-escolha {
+  border-radius: .5em;
   background-color: #d8b212;
   border-color: #582985;
   color: #582985;
 }
+
 .page-id-6 #filtro-cidade-escolha::placeholder {
   color: #582985;
 }

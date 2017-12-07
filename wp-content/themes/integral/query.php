@@ -4,7 +4,7 @@ $ambiente = new Ambiente();
 $queryRunner = $ambiente->queryRunner();
 $ufs = $queryRunner->get_results("select sigla from Estado order by sigla");
 $partidos = $queryRunner->get_results("select id, sigla from Partido order by sigla");
-$pautas = $queryRunner->get_results("select id, texto from Pergunta order by id");
+$pautas = $queryRunner->get_results("select id, texto_pesquisa from Pergunta order by id");
 $generos = $queryRunner->get_results("select distinct genero_tse from Pessoa where genero_tse <> '' order by genero_tse");
 $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa where cor_tse <> '' order by cor_tse");
 $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleitoral from Candidatura where situacao_eleitoral <> '' order by situacao_eleitoral");
@@ -31,7 +31,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php
             foreach (array_slice($pautas, 0, 7) as $pauta) {
             ?>
-              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"><span><?= $pauta->texto ?></span></label></li>
+              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"><span><?= $pauta->texto_pesquisa ?></span></label></li>
             <?php
             }
             ?>
@@ -42,7 +42,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php
             foreach (array_slice($pautas, 8, 14) as $pauta) {
             ?>
-              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"><span><?= $pauta->texto ?></span></label></li>
+              <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"><span><?= $pauta->texto_pesquisa ?></span></label></li>
             <?php
             }
             ?>

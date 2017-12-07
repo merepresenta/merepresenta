@@ -1,4 +1,11 @@
 /** O arquivo que deve ser alterado é o que está na pasta integral/less/merepresenta.less */
+.container .pagination>li>a {
+    background-color: #d9b40f;
+    border-color: #f3c809;
+}
+.container .pagination>li.active>a {
+    background-color: #582985;
+}
 .container.corpo {
   margin-top: 10em;
 }

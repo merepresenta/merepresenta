@@ -40,7 +40,7 @@ function ViewObject(siteUrl) {
       var type_css_eleito = ((r["situacao_eleitoral"].toLowerCase() === 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() === 'eleito por qp')) ? ' eleito' : '';
       var type_txt_eleito = ((r["situacao_eleitoral"].toLowerCase() === 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() === 'eleito por qp')) ? 'Eleito' : r["situacao_eleitoral"].toLowerCase();
       data += '<div class="panel panel-default'+ type_css_eleito +'">';
-          data += '<a href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">';
+          data += '<a target="_blank" href="' + siteUrl + '/politicos/?cand_id='+r["id_candidatura"]+'">';
       data += '<div class="panel-body">';
           if(!!r["fb_id"])
             data += '<img src="//graph.facebook.com/v2.6/'+r["fb_id"]+'/picture?type=large" class="img-responsive img-rounded" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';

@@ -55,7 +55,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
               <?php foreach ($ufs as $estado) { ?>
               <li>
                 <label>
-                  <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"> <?= $estado->sigla ?>
+                  <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"><span><?= $estado->sigla ?></span>
                 </label>
               </li>
               <?php } ?>
@@ -64,7 +64,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
           <div class="col-md-6" id="filtro_cidade">
             <h3>Cidade</h3>
             <div class="input-group">
-              <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ej: Recife">
+              <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ex: Recife">
               <span class="input-group-btn">
                 <button id="btn-add-city" class="btn" type="button">+</button>
               </span>
@@ -79,7 +79,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
               <?php foreach ($partidos as $partido) { ?>
               <li>
                 <label>
-                  <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"> <?= $partido->sigla ?>
+                  <input type="checkbox" value="<?= $partido->id ?>" id="partido_<?= $partido->sigla ?>" class="chk-partido"><span><?= $partido->sigla ?></span>
                 </label>
               </li>
               <?php } ?>
@@ -91,7 +91,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <h3><a href="/genero-e-raca/">Gêneros</a></h3>
             <ul class="list-unstyled list-inline">
               <?php foreach ($generos as $genero) { ?>
-                <li><label><input type="checkbox" value="<?= $genero->genero_tse ?>" id="genero_<?= $genero->genero_tse ?>" class="chk-genero"> <?= $genero->genero_tse ?></label></li>
+                <li><label><input type="checkbox" value="<?= $genero->genero_tse ?>" id="genero_<?= $genero->genero_tse ?>" class="chk-genero"><span><?= $genero->genero_tse ?></span></label></li>
               <?php } ?>
             </ul>
           </div>
@@ -101,7 +101,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
               <?php foreach ($cores as $cor) { ?>
               <li>
                 <label>
-                  <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"> <?= $cor->cor_tse ?>
+                  <input type="checkbox" value="<?= $cor->cor_tse ?>" id="cutis_<?= $cor->cor_tse ?>" class="chk-cor"><span><?= $cor->cor_tse ?></span>
                 </label>
               </li>
               <?php } ?>

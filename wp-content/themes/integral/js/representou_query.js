@@ -154,7 +154,7 @@ function ViewObject(siteUrl) {
       var container_li = jQuery("<li>");
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.id, id: "partido_"+elemento.sigla, class: 'chk-partido' } ) );
-      lbl.append(elemento.sigla);
+      lbl.append(jQuery("<span>", {text:elemento.sigla}));
       container_li.append(lbl);
       pPartidos.append(container_ul.append(container_li));
     });
@@ -179,7 +179,7 @@ function ViewObject(siteUrl) {
       var container_li = jQuery("<li>");
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.genero, id: "genero_"+elemento.genero, class: 'chk-genero' } ) );
-      lbl.append(elemento.genero);
+      lbl.append(jQuery("<span>", {text:elemento.genero}));
       container_li.append(lbl);
       pGeneros.append(container_ul.append(container_li));
     });
@@ -197,7 +197,7 @@ function ViewObject(siteUrl) {
       var container_li = jQuery("<li>");
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.cor_tse, id: "cutis_"+elemento.cor_tse, class: 'chk-cor' } ) );
-      lbl.append(elemento.cor_tse);
+      lbl.append(jQuery("<span>", {text:elemento.cor_tse}));
       container_li.append(lbl);
       pCores.append(container_ul.append(container_li));
     });

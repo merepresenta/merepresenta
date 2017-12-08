@@ -175,7 +175,7 @@ function ViewObject(siteUrl) {
 
     container_ul = jQuery('<ul>',{class:"list-unstyled list-inline"});
 
-    generos.forEach(function(elemento) {
+    generos.filter(function(c){ return c.genero.trim() != '' }).forEach(function(elemento) {
       var container_li = jQuery("<li>");
       var lbl = jQuery("<label>");
       lbl.append( jQuery("<input>", {type:"checkbox", value: elemento.genero, id: "genero_"+elemento.genero, class: 'chk-genero' } ) );

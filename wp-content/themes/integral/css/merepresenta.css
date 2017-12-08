@@ -24,18 +24,19 @@
 .container.corpo {
   margin-top: 10em;
 }
-body p.pesquisa {
+body p.pesquisa,
+body.resposta p.resposta,
+body.resposta.resposta-vazia div.resposta-em-branco
+{
   display: block;
 }
-body p.resposta {
-  display: none;
-}
+body p.resposta, 
+body.resposta.resposta-vazia p.resposta,
+body div.resposta-em-branco,
 body.resposta p.pesquisa {
   display: none;
 }
-body.resposta p.resposta {
-  display: block;
-}
+
 h3,
 .corpo h1 {
   font-family: 'Open Sans';

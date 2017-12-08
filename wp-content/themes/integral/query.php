@@ -117,6 +117,10 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
       <div id="dados_filtrados">
         <p>Seus resultados vão aparecer aqui...</p>
       </div>
+      <div class="resposta-em-branco">
+        <img src="<?= get_template_directory_uri() ?>/images/sadface.svg" alt="Carinha triste">
+        <p class="alerta"><strong>Infelizmente, não temos nenhum perfil com os critérios selecionados. Tente outras combinações e contribua para o #MeRepresenta crescer na sua região.</strong></p>
+      </div>
     </div>
   </div>
 </div>
@@ -151,6 +155,7 @@ var downloadAllData = function() {
   });
   frm.submit();
 };
+
 var requisitaDados = function(inicial) {
   spinner.removeClass("invisible");
   jQuery.ajax({
@@ -167,19 +172,22 @@ var requisitaDados = function(inicial) {
       spinner.addClass("invisible");
     },
     success: function(resultado) {
+      jQuery("#filtros").removeClass("col-md-12").addClass("col-md-4");
+      jQuery("#resultado").removeClass("col-md-12").addClass("col-md-8");
+      jQuery(".doble").children().removeClass("col-md-6").addClass("col-md-12");
+      jQuery("body").addClass('resposta');
+      jQuery("body").removeClass('resposta-vazia');
+
       if(resultado.data.length > 0) {
-        jQuery("#filtros").removeClass("col-md-12").addClass("col-md-4");
-        jQuery("#resultado").removeClass("col-md-12").addClass("col-md-8");
-        jQuery(".doble").children().removeClass("col-md-6").addClass("col-md-12");
         viewObject.desenhaDadosFiltrados(resultado);
         if (typeof(resultado.filter_data) != 'undefined') {
           viewObject.atualizaFiltros(resultado.filter_data);
           viewObject.marcaFiltro(resultado.query);
           query = resultado.query;
         }
-        jQuery("body").addClass('resposta');
       } else {
-        viewObject.desenhaDadosFiltradosVazio("Sem dados ligados à requisição");
+        viewObject.desenhaDadosFiltradosVazio("");
+        jQuery("body").addClass('resposta-vazia');
       }
     }
   });

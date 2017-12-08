@@ -23,7 +23,7 @@
   background-color: #632b98;
   border-color: #632b98;
   color: #fff;
-} 
+}
 .container.corpo {
   margin-top: 10em;
 }
@@ -33,7 +33,7 @@ body.resposta.resposta-vazia div.resposta-em-branco
 {
   display: block;
 }
-body p.resposta, 
+body p.resposta,
 body.resposta.resposta-vazia p.resposta,
 body div.resposta-em-branco,
 body.resposta p.pesquisa {
@@ -403,8 +403,7 @@ section.hero {
   text-indent: -9999px;
 }
 /* Pagina politicos id 20 + pagina politica de privacidade id 14*/
-body.page-id-14,
-body.page-id-20 {
+body.page-id-14 {
   padding-top: 67px;
 }
 body.page-id-14 {
@@ -513,4 +512,14 @@ input[type=checkbox].chk-cidade {
 }
 #cidades-escolhidas>label {
     padding-right: .5em;
+}
+
+@media (max-width: 640px) {
+  .container.corpo {
+    margin-top: 0em;
+  }
+  .page-id-20 .bio {
+    padding: 0px 15px;
+    margin-bottom: 30px;
+  }
 }

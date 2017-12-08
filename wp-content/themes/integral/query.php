@@ -25,7 +25,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
     <div id="filtros" class="col-md-12">
       <div id="dados_menu">
         <div class="row doble">
-          <h3>Pautas</h3>
+          <h3 class="col-md-12">Pautas</h3>
           <div class="col-md-6">
             <ul class="list-unstyled">
             <?php

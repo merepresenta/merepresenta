@@ -1,4 +1,7 @@
 /** O arquivo que deve ser alterado é o que está na pasta integral/less/merepresenta.less */
+#dados_filtrados .panel>a:hover {
+  text-decoration: none;
+}
 .container .pagination>li>a {
   background-color: #d9b40f;
   border-color: #f3c809;

@@ -46,7 +46,7 @@ function ViewObject(siteUrl) {
             data += '<img src="//graph.facebook.com/v2.6/'+r["fb_id"]+'/picture?type=large" class="img-responsive img-rounded" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
           else
             data += '<img src="/wp-content/themes/integral/images/default-profile.jpg" class="img-responsive img-circle" alt="'+r["nome_candidato"]+'" title="'+r["nome_candidato"]+'">';
-          data += '<h4 class="title-name-politic">'+r["nome_candidato"]+'</h4>';
+          data += '<h4 class="title-name-politic">'+r["nome_urna"]+'</h4>';
           data += '<ul class="list-unstyled">';
           data += '<li>'+r["sigla_partido"].toUpperCase()+'</li>';
           data += '<li><b>'+r["nome_cidade"].toUpperCase()+'/'+r["sigla_estado"].toUpperCase()+'</b></li>';

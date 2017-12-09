@@ -32,7 +32,7 @@
 <script type="text/javascript" src="<?= get_template_directory_uri()?>/js/jquery-ui.min.js"></script>
 </head>
 
-<body <?php body_class(); ?>>    
+<body id="page-top" <?php body_class(); ?>>    
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 

@@ -1,9 +1,10 @@
 @cor-amarela: #d8b212;
 @cor-amarela-clara: #e6c220;
+@cor-amarelo-clarinho: #e9d78f;
 @cor-roxa: #582985;
 @cor-roxa-clara: #632b98;
 @cor-branca: #fff;
-@verde-escuro: #097e74;
+@cor-verde-escuro: #097e74;
 @cor-verde-claro: #0cb9b0;
 @cor-verde-clarinho: #10ccc2;
 @font-padrao: 'Open Sans', sans-serif;
@@ -63,6 +64,74 @@ body .navbar-brand {
   background-repeat: no-repeat;
   background-position: center;
   text-indent: -9999px;
+}
+
+
+
+/**              P À G I N A   E L E I T X              */
+body.page-id-60 {
+  background-color: @cor-amarela;
+  background-image: url(../images/zig_zag.png);
+}
+body.page-id-60>.navbar {
+  background-color: @cor-amarela;
+}
+body.page-id-60 .navbar-nav .menu-item a,
+.page-id-14 .navbar-nav .menu-item a {
+  color: @cor-branca;
+}
+body.page-id-60 .entry-title {
+  color: @cor-roxa;
+  font-size: 6em;
+  padding-top: 4rem;
+}
+body.page-id-60 .content {
+  color: @cor-roxa;
+  padding: 1rem 0 1.5rem 0;
+}
+body.page-id-60 .eleitxs {
+  border-collapse: separate;
+  border-spacing: 1.5rem .5rem;
+  width: 100%;
+}
+body.page-id-60 .eleitxs>thead>tr {
+  height: 4rem;
+}
+body.page-id-60 .eleitxs>tbody td {
+  background-color: @cor-roxa;
+  border-radius: .35rem;
+  color: @cor-branca;
+  font-weight: bolder;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+}
+body.page-id-60 .eleitxs th>span {
+  background-color: @cor-verde-claro;
+  border-radius: .75rem;
+  font-weight: bolder;
+  padding: .75rem 2rem;
+  text-transform: uppercase;
+}
+body.page-id-60 .to-top {
+  position: absolute;
+  background-image: url(../images/ChevronTop.svg);
+  background-color: @cor-amarelo-clarinho;
+  background-position: 3px 3px;
+  background-repeat: no-repeat;
+  height: 25px;
+  right: 0;
+  width: 25px;
+}
+body.page-id-60 .to-top>span {
+  display: none;
+}
+body.page-id-60 .copyrightinfo,body.page-id-60 .copyrightinfo a {
+  font-weight: 500;
+  color: @cor-branca;
+  text-decoration: none;
+}
+body.page-id-60 .copyrightinfo a:hover {
+  text-decoration: underline;
 }
 
 /*
@@ -403,8 +472,8 @@ body.page-id-6 .container .pagination>li.active>a {
 }
 /* Botão download */
 body.page-id-6 #dados_filtrados>.btn {
-  background-color: @verde-escuro;
-  border-color: @verde-escuro;
+  background-color: @cor-verde-escuro;
+  border-color: @cor-verde-escuro;
   color: #fff;
   font-weight: bold;
   width: 20%;
@@ -499,4 +568,15 @@ body.page-id-20 .copyright {
     padding: 0px 15px;
     margin-bottom: 30px;
   }
+}
+
+
+/* Logo superior da página */
+body.page-id-60 .navbar-brand {
+  width: 250px;
+  height: 25px;
+  background-image: url('../images/logo_horizon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
 }

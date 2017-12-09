@@ -25,7 +25,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
     <div id="filtros" class="col-md-12">
       <div id="dados_menu">
         <div class="row doble">
-          <h3 class="col-md-12">Pautas</h3>
+          <h3 class="col-md-12 frm-label">Pautas</h3>
           <div class="col-md-6">
             <ul class="list-unstyled">
             <?php
@@ -49,30 +49,26 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             </ul>
           </div>
         </div>
-        <div class="row doble">
-          <div class="col-md-6" id="filtro_estado">
-            <h3>Estado</h3>
-            <ul class="list-unstyled list-inline">
-              <?php foreach ($ufs as $estado) { ?>
-              <li>
-                <label>
-                  <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"><span><?= $estado->sigla ?></span>
-                </label>
-              </li>
-              <?php } ?>
-            </ul>
-          </div>
-          <div class="col-md-6" id="filtro_cidade">
-            <h3>Cidade</h3>
-            <div class="input-group">
-              <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ex: Recife">
-            </div>
-            <div id="cidades-escolhidas"></div>
-          </div>
+        <div id="filtro_estado">
+          <h3 class="frm-label">Estado</h3>
+          <ul class="list-unstyled list-inline">
+            <?php foreach ($ufs as $estado) { ?>
+            <li>
+              <label>
+                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"><span><?= $estado->sigla ?></span>
+              </label>
+            </li>
+            <?php } ?>
+          </ul>
+        </div>
+        <div id="filtro_cidade">
+          <label for="filtro-cidade-escolha" class="frm-label">Cidade</label >
+          <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ex: Recife">
+          <div id="cidades-escolhidas"></div>
         </div>
         <div class="row">
           <div class="col-md-12" id="filtro_partido">
-            <h3>Partidos</h3>
+            <h3 class="frm-label">Partidos</h3>
             <ul class="list-unstyled list-inline">
               <?php foreach ($partidos as $partido) { ?>
               <li>
@@ -86,7 +82,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
         </div>
         <div class="row doble">
           <div class="col-md-6" id="filtro_genero">
-            <h3><a href="/genero-e-raca/">Gênero*</a></h3>
+            <h3 class="frm-label"><a href="/genero-e-raca/">Gênero*</a></h3>
             <ul class="list-unstyled list-inline">
               <?php foreach ($generos as $genero) { ?>
                 <li><label><input type="checkbox" value="<?= $genero->genero_tse ?>" id="genero_<?= $genero->genero_tse ?>" class="chk-genero"><span><?= $genero->genero_tse ?></span></label></li>
@@ -94,7 +90,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             </ul>
           </div>
           <div class="col-md-6" id="filtro_cor">
-            <h3><a href="/genero-e-raca/">Raça*</a></h3>
+            <h3 class="frm-label"><a href="/genero-e-raca/">Raça*</a></h3>
             <ul class="list-unstyled list-inline">
               <?php foreach ($cores as $cor) { ?>
               <li>
@@ -107,15 +103,14 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
-            <button id="bt_filtro" class="btn btn-primary btn-lg btn-block" role="button">Pesquisar</button>
+          <div class="col-md-12 div-botao">
+            <button id="bt_filtro" class="btn btn-lg btn-block" role="button">Pesquisar</button>
           </div>
         </div>
       </div>
     </div>
     <div id="resultado" class="col-md-12">
       <div id="dados_filtrados">
-        <p>Seus resultados vão aparecer aqui...</p>
       </div>
       <div class="resposta-em-branco">
         <img src="<?= get_template_directory_uri() ?>/images/sadface.svg" alt="Carinha triste">

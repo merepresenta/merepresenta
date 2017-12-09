@@ -1,13 +1,41 @@
 @cor-amarela: #d8b212;
+@cor-amarela-clara: #e6c220;
 @cor-roxa: #582985;
+@cor-roxa-clara: #632b98;
 @cor-branca: #fff;
+@verde-escuro: #097e74;
 @cor-verde-claro: #0cb9b0;
+@cor-verde-clarinho: #10ccc2;
 @font-padrao: 'Open Sans', sans-serif;
 
+.ui-autocomplete-loading {
+  background: white url("../images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+#spinner-home {
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  background-color: rgba(64, 64, 64, 0.6);
+  z-index: 1;
+}
+#spinner {
+  border-top: 3px solid @cor-branca;
+  border-bottom: 3px solid @cor-branca;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s ease-in-out infinite;
+  top: 38%;
+  left: 42%;
+  position: relative;
+}
+
 h2.entry-title, h1, h2 {
-  text-transform: uppercase;
-  font-weight: bolder;
   font-family: @font-padrao;
+  font-weight: bolder;
+  text-transform: uppercase;
 }
 .page h2 {
   font-size: 1.5rem;  
@@ -21,10 +49,25 @@ body.page-id-140 section.copyright {
   display: none;
 }
 
+/* Logo superior da página */
+/*body.page-id-14 .navbar-brand,
+body.page-id-93 .navbar-brand,
+body.page-id-114 .navbar-brand,
+body.page-id-140 .navbar-brand,
+body.page-id-6 .navbar-brand,
+body.page-id-90 .navbar-brand {*/
+body .navbar-brand {
+  width: 250px;
+  height: 25px;
+  background-image: url('../images/logo-amarelo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+}
+
 /*
    Fundo Roxo
 */
-
 body.page-id-114,
 body.page-id-114>nav.navbar,
 body.page-id-140,
@@ -35,15 +78,7 @@ body.page-id-114 .entry,
 body.page-id-140 .entry {
   color: @cor-branca;
 }
-body.page-id-114 .navbar-brand,
-body.page-id-140 .navbar-brand {
-  width: 250px;
-  height: 25px;
-  background-image: url('../images/logo-amarelo.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  text-indent: -9999px;
-}
+
 body.page-id-114 .navbar-default li a,
 body.page-id-114 .navbar-default .navbar-nav > li > a, 
 body.page-id-114 .navbar-default .navbar-nav > .active > a,
@@ -70,15 +105,6 @@ body.page-id-93>nav.navbar {
 body.page-id-14 .entry {
   color: @cor-branca;
 }
-body.page-id-14 .navbar-brand,
-body.page-id-93 .navbar-brand {
-  width: 250px;
-  height: 25px;
-  background-image: url('../images/logo-amarelo.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  text-indent: -9999px;
-}
 body.page-id-14 .navbar-default li a,
 body.page-id-14 .navbar-default .navbar-nav > li > a, 
 body.page-id-14 .navbar-default .navbar-nav > .active > a,
@@ -104,21 +130,20 @@ body.page-id-14 .copyright .copyrightinfo {
    Fundo branco
 */
 body.page-id-90,
-body.page-id-90>nav.navbar {
+body.page-id-90>nav.navbar,
+body.page-id-6,
+body.page-id-6>nav.navbar {
   background-color: @cor-branca;  
 }
+body.page-id-6,
+body.page-id-6 a,
 body.page-id-90 .entry,
 body.page-id-93 .entry {
   color: @cor-roxa;
 }
-body.page-id-90 .navbar-brand {
-  width: 250px;
-  height: 25px;
-  background-image: url('../images/logo-amarelo.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  text-indent: -9999px;
-}
+body.page-id-6 .navbar-default li a,
+body.page-id-6 .navbar-default .navbar-nav > li > a, 
+body.page-id-6 .navbar-default .navbar-nav > .active > a,
 body.page-id-90 .navbar-default li a,
 body.page-id-90 .navbar-default .navbar-nav > li > a, 
 body.page-id-90 .navbar-default .navbar-nav > .active > a {
@@ -261,5 +286,217 @@ body.page-id-140 .col-md-6.texto {
 @media screen and (min-width: 1200px) {
   body.page-id-140 .col-md-6.texto {
     padding-top: 6rem;
+  }
+}
+
+
+/* PÁGINA DE PESQUISA 1 */
+body.page-id-6 .page-header {
+  padding-top: 4rem;
+}
+body.page-id-6 .enfase {
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+body.page-id-6 .corpo input[type='checkbox'] {
+  display: none;
+}
+body.page-id-6 .frm-label,
+body.page-id-6 .corpo input[type='checkbox'] + span {
+  text-transform: uppercase;
+}
+body.page-id-6 .corpo input[type='checkbox'] + span::before {
+  content: '';
+  background-image: url('../images/aberto.svg');
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+}
+body.page-id-6 .corpo input[type='checkbox']:checked + span::before {
+  background-image: url('../images/fechado.svg');
+}
+body.page-id-6 p.pesquisa,
+body.page-id-6.resposta p.resposta,
+body.page-id-6.resposta.resposta-vazia div.resposta-em-branco
+{
+  display: block;
+}
+body.page-id-6 p.resposta,
+body.page-id-6.resposta.resposta-vazia p.resposta,
+body.page-id-6 div.resposta-em-branco,
+body.page-id-6.resposta p.pesquisa {
+  display: none;
+}
+body.page-id-6 .frm-label {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  letter-spacing: 1.20px;
+}
+body.page-id-6 .form-control {
+  border-color: @cor-roxa;
+  border-radius: 0.25rem;
+  color: @cor-roxa;
+}
+body.page-id-6.resposta .form-control {
+  background-color: @cor-amarela;
+}
+body.page-id-6 .btn {
+  background-color: @cor-roxa;
+  color: @cor-branca;
+  width: 75%;
+  display: inline-block;
+}
+body.page-id-6 div.div-botao {
+  text-align: center;
+  margin: 3rem 0px;
+}
+/* TELA PESQUISADOS */
+body.page-id-6.resposta {
+  background-color: @cor-amarela;
+  color: @cor-roxa;
+}
+body.page-id-6.resposta .navbar {
+  background-color: @cor-amarela;
+  color: @cor-branca;
+}
+/* Candidatos pesquisados */
+body.page-id-6 #dados_filtrados .panel {
+  border-color: @cor-roxa;
+}
+body.page-id-6 #dados_filtrados .panel-body {
+  background-color: @cor-roxa;
+  color: @cor-branca;
+}
+body.page-id-6 #dados_filtrados .panel-body:hover {
+  background-color: @cor-roxa-clara;
+}
+body.page-id-6 #dados_filtrados .panel.eleito {
+  border-color: @cor-verde-claro;
+}
+body.page-id-6 #dados_filtrados .panel.eleito .panel-body {
+  background-color: @cor-verde-claro;
+}
+body.page-id-6 #dados_filtrados .panel.eleito .panel-body:hover {
+  background-color: @cor-verde-clarinho;
+}
+body.page-id-6 #dados_filtrados .panel-body a {
+  color: @cor-branca;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+#dados_filtrados .panel>a:hover {
+  text-decoration: none;
+}
+/* Elementos de paginação */
+body.page-id-6 .container .pagination>li>a {
+  background-color: @cor-amarela;
+  border-color:  @cor-amarela-clara;
+}
+body.page-id-6 .container .pagination>li>a:hover {
+  background-color: @cor-amarela-clara;
+  border-color: @cor-amarela-clara;
+}
+body.page-id-6 .container .pagination>li.active>a {
+  background-color: @cor-roxa;
+}
+/* Botão download */
+body.page-id-6 #dados_filtrados>.btn {
+  background-color: @verde-escuro;
+  border-color: @verde-escuro;
+  color: #fff;
+  font-weight: bold;
+  width: 20%;
+  min-width: 150px;
+}
+
+/* PÁGINA DE CANDIDATOS */
+body.page-id-20 {
+  background-image: url('../images/zig_zag.png');
+  background-color: #00a99d;
+}
+body.page-id-20 .navbar,
+.page-id-14 .navbar {
+  background: #00a99d;
+}
+body.page-id-20 .navbar-default .navbar-nav > li {
+    margin-left: 20px;
+}
+body.page-id-20 .navbar-nav .menu-item a,
+.page-id-14 .navbar-nav .menu-item a {
+  color: #fff;
+}
+body.page-id-20 .img-circle {
+  margin: 25px;
+}
+body.page-id-20 .info-text.name {
+  font-size: 36px;
+  padding: 0px 50px 0px 0px;
+}
+body.page-id-20 .info-text {
+  color: #fff;
+  font-size: 18px;
+}
+body.page-id-20 .bio-header {
+  color: #582985;
+  text-transform: uppercase;
+}
+body.page-id-20 .bio-header .bio-txt {
+  padding-top: 20px;
+}
+body.page-id-20 .bio-header .bio-txt h1 {
+  font-weight: 700;
+}
+body.page-id-20 .bio-header .bio-txt h2 {
+  margin-top: 5px;
+  font-size: 24px;
+}
+body.page-id-20 .bio-header span.badge-default {
+  color: #FFF;
+  background-color: #582985;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+body.page-id-20 .bio {
+  background-color: #00a99d;
+  color: #fff;
+  padding: 100px 60px;
+  margin-bottom: 90px;
+}
+body.page-id-20 h3 {
+  color: #582985;
+}
+body.page-id-20 .respostas table {
+  padding-top: 5px;
+  border-collapse: unset;
+  border-spacing: 12px;
+}
+body.page-id-20 td {
+  color: #fff;
+  /*border: 2px solid #fff;*/
+  background-color: #582985;
+  border-radius: 10px;
+  padding: 10px;
+  text-transform: uppercase;
+}
+body.page-id-20 td.nao {
+  color: #582985;
+  background-color: #d8b212;
+}
+
+body.page-id-20 .can-pic {
+  margin: 25px;
+}
+body.page-id-20 .copyright {
+  background-color: #d8b212;
+}
+@media (max-width: 640px) {
+  .container.corpo {
+    margin-top: 0em;
+  }
+  body.page-id-20 .bio {
+    padding: 0px 15px;
+    margin-bottom: 30px;
   }
 }

@@ -6,7 +6,9 @@ var
   , autoprefixer = require('gulp-autoprefixer')
   // , concat = require('gulp-concat')
   , cssmin = require('gulp-cssmin')
-  , browserSync = require('browser-sync');
+  , browserSync = require('browser-sync')
+  , uglify = require('gulp-uglify')
+  , coffee = require('gulp-coffee');
 
 gulp.task('min-img', function(){
   gulp.src('../imagens/jpg/*.jpg')
@@ -43,6 +45,16 @@ gulp.task('server', function(){
       })
       .pipe(cssLint.formatter());
   });
+
+  gulp.watch('../../wp-content/themes/integral/coffee/**/*.coffee', { sourcemaps: true }).on('change', function(event) {
+    console.log('Compilando arquivo coffee: ' + event.path);
+    gulp.src(event.path)
+      .pipe(coffee({ bare: true }).on('error', function(error){
+        console.log(error.message);
+      }))
+      .pipe(uglify())
+      .pipe(gulp.dest('../../wp-content/themes/integral/js'));    
+  })
 });
 
 gulp.task('lessc', function(){
@@ -53,4 +65,11 @@ gulp.task('lessc', function(){
     .pipe(autoprefixer())
     .pipe(cssmin())
     .pipe(gulp.dest('../../wp-content/themes/integral/css'));
+});
+
+gulp.task('coffeec', function() {
+  gulp.src('../../wp-content/themes/integral/coffee/**/*.coffee', { sourcemaps: true })
+    .pipe(coffee({ bare: true }))
+    .pipe(uglify())
+    .pipe(gulp.dest('../../wp-content/themes/integral/js'));
 });

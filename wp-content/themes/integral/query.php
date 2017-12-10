@@ -24,7 +24,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
   <div class="row">
     <div id="filtros" class="col-md-12">
       <div id="dados_menu">
-        <div class="row doble">
+        <div id="filtro_pauta" class="row doble">
           <h3 class="col-md-12 frm-label">Pautas</h3>
           <div class="col-md-6">
             <ul class="list-unstyled">
@@ -46,6 +46,11 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php
             }
             ?>
+              <li>
+                <label>
+                  <input type="checkbox" class="check-all" checked><span>Qualquer pauta</span>
+                </label>
+              </li>
             </ul>
           </div>
         </div>
@@ -55,10 +60,16 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php foreach ($ufs as $estado) { ?>
             <li>
               <label>
-                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado"><span><?= $estado->sigla ?></span>
+                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado">
+                <span><?= $estado->sigla ?></span>
               </label>
             </li>
             <?php } ?>
+            <li>
+              <label>
+                <input type="checkbox" class="check-all" checked><span>Todos</span>
+              </label>
+            </li>
           </ul>
         </div>
         <div id="filtro_cidade">
@@ -77,6 +88,11 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
                 </label>
               </li>
               <?php } ?>
+              <li>
+                <label>
+                  <input type="checkbox" class="check-all" checked><span>Todos</span>
+                </label>
+              </li>
             </ul>
           </div>
         </div>
@@ -87,6 +103,11 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
               <?php foreach ($generos as $genero) { ?>
                 <li><label><input type="checkbox" value="<?= $genero->genero_tse ?>" id="genero_<?= $genero->genero_tse ?>" class="chk-genero"><span><?= $genero->genero_tse ?></span></label></li>
               <?php } ?>
+              <li>
+                <label>
+                  <input type="checkbox" class="check-all" checked><span>Todos</span>
+                </label>
+              </li>
             </ul>
           </div>
           <div class="col-md-6" id="filtro_cor">
@@ -99,6 +120,11 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
                 </label>
               </li>
               <?php } ?>
+              <li>
+                <label>
+                  <input type="checkbox" class="check-all" checked><span>Todos</span>
+                </label>
+              </li>
             </ul>
           </div>
         </div>
@@ -122,6 +148,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
 </main>
 
 <script type='text/javascript' src="<?= get_template_directory_uri() ?>/js/representou_query.js"></script>
+<script type='text/javascript' src="<?= get_template_directory_uri() ?>/js/quemterepresenta.js"></script>
 <script>
 var siteUrl = "<?= site_url() ?>";
 
@@ -284,7 +311,5 @@ jQuery(window).on("load",function(){
     configuraQuery();
     requisitaDados(1);
   });
-
-
 });
 </script>

@@ -40,7 +40,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
           <div class="col-md-6">
             <ul class="list-unstyled">
             <?php
-            foreach (array_slice($pautas, 8, 14) as $pauta) {
+            foreach (array_slice($pautas, 7, 14) as $pauta) {
             ?>
               <li><label><input type="checkbox" value="<?= $pauta->id ?>" id="pauta_<?= $pauta->id ?>" class="chk-pauta"><span><?= $pauta->texto_pesquisa ?></span></label></li>
             <?php

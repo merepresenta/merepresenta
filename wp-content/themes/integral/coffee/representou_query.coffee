@@ -180,7 +180,7 @@ class ViewObject
     container_ul = jQuery '<ul>',{class:"list-unstyled list-inline"}
     for elemento in cores.filter((c) -> c.cor_tse.trim() != '')
       @pCores.append container_ul.append(this._criaElemento "cutis_"+elemento.cor_tse, 'chk-cor', elemento.cor_tse, elemento.cor_tse)
-    @pCores.append container_ul.append(this._criaElemento "cutis_todos", 'check-all', null, "Todos")
+    @pCores.append container_ul.append(this._criaElemento "cutis_todos", 'check-all', null, "Todas")
 
   # Redesenha o filtro de situações eleitorais
   # @param situacoes Dados de situações eleitorais

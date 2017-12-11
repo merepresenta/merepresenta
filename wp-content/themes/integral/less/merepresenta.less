@@ -6,6 +6,7 @@
 @cor-cinza: #666;
 @cor-roxa: #582985;
 @cor-roxa-clara: #632b98;
+@cor-roxa-link: #9442e2;
 @cor-verde-claro: #0cb9b0;
 @cor-verde-clarinho: #10ccc2;
 @cor-verde-escuro: #097e74;
@@ -581,6 +582,16 @@ body .content .entry-title:after,
 .page-id-6 .enfase {
   font-weight: bolder;
   text-transform: uppercase;
+}
+.page-id-6 #filtro_genero .frm-label>a,
+.page-id-6 #filtro_cor .frm-label>a {
+  text-decoration: underline;
+  color: @cor-roxa;
+}
+.page-id-6 #filtro_genero .frm-label>a:hover,
+.page-id-6 #filtro_cor .frm-label>a:hover {
+  text-decoration: underline;
+  color: @cor-roxa-link;
 }
 /**
  * Controle da aparição das mensagens no topo

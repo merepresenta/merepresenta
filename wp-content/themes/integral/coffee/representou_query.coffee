@@ -167,7 +167,7 @@ class ViewObject
   # Redesenha o filtro de generos
   # @param generos Dados de genero
   _atualizaFiltroGeneros: (generos) ->
-    @pGeneros.html this._linkRacaGenero(this._createHeader("Gênero*"))
+    @pGeneros.html this._linkRacaGenero(this._createHeader("Gênero"))
     container_ul = jQuery '<ul>',{class:"list-unstyled list-inline"}
     for elemento in (generos.filter (c) -> c.genero.trim() != '')
       @pGeneros.append container_ul.append(this._criaElemento "genero_"+elemento.genero, 'chk-genero', elemento.genero, elemento.genero)
@@ -176,7 +176,7 @@ class ViewObject
   # Redesenha o filtro de pigmentação da raça
   # @param cores Dados de pigmentação da raça
   _atualizaFiltroRaca: (cores) ->
-    @pCores.html this._linkRacaGenero(this._createHeader("Raça*"))
+    @pCores.html this._linkRacaGenero(this._createHeader("Raça"))
     container_ul = jQuery '<ul>',{class:"list-unstyled list-inline"}
     for elemento in cores.filter((c) -> c.cor_tse.trim() != '')
       @pCores.append container_ul.append(this._criaElemento "cutis_"+elemento.cor_tse, 'chk-cor', elemento.cor_tse, elemento.cor_tse)

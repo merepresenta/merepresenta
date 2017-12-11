@@ -24,7 +24,8 @@
         <h1><?= $politico->nome_urna ?></h1>
         <h2>Cidade: <?= $politico->cidade_eleicao ?>, <?= $politico->uf_eleicao ?></h2>
         <h2>Votos: <?= $politico->votos_recebidos ?></h2>
-        <h2>Situacao eleitoral: <?= (strtolower($politico->situacao_eleitoral) == "eleito por média" || strtolower($politico->situacao_eleitoral)) == "eleito por média" ? "Eleito" : $politico->situacao_eleitoral ?></h2>
+        <?php $situacao_eleitoral = strtolower($politico->situacao_eleitoral) ?>
+        <h2><strong><?= ( $situacao_eleitoral == "eleito por média" || $situacao_eleitoral == "eleito por média" ) ? "Eleito" : $situacao_eleitoral ?></strong></h2>
         <ul class="list-unstyled list-inline">
           <li><span class="badge badge-default">Partido: <?= $politico->sigla_partido ?></span></li>
         </ul>

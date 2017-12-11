@@ -46,11 +46,6 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php
             }
             ?>
-              <li>
-                <label>
-                  <input type="checkbox" class="check-all" checked><span>Qualquer pauta</span>
-                </label>
-              </li>
             </ul>
           </div>
         </div>

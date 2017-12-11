@@ -68,7 +68,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
           </ul>
         </div>
         <div id="filtro_cidade">
-          <label for="filtro-cidade-escolha" class="frm-label">Cidade</label >
+          <label for="filtro-cidade-escolha" class="frm-label">Cidade (opcional)</label >
           <input type="text" name="cidade" id="filtro-cidade-escolha" class="form-control" placeholder="Ex: Recife">
           <div id="cidades-escolhidas"></div>
         </div>

@@ -3,7 +3,7 @@ class ViewObject
     # Painel que conterá a tabela com dados filtrados
     @pDadosFiltrados = jQuery("#dados_filtrados")
     # Painel de dados de Estado
-    @pUf = jQuery("#filtro_uf")
+    @pUf = jQuery("#filtro_estado")
     # Painel de dados de partido
     @pPartidos = jQuery("#filtro_partido")
     # Painel com dados de gênero
@@ -26,33 +26,39 @@ class ViewObject
     data = '<div class="row">';
     cnt = 1;
     jQuery(dados).each (idx,r) ->
-      data += '<div class="col-md-4">';
-      type_css_eleito = ((r["situacao_eleitoral"].toLowerCase() == 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() == 'eleito por qp')) ? ' eleito' : ''
-      type_txt_eleito = ((r["situacao_eleitoral"].toLowerCase() == 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() == 'eleito por qp')) ? 'Eleito' : r["situacao_eleitoral"].toLowerCase()
-      data += "<div class='panel panel-default#{type_css_eleito}'>"
-      data += "<a target='_blank' href='#{siteUrl}/politicos/?cand_id=#{r['id_candidatura']}'>"
-      data += '<div class="panel-body">';
+      type_css_eleito = ''
+      type_txt_eleito = ''
+      if r["situacao_eleitoral"]?
+        type_css_eleito = if ((r["situacao_eleitoral"].toLowerCase() == 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() == 'eleito por qp')) then ' eleito' else ''
+        type_txt_eleito = if ((r["situacao_eleitoral"].toLowerCase() == 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() == 'eleito por qp')) then 'Eleito' else r["situacao_eleitoral"].toLowerCase()
+
+      data += """
+        <div class="col-md-4">
+          <div class="panel panel-default#{type_css_eleito}">
+            <a target="_blank" href="#{siteUrl}/politicos/?cand_id=#{r['id_candidatura']}">
+              <div class="panel-body">"""
       if(!!r["fb_id"])
         data += "<img src='//graph.facebook.com/v2.6/#{r["fb_id"]}/picture?type=large' class='img-responsive img-rounded' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
       else
         data += "<img src='/wp-content/themes/integral/images/default-profile.jpg' class='img-responsive img-circle' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
-      data +=  """<h4 class="title-name-politic">#{r['nome_urna']}</h4>
-                  <ul class="list-unstyled">
-                    <li>#{r['sigla_partido'].toUpperCase()}</li>
-                    <li><b>#{r['nome_cidade'].toUpperCase()}/#{r['sigla_estado'].toUpperCase()}</b></li>
-                    <li><b>Votos:</b>#{r['votos_recebidos'].toLowerCase()}</li>
-                    <li><b>Situacao eleitoral:</b>#{type_txt_eleito}</li>
-                  </ul>
-                </div>
-              </a>
-            </div>"""
+      data +=  """
+                <h4 class="title-name-politic">#{r['nome_urna']}</h4>
+                <ul class="list-unstyled">
+                  <li>#{r['sigla_partido'].toUpperCase()}</li>
+                  <li><b>#{r['nome_cidade'].toUpperCase()}/#{r['sigla_estado'].toUpperCase()}</b></li>
+                  <li><b>Votos:</b>#{r['votos_recebidos'].toLowerCase()}</li>
+                  <li><b>Situacao eleitoral:</b>#{type_txt_eleito}</li>
+                </ul>
+              </div>
+            </a>
+          </div>"""
 
       if(cnt % 3 == 0)
         data += """</div></div><div class="row">"""
       else
         data += '</div>'
       cnt++;
-    data += '</div>';
+    data += '</div>'
 
 
   # Desenha os links de paginação (Painel de dados)
@@ -87,6 +93,7 @@ class ViewObject
     lnkDownload = jQuery("<a>", {text: "download", href: "#", class:"btn btn-default"})
     lnkDownload.on "click", downloadAllData
 
+
   # Desenha no painel de dados os dados de tabela, links de paginação e link de download.
   # @param resultado Resultado retornado na pesquisa
   # @return Painel contendo o link
@@ -96,32 +103,60 @@ class ViewObject
     @pDadosFiltrados.append this._desenhaLinkDownload()
 
 
+  _desmarcaAlvo: (selecao, alvo) ->
+    jQuery(selecao).on 'click', () ->
+      if (jQuery("#{selecao}:checked").size() > 0)
+        jQuery(alvo).attr('checked',false)
+      else
+        jQuery(alvo).attr('checked',true)
+    
+    jQuery(alvo).on 'click', () ->
+      jQuery("#{selecao}:checked").attr 'checked', false if(jQuery(alvo).attr 'checked')
+
+
+  criaFuncoesDesmarque: () ->
+    this._desmarcaAlvo ".chk-pauta", "#filtro_pauta .check-all"
+    this._desmarcaAlvo ".chk-estado", "#filtro_estado .check-all"
+    this._desmarcaAlvo ".chk-partido", "#filtro_partido .check-all"
+    this._desmarcaAlvo ".chk-genero", "#filtro_genero .check-all"
+    this._desmarcaAlvo ".chk-cor", "#filtro_cor .check-all"
+
+
   # Cria header
   _createHeader: (title)->
-    jQuery "<h3>", { text:title }
+    jQuery "<h3>", { text:title, class: 'frm-label' }
 
   # Redesenha o filtro de estados
   # @param estados Dados de estado
   _atualizaFiltroEstados: (estados) ->
-    pUf.html this._createHeader("Estados")
-    estados.forEach (elemento) ->
-      lbl = jQuery "<label>"
-      lbl.append jQuery("<input>", {type:"checkbox", value: elemento.sigla, id: "estado_"+elemento.sigla, class: 'chk_estado' } )
-      lbl.append elemento.sigla
-      @pUf.append lbl
+    @pUf.html this._createHeader("Estados")
+    container_ul = jQuery '<ul>',{class:"list-unstyled list-inline"}
+    for elemento in estados
+      @pUf.append container_ul.append(this._criaElemento  "estado_"+elemento.sigla, 'chk-estado', elemento.sigla, elemento.sigla)
+    @pUf.append container_ul.append(this._criaElemento  "estado_todos", 'check-all', null, "Todos")
 
   # Redesenha o filtro de partidos
   # @param partidos Dados de partido
   _atualizaFiltroPartidos: (partidos) ->
     @pPartidos.html this._createHeader("Partidos")
     container_ul = jQuery '<ul>',{class:"list-unstyled list-inline"}
-    partidos.forEach (elemento) ->
-      container_li = jQuery "<li>"
-      lbl = jQuery "<label>"
-      lbl.append( jQuery "<input>", {type:"checkbox", value: elemento.id, id: "partido_"+elemento.sigla, class: 'chk-partido' } )
-      lbl.append(jQuery "<span>", {text:elemento.sigla})
-      container_li.append lbl
-      @pPartidos.append container_ul.append(container_li)
+    for elemento in partidos
+      @pPartidos.append container_ul.append(this._criaElemento "partido_"+elemento.sigla, 'chk-partido', elemento.id, elemento.sigla)
+    @pPartidos.append container_ul.append(this._criaElemento "partido_todos", 'check-all', null, 'Todos')
+
+
+  # Cria os elementos que seguem o padrão
+  # @param chkId id do checkbox
+  # @param chkClass class do checkbox
+  # @param chkValue Valor do checkbox
+  # @param chkLabel Label do checkbox
+  _criaElemento: (chkId, chkClass, chkValue, chkLabel) ->
+    baseLI = jQuery "<li>"
+    lbl = jQuery "<label>"
+    lbl.append jQuery("<input>", { type: "checkbox", value: chkValue, id: chkId, class: chkClass } )
+    lbl.append jQuery("<span>", { text: chkLabel } )
+    baseLI.append lbl
+    baseLI
 
   # Cria link tanto para página que descreve raça e gênero
   # @param titulo Texto que aparecerá no link
@@ -134,40 +169,25 @@ class ViewObject
   _atualizaFiltroGeneros: (generos) ->
     @pGeneros.html this._linkRacaGenero(this._createHeader("Gênero*"))
     container_ul = jQuery '<ul>',{class:"list-unstyled list-inline"}
-
-    generos.filter (c) ->
-      c.genero.trim() != ''
-    .forEach (elemento) ->
-      container_li = jQuery "<li>"
-    lbl = jQuery "<label>"
-    lbl.append  jQuery("<input>", {type:"checkbox", value: elemento.genero, id: "genero_"+elemento.genero, class: 'chk-genero' } )
-    lbl.append jQuery("<span>", {text:elemento.genero})
-    container_li.append lbl
-    @pGeneros.append container_ul.append(container_li)
+    for elemento in (generos.filter (c) -> c.genero.trim() != '')
+      @pGeneros.append container_ul.append(this._criaElemento "genero_"+elemento.genero, 'chk-genero', elemento.genero, elemento.genero)
+    @pGeneros.append container_ul.append(this._criaElemento "genero_todos", 'check-all', null, "Todos")
 
   # Redesenha o filtro de pigmentação da raça
   # @param cores Dados de pigmentação da raça
-  _atualizaFiltroCores: (cores) ->
+  _atualizaFiltroRaca: (cores) ->
     @pCores.html this._linkRacaGenero(this._createHeader("Raça*"))
     container_ul = jQuery '<ul>',{class:"list-unstyled list-inline"}
-    cores.filter (c) ->
-      c.cor_tse.trim() != ''
-    .forEach (elemento) ->
-      container_li = jQuery "<li>"
-      lbl = jQuery "<label>"
-      lbl.append jQuery("<input>", {type:"checkbox", value: elemento.cor_tse, id: "cutis_"+elemento.cor_tse, class: 'chk-cor' } )
-      lbl.append jQuery("<span>", {text:elemento.cor_tse})
-      container_li.append lbl 
-      @pCores.append container_ul.append(container_li)
+    for elemento in cores.filter((c) -> c.cor_tse.trim() != '')
+      @pCores.append container_ul.append(this._criaElemento "cutis_"+elemento.cor_tse, 'chk-cor', elemento.cor_tse, elemento.cor_tse)
+    @pCores.append container_ul.append(this._criaElemento "cutis_todos", 'check-all', null, "Todos")
 
   # Redesenha o filtro de situações eleitorais
   # @param situacoes Dados de situações eleitorais
   _atualizaFiltroSituacoesEleitorais: (situacoes) ->
     @pSituacoes.html this._createHeader("Situações Eleitorais")
     container_ul = jQuery '<ul>',{class:"list-unstyled list-inline"}
-    situacoes.filter (c) ->
-      c.situacao_eleitoral != null && c.situacao_eleitoral.trim() != '' 
-    .forEach (elemento) ->
+    for elemento in situacoes.filter((c) -> c.situacao_eleitoral != null && c.situacao_eleitoral.trim() != '')
       container_li = jQuery "<li>"
       lbl = jQuery "<label>"
       lbl.append jQuery("<input>", {type:"checkbox", value: elemento.situacao_eleitoral, id: "situacao_"+elemento.situacao_eleitoral.replace(/\s/g, '_'), class: 'chk-sit-eleit' } )
@@ -181,50 +201,51 @@ class ViewObject
     this._atualizaFiltroEstados(filtros.estados);
     this._atualizaFiltroPartidos(filtros.partidos);
     this._atualizaFiltroGeneros(filtros.generos);
-    this._atualizaFiltroCores(filtros.cores);
+    this._atualizaFiltroRaca(filtros.cores);
     this._atualizaFiltroSituacoesEleitorais(filtros.situacoes_eleitorais);
+    this.criaFuncoesDesmarque()
+
 
    # Marca os checkboxes correspondentes as siglas passadas
    # @param sigla_estados lista de siglas
-  _marcaEstados: (sigla_estados) ->
+  _marcaEstados: (sigla_estados = []) ->
     sigla_estados.forEach (estado) ->
       jQuery("#estado_#{estado}").attr 'checked', 'checked'
+    jQuery('#estado_todos').attr 'checked', 'checked' if sigla_estados.length == 0
 
   # Marca os checkboxes correspondentes aos partidos passados
   # @param id_partidos lista de partidos
-  _marcaPartidos: (id_partidos) ->
+  _marcaPartidos: (id_partidos = []) ->
     id_partidos.forEach (id) ->
       jQuery(".chk-partido[value='#{id}']").attr 'checked', 'checked'
+    jQuery('#partido_todos').attr 'checked', 'checked' if id_partidos.length == 0
 
   # Marca os itens correspondentes aos generos passados
   # @param generos generos
-  _marcaGenero: (generos) ->
+  _marcaGenero: (generos = []) ->
     generos.forEach (genero) ->
       jQuery(".chk-genero[value=#{genero}]").attr 'checked', 'checked'
+    jQuery('#genero_todos').attr 'checked', 'checked' if generos.length == 0
 
   # Marca os checkboxes correspondentes às cores passadas
   # @param cores_tse lista de cores
-  _marcaCutis: (cores_tse) ->
+  _marcaRaca: (cores_tse = []) ->
     cores_tse.forEach (cutis) ->
       jQuery('#cutis_' + cutis).attr 'checked', 'checked'
+    jQuery('#cutis_todos').attr 'checked', 'checked' if cores_tse.length == 0
 
   # Marca os checkboxes correspondentes às situacoes eleitorais passadas
   # @param situacoes_eleitorais lista de situacoes eleitorais
-  _marcaSituacoesEleitorais: (situacoes_eleitorais) ->
+  _marcaSituacoesEleitorais: (situacoes_eleitorais = []) ->
     situacoes_eleitorais.forEach (situacao_eleitoral) ->
       jQuery("#situacao_#{situacao_eleitoral.replace(/\s/g, '_')}").attr 'checked', 'checked'
 
   # Marca as opções de acordo com o demonstrado na query realizada
   # @param query Query usada para fazer a requição, contém os dados a serem marcados
   marcaFiltro: ( query ) ->
-    if (typeof(query.sigla_estado) != 'undefined')
-      this._marcaEstados(query.sigla_estado)
-    if (typeof(query.id_partido) != 'undefined')
-      this._marcaPartidos(query.id_partido)
-    if (typeof(query.genero) != 'undefined')
-      this._marcaGenero(query.genero)
-    if (typeof(query.cor_tse) != 'undefined')
-      this._marcaCutis(query.cor_tse)
-    if (typeof(query.situacao_eleitoral) != 'undefined')
-      this._marcaSituacoesEleitorais(query.situacao_eleitoral)
-    classe
+    this._marcaEstados(query.sigla_estado)
+    this._marcaPartidos(query.id_partido)
+    this._marcaGenero(query.genero)
+    this._marcaRaca(query.cor_tse)
+    this._marcaSituacoesEleitorais(query.situacao_eleitoral)
+    null

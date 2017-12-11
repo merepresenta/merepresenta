@@ -60,7 +60,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
             <?php foreach ($ufs as $estado) { ?>
             <li>
               <label>
-                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk_estado">
+                <input type="checkbox" value="<?= $estado->sigla ?>" id="estado_<?= $estado->sigla ?>" class="chk-estado">
                 <span><?= $estado->sigla ?></span>
               </label>
             </li>
@@ -169,6 +169,7 @@ var quantidade_pagina = 10;
 var spinner = jQuery("#spinner-home");
 var necessitaRevisaoFiltros = false;
 var viewObject = new ViewObject(siteUrl);
+viewObject.criaFuncoesDesmarque();
 var downloadAllData = function() {
   var frm = jQuery("#download-files");
   jQuery("#download-files input").remove();
@@ -217,7 +218,7 @@ var requisitaDados = function(inicial) {
 var configuraQuery = function() {
   var oldPautas = ((! query)||(typeof(query.pautas) == "undefined")) ? [] : query.pautas;
   query =  { };
-  var estados = jQuery(".chk_estado:checked").map(function(i,obj){return obj.value}).toArray();
+  var estados = jQuery(".chk-estado:checked").map(function(i,obj){return obj.value}).toArray();
   if (estados.length>0) query.sigla_estado = estados;
 
   var cidades = jQuery(".chk-cidade:checked").map(function(i,obj){return jQuery(obj).attr("cid_id")}).toArray();

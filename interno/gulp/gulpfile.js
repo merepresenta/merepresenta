@@ -10,11 +10,6 @@ var
   , uglify = require('gulp-uglify')
   , coffee = require('gulp-coffee');
 
-gulp.task('min-img', function(){
-  gulp.src('../imagens/jpg/*.jpg')
-    .pipe(imagemin())
-    .pipe(gulp.dest('../../wp-content/themes/integral/images'));
-});
 gulp.task('server', function(){
   browserSync.init({
     proxy: 'merepresenta.host'
@@ -52,9 +47,14 @@ gulp.task('server', function(){
       .pipe(coffee({ bare: true }).on('error', function(error){
         console.log(error.message);
       }))
-      .pipe(uglify())
       .pipe(gulp.dest('../../wp-content/themes/integral/js'));    
   })
+});
+
+gulp.task('min-img', function(){
+  gulp.src('../imagens/jpg/*.jpg')
+    .pipe(imagemin())
+    .pipe(gulp.dest('../../wp-content/themes/integral/images'));
 });
 
 gulp.task('lessc', function(){
@@ -72,4 +72,8 @@ gulp.task('coffeec', function() {
     .pipe(coffee({ bare: true }))
     .pipe(uglify())
     .pipe(gulp.dest('../../wp-content/themes/integral/js'));
+});
+
+gulp.task('default', ["min-img", "lessc", "coffeec"] , function() {
+  
 });

@@ -168,7 +168,7 @@ var query = null;
 var quantidade_pagina = 10;
 var spinner = jQuery("#spinner-home");
 var necessitaRevisaoFiltros = false;
-var viewObject = ViewObject(siteUrl);
+var viewObject = new ViewObject(siteUrl);
 var downloadAllData = function() {
   var frm = jQuery("#download-files");
   jQuery("#download-files input").remove();

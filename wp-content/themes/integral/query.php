@@ -140,7 +140,8 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
       </div>
       <div class="resposta-em-branco">
         <img src="<?= get_template_directory_uri() ?>/images/sadface.svg" alt="Carinha triste">
-        <p class="alerta"><strong>Infelizmente, não temos nenhum perfil com os critérios selecionados. Tente outras combinações e contribua para o #MeRepresenta crescer na sua região.</strong></p>
+        <p class="alerta"><strong>São 890 perfis cadastrados em 24 estados e 244 cidades. Infelizmente, não temos nenhum com os critérios selecionados. Tente outras combinações e considere construir com a gente. Contribua para o #MeRepresenta crescer na sua região!</strong></p>
+        <a href="/construa-com-a-gente" class="btn">Construa com a Gente</a>
       </div>
     </div>
   </div>

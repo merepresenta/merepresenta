@@ -1,3 +1,4 @@
+<div class="spacer"></div>
 <main>
 <?php
   require_once("ambiente.php");

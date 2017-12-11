@@ -47,7 +47,7 @@ class ViewObject
                   <li>#{r['sigla_partido'].toUpperCase()}</li>
                   <li><b>#{r['nome_cidade'].toUpperCase()}/#{r['sigla_estado'].toUpperCase()}</b></li>
                   <li><b>Votos:</b>#{r['votos_recebidos'].toLowerCase()}</li>
-                  <li><b>#{type_txt_eleito}</b></li>
+                  <li class="data_situacao_cadastral"><b>#{type_txt_eleito}</b></li>
                 </ul>
               </div>
             </a>

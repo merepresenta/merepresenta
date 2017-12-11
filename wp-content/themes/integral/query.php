@@ -9,6 +9,7 @@ $generos = $queryRunner->get_results("select distinct genero_tse from Pessoa whe
 $cores = $queryRunner->get_results("select distinct cor_tse from Pessoa where cor_tse <> '' order by cor_tse");
 $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleitoral from Candidatura where situacao_eleitoral <> '' order by situacao_eleitoral");
 ?>
+<div class="spacer"></div>
 <form id="download-files" action="<?= get_template_directory_uri() ?>/download.php" method="post" ></form>
 <main>
 <div id="spinner-home" class="invisible">
@@ -18,7 +19,7 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
   </div>
 </div>
 <div class="container corpo pesquisa">
-  <h1 class="page-header">Quem te representa?</h1>
+  <h2 class="entry-title"><?php the_title(); ?></h2>
   <p class="pesquisa">Escolha pautas importantes para você ou sua entidade e clique em <span class="enfase">pesquisar</span> para mostrar candidatas e candidatos de 2016 que disseram apoiar essas questões. (dependendo do número de candidaturas filtradas, pode ser que demore um pouquinho, tenha paciência :)</p>
   <p class="resposta">Clicando nos links das candidaturas você vê como a pessoa se posicionou em nossa plataforma. Você também pode filtrar esses resultados por pauta, partido, estado, cidade, gênero ou raça.</p>
   <div class="row">

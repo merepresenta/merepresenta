@@ -59,11 +59,8 @@ h1, h2 {
   font-weight: bolder;
   text-transform: uppercase;
 }
-.page h2 {
-  font-size: 1.5rem;  
-}
 .entry-title {
-  font-size: 3rem;  
+  font-size: 4rem;  
   padding-bottom: 2em;
 }
 body .content .entry-title:after,
@@ -557,6 +554,16 @@ body .content .entry-title:after,
 /*
    Fundo branco
 */
+@media screen and (min-width: 768px) {
+  .page-id-6 .spacer {
+    height: 140px;
+  }  
+}
+@media screen and (min-width: 1200px) {
+  .page-id-6 .spacer {
+    height: 100px;
+  }  
+}
 .page-id-6,
 .page-id-6>nav.navbar {
   background-color: @cor-branca;  
@@ -576,9 +583,6 @@ body .content .entry-title:after,
 /**
  * Corpo
  */
-.page-id-6 .page-header {
-  padding-top: 8rem;
-}
 .page-id-6 .enfase {
   font-weight: bolder;
   text-transform: uppercase;
@@ -649,6 +653,9 @@ body .content .entry-title:after,
   color: @cor-branca;
   width: 75%;
   display: inline-block;
+}
+.page-id-6 .btn:hover {
+  background-color: @cor-roxa-link;
 }
 .page-id-6 div.div-botao {
   margin: 3rem 0px;

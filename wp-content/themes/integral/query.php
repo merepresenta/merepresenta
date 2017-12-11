@@ -212,6 +212,9 @@ var requisitaDados = function(inicial) {
         viewObject.desenhaDadosFiltradosVazio("");
         jQuery("body").addClass('resposta-vazia');
       }
+      jQuery('html, body').animate({
+        scrollTop: jQuery("#resultado").offset().top
+    }, 1500);
     }
   });
 }

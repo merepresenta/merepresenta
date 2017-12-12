@@ -19,66 +19,78 @@
 
   <div class="row">
     <?php
+    $cnt = 0;
     query_posts( 'cat=4&posts_per_page=4' );// for articles from newspapers or related
     while ( have_posts() ) : the_post();
     ?>
       <div class="col-md-3">
         <div class="panel panel-default">
           <div class="panel-body">
-            <?=the_post_thumbnail(array( 200, 300 ));?>
-            <h3><!--<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">--><?=the_title();?></h3>
+            <span data-toggle="modal" data-target="#myModal-<?=$cnt?>"><?=the_post_thumbnail(array( 200, 300 ));?></span>
+            <h3><?=the_title();?></h3>
             <h4><?php the_time('d/m/Y'); ?></h4>
+
+            <div class="modal fade" id="myModal-<?=$cnt?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <?=the_post_thumbnail( 'full' );?>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     <?php
+      $cnt++;
     endwhile;
     wp_reset_query();
     ?>
   </div>
 </div>
 
-<div class="container" id="page-video" data-ride="carousel">
+<div class="container carousel slide" id="page-video" data-ride="carousel">
   <!-- destacado -->
-  <div class="row">
+  <div class="row carousel-inner" role="listbox">
     <?php
-    query_posts( 'cat=3&tag=destacado&posts_per_page=1' );// for videos
+    $cnt = 0;
+    query_posts( 'cat=3' );// for videos
     while ( have_posts() ) : the_post();
       $url_video = get_post_meta( get_the_ID(), 'video' );
       $embed_video = substr($url_video[0],-11);
     ?>
-    <div class="col-md-8">
-      <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube-nocookie.com/embed/<?=$embed_video?>" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+    <div class="item <?=($cnt==0)?'active':''?>">
+      <div class="col-md-8">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube-nocookie.com/embed/<?=$embed_video?>" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h4><?=the_title();?></h4>
+        <h5><?php the_time('d/m/Y'); ?></h5>
+        <?=the_content()?>
       </div>
     </div>
-    <div class="col-md-4">
-      <h4><?=the_title();?></h4>
-      <h5><?php the_time('d/m/Y'); ?></h5>
-      <?=the_content()?>
-    </div>
     <?php
+      $cnt++;
     endwhile;
     wp_reset_query();
     ?>
   </div>
   <!-- destacado -->
 
-  <div class="row">
+  <div class="row" class="carousel-indicators">
     <?php
     $cnt = 0;
-    query_posts( 'cat=3&posts_per_page=6' );// for videos
+    query_posts( 'cat=3' );// for videos
     while ( have_posts() ) : the_post();
     ?>
-    <div class="col-md-2">
+    <div class="col-md-2" data-target="#page-video" data-slide-to="<?=$cnt?>">
       <div class="panel panel-default">
-        <div class="panel-body" data-target="#page-video" data-slide-to="<?=$cnt?>">
+        <div class="panel-body">
           <?php
           $url_video = get_post_meta( get_the_ID(), 'video' );
           $preview_video = substr($url_video[0],-11);
           ?>
           <img src="//img.youtube.com/vi/<?=$preview_video?>/default.jpg" alt="<?=the_title();?>">
-          <h4><!--<a href="<?= $url_video[0] ?>" target="_blank" title="<?php the_title_attribute(); ?>">--><?=the_title();?></h4>
+          <h4><?=the_title();?></h4>
           <h5><?php the_time('d/m/Y'); ?></h5>
         </div>
       </div>

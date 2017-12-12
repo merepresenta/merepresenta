@@ -51,11 +51,19 @@ gulp.task('server', function(){
   })
 });
 
-gulp.task('min-img', function(){
+gulp.task('min-img-jpg', function(){
   gulp.src('../imagens/jpg/*.jpg')
     .pipe(imagemin())
     .pipe(gulp.dest('../../wp-content/themes/integral/images'));
 });
+
+gulp.task('min-img-png', function(){
+  gulp.src('../imagens/png/*.png')
+    .pipe(imagemin())
+    .pipe(gulp.dest('../../wp-content/themes/integral/images'));
+});
+
+gulp.task('min-img', ['min-img-jpg', 'min-img-png'],  function(){});
 
 gulp.task('lessc', function(){
   gulp.src('../../wp-content/themes/integral/less/*.less')

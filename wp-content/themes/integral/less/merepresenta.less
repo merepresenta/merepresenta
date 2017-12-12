@@ -13,7 +13,7 @@
 @font-padrao: 'Open Sans', sans-serif;
 
 /* CopyRight de imagens */
-.page-id-93::after, .page-id-140::after {
+.page-id-93::after, .page-id-140::after, .page-id-248::after {
   content: 'FOTO: MÍDIA NINJA';
 
   color: white;
@@ -855,3 +855,39 @@ body .content .entry-title:after,
 }
 
 
+/*        P Á G I N A   D E   E M A I L   E N V I A D O   C O M   S U C E S S O        */
+.page-id-231 {
+  background-color: @cor-verde-claro;
+  background-image: url(../images/FALE-COM-A-GENTE.jpg);
+  background-position: bottom;
+  background-repeat: repeat-y;
+  background-size: cover;
+  color: @cor-roxa;
+}
+.page-id-231>nav.navbar {
+  background-color: @cor-verde-claro;
+}
+
+.page-id-231 .entry-title {
+  display: none;
+}
+.page-id-231 .agradecimento {
+  font-size: 4rem;
+  text-align: center;
+  font-weight: bolder;
+}
+.page-id-231 .mensagem {
+  font-size: 2rem;
+}
+/**
+ * Informações de copyright
+ */
+.page-id-231 .copyright,.page-id-231 .copyrightinfo,.page-id-231 .copyrightinfo a {
+  background-color: @cor-roxa;
+  color: @cor-branca;
+  font-weight: 500;
+  text-decoration: none;
+}
+.page-id-231 .copyrightinfo a:hover {
+  text-decoration: underline;
+}

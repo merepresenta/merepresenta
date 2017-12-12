@@ -71,7 +71,6 @@ class EmailSender {
     $mail->Body = $this->message;
  
     // Send Email.
-    error_log("Enviando email !!!");
     $retorno = $mail->send();
 
     $mail->ClearAllRecipients();
@@ -79,4 +78,4 @@ class EmailSender {
   }
 
 }
-  
+?>

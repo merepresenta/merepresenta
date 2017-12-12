@@ -75,5 +75,9 @@
 
         return $retorno;
     }
+
+    function emailSender() {
+      return new EmailSender();
+    }
   }
 ?>

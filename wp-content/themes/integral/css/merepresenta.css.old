@@ -1,0 +1,527 @@
+/** O arquivo que deve ser alterado é o que está na pasta integral/less/merepresenta.less */
+#bt_filtro:hover {
+  background-color: #632b98;
+  border-color: #632b98;
+  color: #fff;
+}
+.container.corpo {
+  margin-top: 10em;
+}
+
+h3,
+.corpo h1 {
+  font-family: 'Open Sans';
+  text-transform: uppercase;
+  font-weight: bolder;
+  letter-spacing: .2em;
+  font-size: 4em;
+}
+h1 {
+  text-weight: 900;
+}
+.corpo {
+  font-family: 'Open Sans';
+}
+.corpo .enfase {
+  font-family: 'Open Sans';
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.corpo .form-control {
+  border-color: #582985;
+}
+
+/** Geral */
+p {
+  text-align: justify;
+}
+li {
+  text-align: justify;
+}
+.copyrightinfo p {
+  color: #fff;
+}
+.copyrightinfo p a {
+  color: #eee;
+  text-decoration: underline;
+}
+.navbar-brand {
+  width: 250px;
+  height: 25px;
+  background-image: url('../images/logo_horizon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+}
+.navbar-default .navbar-nav > li {
+  margin-left: 25px;
+}
+/** Página REPRESENTOU */
+.page-id-6 {
+  background-color: #fff;
+  color: #582985;
+}
+
+body #menu-menu-principal li.menu-item a {
+  color: #582985;
+}
+.page-id-6 .navbar {
+  background-color: #fff;
+  color: #582985;
+}
+
+.page-id-6 a {
+  color: #582985;
+}
+.page-id-6 a:focus, .page-id-6 a:hover {
+  color: #582985;
+}
+
+.page-id-6 li {
+  text-align: unset;
+}
+
+.page-id-6 .btn-primary {
+  color: #FFF;
+  font-weight: bold;
+  background-color: #582985;
+  border-color: #582985;
+}
+
+.page-id-6 .btn-primary:active,
+.page-id-6 .btn-primary:focus {
+  background-color: #582985;
+  border-color: #582985;
+}
+
+.page-id-6 #filtro-cidade-escolha {
+  border-radius: .5em;
+  background-color: #fff;
+  border-color: #582985;
+  color: #582985;
+}
+.page-id-6.resposta #filtro-cidade-escolha {
+  border-radius: .5em;
+  background-color: #d9b40f;
+  border-color: #582985;
+  color: #582985;
+}
+
+.page-id-6 #filtro-cidade-escolha::placeholder {
+  color: #582985;
+}
+
+
+.page-id-6 #dados_menu {
+  padding-bottom: 20px;
+}
+
+.box {
+  width: 14ch;
+  height: 14ch;
+  top: 50%;
+  left: 50%;
+  position: relative;
+  background: none;
+  border: none;
+}
+.box > span {
+  color: #fff;
+  position: absolute;
+  bottom: .5em;
+  left: .7em;
+}
+.invisible {
+  display: none;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.dropdown-check-list {
+  display: inline-block;
+  width: 100%;
+}
+.dropdown-check-list:focus {
+  outline: 0;
+}
+.dropdown-check-list .anchor {
+  width: 98%;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  border: 1px #ccc solid;
+}
+.dropdown-check-list .anchor:after {
+  position: absolute;
+  content: "";
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  padding: 5px;
+  right: 10px;
+  top: 20%;
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+.dropdown-check-list .anchor:active:after {
+  right: 8px;
+  top: 21%;
+}
+.dropdown-check-list ul.items {
+  padding: 2px;
+  display: none;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.dropdown-check-list.visible .anchor {
+  color: #0094ff;
+}
+.dropdown-check-list.visible .items {
+  display: block;
+}
+/* PAGINA REPRESENTOU id 6 + pagina eleitxs id 60 */
+body.page-id-60 {
+  background: #fff;
+  padding-top: 67px;
+  color: #572980;
+}
+
+.page-id-60 .navbar,
+section.work h2.bigtitle span {
+  background: #fff;
+}
+
+.page-id-60 .navbar-nav .menu-item a {
+  color: #fff;
+}
+
+.page-id-60 .navbar-brand {
+  width: 250px;
+  height: 25px;
+  background-image: url('../images/logo_horizon_blue.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+}
+.page-id-6 .table-striped > tbody > tr:nth-of-type(2n+1) {
+  background-color: #845da9;
+}
+.page-id-6 .table-striped a {
+  text-decoration: underline;
+  color: #fff;
+}
+#filtro_pautas label {
+  display: block;
+}
+.page-id-6 .lnk-paginacao {
+  display: block;
+  float: left;
+  margin: 2px;
+  text-decoration: none;
+  background-color: #845da9;
+  color: #fff;
+  padding: 2px 5px 2px 5px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  border-radius: 5px;
+}
+.page-id-6 button,
+.page-id-6 input,
+.page-id-6 select {
+  color: #555;
+}
+/* Pagina eleitas e eleitos */
+section.work {
+  background: #643d99;
+  color: #fff;
+}
+table.eleitxs {
+  padding-top: 5px;
+  border-collapse: unset;
+  border-spacing: 12px;
+  width: 100%;
+}
+.eleitxs td {
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 10px;
+  width: 33%;
+}
+.eleitxs td a {
+  text-decoration: underline;
+  color: #fff;
+}
+.resp-negativa {
+  background-color: #00a99d;
+  color: #d8b22a;
+}
+/* Home page */
+section.hero {
+  background-image: url('../images/welcome_background.png');
+}
+.page-template-template_home .navbar {
+  background: #643d99;
+}
+.page-template-template_home .navbar-nav .menu-item a {
+  color: #fff;
+}
+.page-template-template_home .navbar-brand {
+  width: 250px;
+  height: 25px;
+  background-image: url('../images/logo_horizon_blue.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+}
+/* Pagina politicos id 20 + pagina politica de privacidade id 14*/
+body.page-id-14 {
+  padding-top: 67px;
+}
+body.page-id-14 {
+  background: #00a99d;
+}
+.page-id-14 li {
+  margin-top: 5px;
+}
+/* Pagina quem somos id 39 */
+body.page-id-39,
+section.about,
+section.about h2.bigtitle span {
+  background-color: #d8b22a;
+  color: #582985;
+}
+body.page-id-39 container a {
+  color: #666666;
+}
+.page-id-39 .navbar {
+  background-color: #d8b22a;
+}
+.page-id-39 .navbar-nav .menu-item a {
+  color: #582985;
+}
+input[type=checkbox].chk-cidade {
+  display: inline-block;
+}
+#cidades-escolhidas>label {
+    padding-right: .5em;
+}
+
+@media (max-width: 640px) {
+  .container.corpo {
+    margin-top: 0em;
+  }
+  .page-id-20 .bio {
+    padding: 0px 15px;
+    margin-bottom: 30px;
+  }
+}
+
+
+/* No site */
+/*
+Você pode adicionar seu próprio CSS aqui.
+
+Clique no ícone de ajuda acima para saber mais.
+*/
+/* Nova home */
+body.page-id-140 {
+  background-color: #582985;
+  background-image: url(http://dev.merepresenta.org.br/wp-content/uploads/2017/12/IMAGEM-HOME.png);
+  color: #fff;
+}
+body.page-id-140 nav {
+  background-color: #582985;
+}
+body.page-id-140 section.copyright {
+  display: none;
+}
+body.page-id-140 .navbar-brand {
+  width: 250px;
+  height: 25px;
+  background-image: url('http://dev.merepresenta.org.br/wp-content/uploads/2017/12/logo-amarelo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+}
+body.page-id-140 .entry-title {
+  display: none;
+}
+body.page-id-140 .texto {
+  padding-top: 10%;
+}
+body.page-id-140 .texto .btn {
+   background-color: #d8b212;
+   color: #582985;
+   text-transform: uppercase;
+   font-weight: bold;
+   width: 100%;
+}
+body.page-id-140 .texto {
+  display: inline-block;
+  position: relative;
+}
+body.page-id-140 #menu-menu-principal li.menu-item a {
+  color: #fff;
+  font-weight: bold;
+}
+
+/*
+body.page-id-140 .copyright {
+  width: 100%;
+}
+body.page-id-140 .btn.btn-primary {
+  background-color: #00a99d;
+}
+*/
+/* Quem Somos */
+body.page-id-114 {
+    background-color: #572486;
+    color: #fff;
+    font-family: 'Open Sans',sans-serif;
+}
+body.page-id-114 h2.entry-title {
+    color: #d8b212;
+    text-transform: uppercase;
+    font-family: 'Open Sans',sans-serif;
+    font-size: 5em;
+    font-weight: bolder;
+}
+
+/* Home page */
+section.hero {
+  background-image: url('../images/welcome_background.png');
+}
+.page-template-template_home .navbar {
+  background: #643d99;
+}
+.page-template-template_home .navbar-nav .menu-item a {
+  color: #fff;
+}
+.page-template-template_home .navbar-brand {
+  width: 250px;
+  height: 25px;
+  background-image: url('../images/logo_horizon_blue.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+}
+/* Pagina politicos id 20 + pagina politica de privacidade id 14*/
+body.page-id-14,
+body.page-id-20 {
+  padding-top: 67px;
+}
+body.page-id-14 {
+  background: #00a99d;
+}
+.page-id-20 {
+  background-image: url('../images/zig_zag.png');
+  background-color: #00a99d;
+}
+.page-id-20 .navbar,
+.page-id-14 .navbar {
+  background: #00a99d;
+}
+.page-id-20 .navbar-default .navbar-nav > li {
+    margin-left: 20px;
+}
+.page-id-20 .navbar-nav .menu-item a,
+.page-id-14 .navbar-nav .menu-item a {
+  color: #fff;
+}
+.page-id-20 .img-circle {
+  margin: 25px;
+}
+.page-id-20 .info-text.name {
+  font-size: 36px;
+  padding: 0px 50px 0px 0px;
+}
+.page-id-20 .info-text {
+  color: #fff;
+  font-size: 18px;
+}
+.page-id-20 .bio-header {
+  color: #582985;
+  text-transform: uppercase;
+}
+.page-id-20 .bio-header .bio-txt {
+  padding-top: 20px;
+}
+.page-id-20 .bio-header .bio-txt h1 {
+  font-weight: 700;
+}
+.page-id-20 .bio-header .bio-txt h2 {
+  margin-top: 5px;
+  font-size: 24px;
+}
+.page-id-20 .bio-header span.badge-default {
+  color: #FFF;
+  background-color: #582985;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+.page-id-20 .bio {
+  background-color: #00a99d;
+  color: #fff;
+  padding: 100px 60px;
+  margin-bottom: 90px;
+}
+.page-id-20 h3 {
+  color: #582985;
+}
+.page-id-20 .respostas table {
+  padding-top: 5px;
+  border-collapse: unset;
+  border-spacing: 12px;
+}
+.page-id-20 td {
+  color: #fff;
+  /*border: 2px solid #fff;*/
+  background-color: #582985;
+  border-radius: 10px;
+  padding: 10px;
+  text-transform: uppercase;
+}
+.page-id-20 td.nao {
+  color: #582985;
+  background-color: #d8b212;
+}
+
+.page-id-20 .can-pic {
+  margin: 25px;
+}
+.page-id-20 .copyright {
+  background-color: #d8b212;
+}
+.page-id-14 li {
+  margin-top: 5px;
+}
+/* Pagina quem somos id 39 */
+body.page-id-39,
+section.about,
+section.about h2.bigtitle span {
+  background-color: #d8b22a;
+  color: #582985;
+}
+body.page-id-39 container a {
+  color: #666666;
+}
+.page-id-39 .navbar {
+  background-color: #d8b22a;
+}
+.page-id-39 .navbar-nav .menu-item a {
+  color: #582985;
+}

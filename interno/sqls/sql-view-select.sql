@@ -2,7 +2,7 @@ use wordpress;
 
 create or replace view all_data
 as
-    select 
+    select
               c.id as id_candidatura
             , cid.id as id_cidade
             , par.id as id_partido
@@ -54,6 +54,8 @@ as
             , par.sigla as sigla_partido
             , par.nota as nota_partido
             , cid.nome as cidade_eleicao
+            , c.votacao as votos_recebidos
+            , c.situacao_eleitoral as situacao_eleitoral
             , est.sigla as uf_eleicao
             , p.minibio as minibio
             , p.fb_id as fb_id

@@ -1,15 +1,3 @@
-<?php
-/*
- * The template for displaying all pages.
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
- *
- */
-?>
-
 <?php 
 	get_header(); 
 
@@ -17,7 +5,7 @@
   if(is_page('politicos')) {
     require_once($file_dir . "/mostra_politico.php");
   }
-  elseif (is_page('representou')) {
+  elseif (is_page('representou')||is_page('quem-te-representa')) {
     require_once($file_dir . "/query.php");
   }
   else {

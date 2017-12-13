@@ -22,8 +22,8 @@
       return "select count(*) as contagem " . $this->genericQuery();
     }
 
-    function generateDistinctFieldQuery($field_list) {
-      return "select distinct $field_list " . $this->genericDistinctQuery();
+    function generateDistinctFieldQuery($field_list, $extraWhere = nil) {
+      return "select distinct $field_list " . $this->genericDistinctQuery($extraWhere);
     }
 
     function generateQuery() {
@@ -64,7 +64,7 @@
         } else if(($key == 'id_cidade')||($key == 'id_partido')) {
           $where[] = "$key in (" . implode(",",$value) . ')';
         } else if ($key == 'genero') {
-          $where[] = "$key = \"$value\"";
+          if (sizeof($value) == 1) $where[] = "$key = \"".$value[0]."\"";
         } else if ($key == 'pautas') {
           $and = array_map(function($id){return "resposta_$id = \"S\"";}, $value);
           $where[] = "(" . implode(" and ", $and) . ")";
@@ -77,10 +77,11 @@
       return $sql;
     }
 
-    private function genericDistinctQuery() {
+    private function genericDistinctQuery($extraWhere = nil) {
       $sql = "from all_data";
 
       $where = array();
+      if ($where) $where[] = $extraWhere;
 
       foreach ($this->input['query'] as $key => $value) {
         if ($key == 'pautas') {

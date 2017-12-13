@@ -26,7 +26,7 @@
         <h2>Cidade: <?= $politico->cidade_eleicao ?>, <?= $politico->uf_eleicao ?></h2>
         <h2>Votos: <?= $politico->votos_recebidos ?></h2>
         <?php $situacao_eleitoral = strtolower($politico->situacao_eleitoral) ?>
-        <h2  class="data_situacao_cadastral"><?= ( $situacao_eleitoral == "eleito por média" || $situacao_eleitoral == "eleito por média" ) ? "Eleito" : $situacao_eleitoral ?></h2>
+        <h2  class="data_situacao_cadastral"><?= ( $situacao_eleitoral == "eleito por média" || $situacao_eleitoral == "eleito por qp" ) ? "Eleito" : $situacao_eleitoral ?></h2>
         <ul class="list-unstyled list-inline">
           <li><span class="badge badge-default">Partido: <?= $politico->sigla_partido ?></span></li>
         </ul>

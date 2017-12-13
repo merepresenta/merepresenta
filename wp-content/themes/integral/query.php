@@ -162,7 +162,7 @@ jQuery(function ($) {
 });
 
 var query = null;
-var quantidade_pagina = 10;
+var quantidade_pagina = 12;
 var spinner = jQuery("#spinner-home");
 var necessitaRevisaoFiltros = false;
 var viewObject = new ViewObject(siteUrl);

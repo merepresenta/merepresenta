@@ -1,6 +1,7 @@
 <?php
 /* Template Name: clipping
-* Template Post Type: post
+*
+* Template Post Type: page
 * The template for displaying all pages.
 *
 * This is the template that displays all pages by default.

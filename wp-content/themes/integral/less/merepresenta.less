@@ -466,8 +466,19 @@ body .content .entry-title:after,
 .page-id-93 form .form-control {
   background-color: transparent;
   border-color: @cor-roxa;
-  border-style: single;
+  border-style: solid;
   border-radius: .25rem;
+}
+.page-id-93 form .contribuicoes,
+.page-id-93 form .pautas {
+  padding: 4em 0 2em 0;
+}
+.page-id-93 form label>input[type=checkbox]+input {
+  display: inline-block;
+  background-color: @cor-verde-claro;
+}
+.page-id-93 form label>input[type=checkbox]:checked+input {
+  background-color: transparent;
 }
 .page-id-93 form .btn {
   background-color: @cor-amarela;

@@ -45,5 +45,14 @@
 	</div>
 
 </div>
+<?php
+	$script = get_post_meta( get_the_ID(), 'script' );
 
-<?php get_footer(); ?>
+	if ($script) {
+		echo "<script src='" . (get_template_directory_uri() ."/js/" . $script[0]) ."'></script>";
+	}
+?>
+
+<?php
+  get_footer(); 
+?>

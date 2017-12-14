@@ -27,7 +27,7 @@
         <h2>Votos: <?= $politico->votos_recebidos ?></h2>
         <?php $situacao_eleitoral = strtolower($politico->situacao_eleitoral) ?>
         <h2  class="data_situacao_cadastral">
-          <a href="/situacao-eleitoral/">
+          <a target="_blank" href="/situacao-eleitoral/">
             <?= ( $situacao_eleitoral == "eleito por qp" ) ? "Eleito por Quociente Partidário" : $situacao_eleitoral ?>
           </a>
         </h2>

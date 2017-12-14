@@ -22,7 +22,7 @@
   position: fixed;
   right: 0;
   bottom: 7rem;
-  font-size: .2rem;
+  font-size: .6rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -294,16 +294,17 @@ body .content .entry-title:after,
 .page-id-114 .expansao img {
   opacity: .2;
   display: inline-block;
+  width: 13rem;
 }
 .page-id-114 .expansao a img {
   opacity: 1;
 }
 .page-id-114 .parc>div {
   display: inline-block;
-  padding-right: 1em;
+  padding-right: 2em;
 }
-.page-id-114 .expansao img {
-  width: 15rem;
+.page-id-114 .parc {
+  padding-left: 3em;
 }
 .page-id-114 {
   background-color: @cor-roxa;
@@ -369,6 +370,11 @@ body .content .entry-title:after,
 .page-id-114 .expansao>.ano2018 {
   background-color: @cor-verde-claro;
   color: @cor-branca;
+}
+.page-id-114 .btn {
+  color: @cor-amarela;
+  background-color: @cor-roxa;
+  font-weight: bolder;
 }
 .page-id-114 .expansao::before {
   background-color: white;
@@ -465,8 +471,19 @@ body .content .entry-title:after,
 .page-id-93 form .form-control {
   background-color: transparent;
   border-color: @cor-roxa;
-  border-style: single;
+  border-style: solid;
   border-radius: .25rem;
+}
+.page-id-93 form .contribuicoes,
+.page-id-93 form .pautas {
+  padding: 4em 0 2em 0;
+}
+.page-id-93 form label>input[type=checkbox]+input {
+  display: inline-block;
+  background-color: @cor-verde-claro;
+}
+.page-id-93 form label>input[type=checkbox]:checked+input {
+  background-color: transparent;
 }
 .page-id-93 form .btn {
   background-color: @cor-amarela;
@@ -515,7 +532,21 @@ body .content .entry-title:after,
   background-color: @cor-amarela;
   color: @cor-roxa;
   font-weight: bolder;
-  width: 60%;
+  margin-bottom: 1rem;
+  font-size: .9rem;
+  width: 20rem;
+}
+@media screen and (min-width: 406px) {
+  .page-id-14 .links-rel a.btn {
+    width: 27rem;
+    font-size: 1.3rem;
+  }
+}
+@media screen and (min-width: 992px) {
+  .page-id-14 .links-rel a.btn {
+    width: 27rem;
+    margin-bottom: 0;
+  }
 }
 .page-id-14 .links-rel a.btn:hover {
   background-color: @cor-amarela-clara;
@@ -799,6 +830,9 @@ body .content .entry-title:after,
 .page-id-20 {
   background-color: @cor-amarela;
   background-image: url(../images/zig_zag.png);
+}
+.page-id-20 .navbar-brand {
+  background-image: url('../images/logo_horizon.png');
 }
 /**
  * Menu

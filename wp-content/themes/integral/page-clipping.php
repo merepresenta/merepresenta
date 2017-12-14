@@ -14,15 +14,15 @@
 <?php
   get_header();
 ?>
+<h2 class="entry-title"><?php the_title(); ?></h2>
+      <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+
+<p><?php the_content(); ?></p>
+<?php endwhile;?>
+<?php endif; ?>
+
+
 <div class="container" id="page-clipping">
-  <h2 class="entry-title"><?php the_title(); ?></h2>
-        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-
-  <p><?php the_content(); ?></p>
-       <?php endwhile;?>
-
-       <?php endif; ?>
-
   <div class="row">
     <?php
     $cnt = 0;
@@ -51,6 +51,7 @@
     ?>
   </div>
 </div>
+
 
 <div class="container carousel slide" id="page-video" data-ride="carousel">
   <!-- destacado -->

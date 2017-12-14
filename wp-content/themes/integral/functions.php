@@ -67,3 +67,13 @@ require get_template_directory() . '/inc/theme-demo-import.php';
 * Upgrade Notice
 */
 require get_template_directory() . '/inc/upgrade/class-customize.php';
+
+/**
+ * Retorna o número de voluntários
+ */
+function get_volunteers_counter() {
+  global $wpdb;
+
+  return $wpdb->get_var("select count(*) from Mensagens") + 2710;
+}
+add_shortcode('get_volunteers_counter', 'get_volunteers_counter');

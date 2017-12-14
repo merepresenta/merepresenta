@@ -1,6 +1,25 @@
 <?php
   require_once realpath(dirname(__FILE__)."/../../../ambiente.php");
- error_log(json_encode($_POST));
+
+  function get_client_ip() {
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+      $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+      $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+      $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_FORWARDED']))
+      $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if(isset($_SERVER['REMOTE_ADDR']))
+      $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+      $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+  }
+
   $contribuicao = '';
   if (isset($_POST['contribuicao_Convidar_canidatas'])) {
     $contribuicao = $contribuicao . "\n\tConvidar_canidatas: sim";
@@ -89,6 +108,9 @@
 
 
 
+  $ambiente = new Ambiente();
+  $ambiente->loadLib("email_sender.php");
+  $ambiente->loadLib("query_runner.php");
 
 
 
@@ -108,22 +130,32 @@
 
 
 
-  $ambiente = new Ambiente();
-  $ambiente->loadLib("email_sender.php");
+  function salvaEmail($mensagem, $enviado) {
+    global $ambiente;
+
+    $queryRunner = $ambiente->queryRunner();
+    $queryRunner->insert("Mensagens", array(
+      'data' => date('Y/m/d h:i:sa'),
+      'remote' => get_client_ip(),
+      'mensagem' => $mensagem,
+      'enviado' => $enviado
+    ));
+
+  }
+
+
 
   $emailSender = $ambiente->emailSender();
-
   $emailSender->setTo( getenv("SEND_EMAIL_TO") );
-  
   $emailSender->setSubject("Contato - Construa com a gente");
-
   $emailSender->setFrom("merepresenta@merepresenta.org.br");
   $emailSender->setMessage($mensagem);
-  
   if ($emailSender->send()) {
+    salvaEmail($mensagem, 'E');
     $redirect_addr = @$_POST['REDIRECT_SUCCESS'] ?: getenv('SEND_EMAIL_REDIRECT_SUCCESS');
   }
   else {
+    salvaEmail($mensagem, 'N');
     $redirect_addr = @$_POST['REDIRECT_NO_SUCCESS'] ?: getenv('SEND_EMAIL_REDIRECT_NO_SUCCESS');
   }
   header('Location: ' . $redirect_addr);

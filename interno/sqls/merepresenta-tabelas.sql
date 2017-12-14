@@ -10,6 +10,16 @@ drop table if exists Partido;
 drop table if exists Coligacao;
 drop table if exists Cidade;
 drop table if exists Estado;
+drop table if exists Mensagens;
+
+create table Mensagens (
+  id int not null auto_increment,
+  data datetime,
+  remote varchar(255),
+  mensagem text not null,
+  enviado char,
+  primary key (id)
+)
 
 create table Estado (
    id int not null auto_increment,

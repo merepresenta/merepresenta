@@ -22,5 +22,21 @@
       $result->close();
       return $ret;
     }
+
+    function insert($table, $data, $format = []) {
+      $campos = "";
+      $valores = "";
+      foreach ($data as $key => $value) {
+        $campos .= "$key, ";
+        $valores .= "\"$value\",";
+      }
+      $campos = substr($campos, 0 ,strlen($campos)-1);
+      $valores = substr($valores, 0 ,strlen($valores)-1);
+
+      $sql = "insert into $table ($campos) values ($valores)";
+
+      $this->mysqli->query($sql);
+      return $this->mysqli->insert_id;
+    }
   }
 ?>

@@ -179,13 +179,12 @@
       $cnt = 0;
       query_posts( 'cat=5' );// for videos
       while ( have_posts() ) : the_post();
-        $url_video = get_post_meta( get_the_ID(), 'url' );
-        $embed_video = $url_video[0];
+        $url_video = get_post_meta( get_the_ID(), 'url' )[0];
       ?>
       <div class="item <?=($cnt==0)?'active':''?>">
         <div class="col-md-8">
           <div class="facebook-responsive">
-            <iframe src="https://www.facebook.com/plugins/video.php?href=<?= urlencode($embed_video) . '&mute=0&show_text=0&width=476'?>" width="476" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
+            <iframe src="https://www.facebook.com/plugins/video.php?href=<?= urlencode($url_video) . '&mute=0&show_text=0&width=476'?>" width="476" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
           </div>
         </div>
         <div class="col-md-4">
@@ -206,13 +205,16 @@
       $cnt = 0;
       query_posts( 'cat=5' );// for videos
       while ( have_posts() ) : the_post();
-        $url_video = get_post_meta( get_the_ID(), 'url' );
-        $embed_video = $url_video[0];
+        $url_video = get_post_meta( get_the_ID(), 'url' )[0];
+        preg_match('/\/(\d{10,})\//', $url_video, $matches, PREG_OFFSET_CAPTURE);
+        $video_id = $matches[1][0];
       ?>
       <div class="col-md-2" data-target="#page-fbvideo" data-slide-to="<?=$cnt?>">
         <div class="panel panel-default">
           <div class="panel-body">
-            <?=the_post_thumbnail(array( 150, 300 ));?>
+            <?php if (has_post_thumbnail()): the_post_thumbnail(array( 200, 300 )); else: ?>
+            <img src="https://graph.facebook.com/<?=$video_id?>/picture" alt="Video image">
+            <?php endif ?>
             <h4><?=the_title();?></h4>
             <h5><?php the_time('d/m/Y'); ?></h5>
           </div>

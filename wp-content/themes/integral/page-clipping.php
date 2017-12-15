@@ -101,7 +101,7 @@
       <div class="row item <?php if ($cnt == 0) { echo "active"; } ?>">
     <?php endif ?>
         <div class="col-sm-6 col-md-3">
-          <span data-toggle="modal" data-target="#myModal-<?=$cnt?>"><?=the_post_thumbnail(array( 200, 300 ));?></span>
+          <span class="imagem-clipping" data-toggle="modal" data-target="#myModal-<?=$cnt?>"><?=the_post_thumbnail(array( 200, 300 ));?></span>
           <span class="titulo-materia"><?= $url == null ? the_title() : ("<a href='$url'>" . the_title() . '</a>') ?></span>
           <span class='data-materia'><?php the_time('d/m/Y'); ?></span>
         </div>  <!-- col -->

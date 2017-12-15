@@ -212,9 +212,11 @@
       <div class="col-md-2" data-target="#page-fbvideo" data-slide-to="<?=$cnt?>">
         <div class="panel panel-default">
           <div class="panel-body">
-            <?php if (has_post_thumbnail()): the_post_thumbnail(array( 200, 300 )); else: ?>
-            <img src="https://graph.facebook.com/<?=$video_id?>/picture" alt="Video image">
-            <?php endif ?>
+            <div class="imagem-clipping">
+              <?php if (has_post_thumbnail()): the_post_thumbnail(array( 200, 300 )); else: ?>
+              <img src="https://graph.facebook.com/<?=$video_id?>/picture" alt="Video image">
+              <?php endif ?>
+            </div>
             <h4><?=the_title();?></h4>
             <h5><?php the_time('d/m/Y'); ?></h5>
           </div>

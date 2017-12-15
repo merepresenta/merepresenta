@@ -629,12 +629,33 @@ body .content .entry-title:after,
   #carousel-clipping {
     margin-bottom: 16rem;
 
-    img {
+    span>img {
       height: 300px;
     }
     .carousel-control {
       width: 2em;
     }
+    body.modal-open div.modal-backdrop { 
+      z-index: 0; 
+    }
+  }
+
+  .titulo-materia {
+    display: block;
+    font-weight: bolder;
+    color: @cor-verde-escuro;
+    font-size: 1.3rem;
+  }
+
+  .modal-footer a,
+  .modal-footer a:hover {
+    color: @cor-roxa;
+  }
+  .data-materia {
+    display: block;
+  }
+  .infos {
+    text-align: left;
   }
 }
   

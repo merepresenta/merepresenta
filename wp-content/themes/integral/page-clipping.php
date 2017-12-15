@@ -101,17 +101,12 @@
       <div class="row item <?php if ($cnt == 0) { echo "active"; } ?>">
     <?php endif ?>
         <div class="col-sm-6 col-md-3">
-            <span data-toggle="modal" data-target="#myModal-<?=$cnt?>"><?=the_post_thumbnail(array( 200, 300 ));?></span>
-            <h4><?= $url == null ? the_title() : ("<a href='$url'>" . the_title() . '</a>') ?></h4>
-            <h5><?php the_time('d/m/Y'); ?></h5>
-            <div class="modal fade" id="myModal-<?=$cnt?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog" role="document">
-                <?=the_post_thumbnail( 'full' );?>
-              </div>
-            </div>
-        </div>
+          <span data-toggle="modal" data-target="#myModal-<?=$cnt?>"><?=the_post_thumbnail(array( 200, 300 ));?></span>
+          <span class="titulo-materia"><?= $url == null ? the_title() : ("<a href='$url'>" . the_title() . '</a>') ?></span>
+          <span class='data-materia'><?php the_time('d/m/Y'); ?></span>
+        </div>  <!-- col -->
     <?php if (($cnt % 4) == 3) : ?>
-    </div>
+    </div>  <!-- row -->
     <?php endif ?>
       
     <?php
@@ -119,9 +114,9 @@
     endwhile;
     wp_reset_query();
     if ((($cnt-1) % 4) != 3) : ?>
-      </div>
+      </div>  <!-- row -->
     <?php endif ?>
-    </div>
+    </div>  <!-- carousel  -->
 
     <!-- Controls -->
     <a class="left carousel-control" href="#carousel-clipping" role="button" data-slide="prev">
@@ -133,6 +128,46 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
+  <?php
+  $cnt = 0;
+  query_posts( 'cat=4' );// for videos
+  while ( have_posts() ) : the_post();
+    $url = get_post_meta( get_the_ID(), 'url' );
+    if($url && sizeof($url) > 0) $url = $url[0];
+    else $url = null;
+  ?>
+  <div class="modal fade" id="myModal-<?=$cnt?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-<?=$cnt?>">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="model-header">
+          <div class="modal-title titulo-materia" id="myModalLabel-<?=$cnt?>">
+            <?=the_title()?>
+          </div>
+        </div>
+        <div class="modal-body">
+          <?=the_post_thumbnail( 'full' );?>
+        </div>
+        <div class="modal-footer">
+          <div class="col">
+            <div class="col-md-10 infos">
+            <?php if ($url): ?>Matéria publicada em: <a href="<?= $url ?>" target="_blank"><?= $url ?></a>
+            <?php endif ?>
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>                    
+      </div> <!-- modal content  -->
+    </div> <!-- modal dialog  -->
+  </div>  <!-- modal fade -->
+  <?php
+    $cnt++;
+  endwhile;
+  wp_reset_query();
+  ?>
+
+
 
 
 

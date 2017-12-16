@@ -27,7 +27,7 @@ gulp.task('server', function(){
         console.log(error.message);
       })
       .pipe(autoprefixer())
-      .pipe(cssmin())
+      // .pipe(cssmin())
       .pipe(gulp.dest('../../wp-content/themes/integral/css'));
   });
 

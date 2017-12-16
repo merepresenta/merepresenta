@@ -21,23 +21,26 @@
   }
 
   $contribuicao = '';
-  if (isset($_POST['contribuicao_Convidar_canidatas'])) {
-    $contribuicao = $contribuicao . "\n\tConvidar_canidatas: sim";
+  if (isset($_POST['contribuicao_financeira'])) {
+    $contribuicao = $contribuicao . "\n\tContribuicao financeira: sim";
+  }
+  if (isset($_POST['contribuicao_Convidar_candidatas'])) {
+    $contribuicao = $contribuicao . "\n\tConvidar candidatas: sim";
   }
   if (isset($_POST["contribuicao_Pesquisar_projetos"])) {
-    $contribuicao = $contribuicao . "\n\tPesquisar_projetos: sim";
+    $contribuicao = $contribuicao . "\n\tPesquisar projetos: sim";
   }
-  if (isset($_POST["contribuicao_Eescolha_pautas"])) {
-    $contribuicao = $contribuicao . "\n\tEscolha_pautas: sim";
+  if (isset($_POST["contribuicao_Escolha_pautas"])) {
+    $contribuicao = $contribuicao . "\n\tEscolher pautas: sim";
   }
   if (isset($_POST["contribuicao_Organizacao_parceira"])) {
-    $contribuicao = $contribuicao . "\n\tOrganizacao_parceira: sim";
+    $contribuicao = $contribuicao . "\n\tSer Organização Parceira: sim";
   }
   if (isset($_POST["contribuicao_Divulgar_coletivos"])) {
-    $contribuicao = $contribuicao . "\n\tDivulgar_coletivos: sim";
+    $contribuicao = $contribuicao . "\n\tDivulgar para Coletivos e Movimentos Sociais: sim";
   }
   if (isset($_POST["contribuicao_Organizar_reunioes"])) {
-    $contribuicao = $contribuicao . "\n\tOrganizar_reunioes: sim";
+    $contribuicao = $contribuicao . "\n\tOrganizar Reuniões na Cidade: sim";
   }
   if (isset($_POST["contribuicao_Outra"])) {
     $contribuicao = $contribuicao . "\n\tOutra: " . $_POST["contribuicao_Outra"];

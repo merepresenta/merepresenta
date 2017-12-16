@@ -497,8 +497,30 @@ body .content .entry-title:after,
   text-transform: uppercase;
   width: 60%;
 }
-.page-id-93 form>div.envia {
-  text-align: center;
+.page-id-93  {
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  input[type='checkbox'] + span::before {
+    background-image: url(@chk_open);
+    background-size: cover;
+    content: '';
+    display: inline-block;
+    height: 1.5rem;
+    left: -2px;  
+    position: relative;
+    top: 5px;
+    width: 1.5rem;
+  }
+
+  input[type='checkbox']:checked + span::before {
+    background-image: url(@chk_closed);
+  }
+
+  form>div.envia {
+    text-align: center;
+  }
 }
 
 

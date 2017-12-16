@@ -12,6 +12,10 @@
 @cor-verde-escuro: #097e74;
 @font-padrao: 'Open Sans', sans-serif;
 
+/* Checkboxes */
+@chk_open: '../images/chk_aberto.svg';
+@chk_closed: '../images/chk_fechado.svg';
+
 /* CopyRight de imagens */
 .page-id-93::after, .page-id-140::after, .page-id-248::after {
   content: 'FOTO: MÍDIA NINJA';
@@ -737,15 +741,18 @@ body .content .entry-title:after,
   text-transform: uppercase;
 }
 .page-id-6 .corpo input[type='checkbox'] + span::before {
-  content: '';
-  background-image: url('../images/aberto.svg');
+  background-image: url(@chk_open);
   background-size: cover;
-  width: 1.5rem;
-  height: 1.5rem;
+  content: '';
   display: inline-block;
+  height: 1.5rem;
+  left: -2px;  
+  position: relative;
+  top: 5px;
+  width: 1.5rem;
 }
 .page-id-6 .corpo input[type='checkbox']:checked + span::before {
-  background-image: url('../images/fechado.svg');
+  background-image: url(@chk_closed);
 }
 /* labels dos campos */
 .page-id-6 .frm-label {

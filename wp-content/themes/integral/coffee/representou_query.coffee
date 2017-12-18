@@ -19,6 +19,11 @@ class ViewObject
     # Painel com dados de situações eleitorais
     @pSituacoes = jQuery("#filtro_sit_eleitoral")
     @pSpinner = jQuery "#spinner-home"
+    @pPnlCities = jQuery "#cidades-escolhidas"
+    @pBusca = jQuery("#filtro-cidade-escolha")
+
+  
+
 
   # Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados)
   # @param mensagem Mensagem a ser apresentada
@@ -289,3 +294,33 @@ class ViewObject
 
   completeSearch: ->
     @pSpinner.addClass "invisible"
+
+  _addSelectedCity: (cityId, cityName) ->
+    lbl = jQuery("<label>", {text: cityName}).appendTo @pPnlCities
+    checkbox = jQuery("<input>",
+      type: "checkbox"
+      checked: "checked"
+      cid_id: cityId
+      class: "chk-cidade"
+    ).appendTo lbl 
+    # Mata o checkbox, no click
+    checkbox.on "click", () -> jQuery(event.currentTarget).parent().remove()
+
+  _selecionaCidade: (event, ui) ->
+    if ui.item
+      @_addSelectedCity ui.item.value, ui.item.label
+      @pBusca.val ""
+      @pBusca.focus()
+    false
+
+  configuraAutoComplete: (source) ->
+    @pBusca.autocomplete
+      source: source
+      minLength: 2,
+      focus: (event,ui) -> false
+      change: @_selecionaCidade.bind(this)
+      select: @_selecionaCidade.bind(this)
+
+
+  configuraBotaoFiltro: (evento) ->
+    jQuery('#bt_filtro').on 'click', evento

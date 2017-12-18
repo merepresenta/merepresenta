@@ -78,29 +78,12 @@ class RequestInformations
       ).bind(this)
 
 
-#################################################################################################
-
-
-viewObject = new ViewObject siteUrl
-viewObject.criaFuncoesDesmarque()
-
-requester = new RequestInformations(viewObject, 12)
-jQuery('#bt_filtro').on 'click', ()->
-  requester.queryNewInfo()
-
-cBusca = jQuery("#filtro-cidade-escolha")
-cBtnCity = jQuery "#btn-add-city"
-cBtnFiltro = jQuery "#bt_filtro"
-cPnlCities = jQuery "#cidades-escolhidas"
-cBtnCity.prop "disabled", true
-
-cBusca.autocomplete
-  source: ( request, response ) ->
+  buscaDadosCidade: (termo, sucesso) ->
     dadosCidades = () ->
       dados = 
-        nome: request.term
+        nome: termo
 
-      dados.pautas = query.pautas.join(',') if (requester.pQuery && typeof(requester.pQuery.pautas) != 'undefined')
+      dados.pautas = @pQuery.pautas.join(',') if (@pQuery && typeof(@pQuery.pautas) != 'undefined')
       dados
 
     jQuery.ajax 
@@ -110,48 +93,20 @@ cBusca.autocomplete
       contentType: "application/json; charset=utf-8"
       dataType: "json"
       data: dadosCidades()
-      success: ( data ) ->
-        response( data.map((valor) ->
-          label: "#{valor.nome_cidade}, #{valor.uf}"
-          value: valor.id
-        ))
+      success: sucesso
 
-  minLength: 2,
-  focus: (event,ui) -> false
-  change: (event, ui) ->
-    if ui.item
-      lbl = jQuery("<label>", {text: ui.item.label}).appendTo cPnlCities
-      checkbox = jQuery("<input>", 
-        type: "checkbox"
-        checked: "checked"
-        cid_id: ui.item.value
-        class: "chk-cidade"
-      ).appendTo lbl 
-      checkbox.on "click", mataCheckbox
-    cBusca.val ""
-    false
+#################################################################################################
 
-  select: ( event, ui ) ->
-    cBusca.val ui.item.label
-    cBusca.prop "cid_id", ui.item.value
-    cBtnCity.prop "disabled", false
-    false
+viewObject = new ViewObject siteUrl
+requester = new RequestInformations(viewObject, 12)
 
-mataCheckbox = (event) ->
-  jQuery(event.currentTarget).parent().remove()
-
-cBtnCity.on "click", () ->
-  lbl = jQuery("<label>", 
-    text: cBusca.val()
-  ).appendTo cPnlCities
-  checkbox = jQuery("<input>", 
-    type: "checkbox"
-    checked: "checked"
-    cid_id: cBusca.prop "cid_id"
-    class: "chk-cidade"
-  ).appendTo lbl
-  checkbox.on "click", mataCheckbox
-  cBusca.prop "cid_id", null
-  cBusca.val ""
-  cBtnCity.prop "disabled", true
+viewObject.criaFuncoesDesmarque()
+viewObject.configuraAutoComplete ( request, response ) ->
+  requester.buscaDadosCidade request.term, ( data ) ->
+    response( data.map((valor) ->
+      label: "#{valor.nome_cidade}, #{valor.uf}"
+      value: valor.id
+    ))
+viewObject.configuraBotaoFiltro ()->
+  requester.queryNewInfo()
 

@@ -67,7 +67,7 @@ class RequestInformations
         @viewObject.reformatScreen()
 
         if resultado.data and resultado.data.length > 0
-          @viewObject.desenhaDadosFiltrados resultado, @downloadAllData.bind(this), @_queryPoliticiansInfo.bind this
+          @viewObject.desenhaDadosFiltrados(resultado, @downloadAllData.bind(this), @_queryPoliticiansInfo.bind this)
           if  typeof(resultado.filter_data) != 'undefined'
             @viewObject.atualizaFiltros resultado.filter_data
             @viewObject.marcaFiltro resultado.query
@@ -97,7 +97,7 @@ class RequestInformations
 
 #################################################################################################
 
-viewObject = new ViewObject siteUrl
+viewObject = new ViewObject siteUrl, temaUrl
 requester = new RequestInformations(viewObject, 12)
 
 viewObject.criaFuncoesDesmarque()

@@ -1,3 +1,4 @@
+# View, focada na parte de paginação dos dados
 class ViewPaginacao
   constructor: ->
     # Painel de Paginacao
@@ -30,13 +31,65 @@ class ViewPaginacao
     jQuery(".pagina-#{pagina}").addClass('active')
 
 
-class ViewObject
-  constructor: (@siteUrl) ->
-    @viewPaginacao = new ViewPaginacao()
-    @pBody = jQuery("body")
-    @cResultado = jQuery("#resultado")
+
+#View focada na parte de apresentação dos dados filtrados
+class ViewDadosFiltrados
+  constructor: (@siteUrl, @urlTema) ->
     # Painel que conterá a tabela com dados filtrados
     @pDadosFiltrados = jQuery("#dados_filtrados")
+
+  # Desenha os dados na tabela
+  # @param dados dados a serem apresentados
+  # @return Painel contendo os dados
+  desenhaTabelaDados: (dados) ->
+    data = '<div class="row">';
+    cnt = 1;
+    jQuery(dados).each ((idx,r) ->
+      type_css_eleito = ''
+      type_txt_eleito = ''
+      if r["situacao_eleitoral"]?
+        type_css_eleito = if ((r["situacao_eleitoral"].toLowerCase() == 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() == 'eleito por qp')) then ' eleito' else ''
+        type_txt_eleito = if ((r["situacao_eleitoral"].toLowerCase() == 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() == 'eleito por qp')) then 'Eleito' else r["situacao_eleitoral"].toLowerCase()
+
+      data += """
+        <div class="col-md-4">
+          <div class="panel panel-default#{type_css_eleito}">
+            <a target="_blank" href="#{@siteUrl}/politicos/?cand_id=#{r['id_candidatura']}">
+              <div class="panel-body">"""
+      if(!!r["fb_id"])
+        data += "<img src='//graph.facebook.com/v2.6/#{r["fb_id"]}/picture?type=large' class='img-responsive img-rounded' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
+      else
+        data += "<img src='#{@urlTema}/images/default-profile.jpg' class='img-responsive img-circle' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
+      data +=  """
+                <h4 class="title-name-politic">#{r['nome_urna']}</h4>
+                <ul class="list-unstyled">
+                  <li>#{r['sigla_partido'].toUpperCase()}</li>
+                  <li><b>#{r['nome_cidade'].toUpperCase()}/#{r['sigla_estado'].toUpperCase()}</b></li>
+                  <li><b>Votos:</b>#{r['votos_recebidos'].toLowerCase()}</li>
+                  <li class="data_situacao_cadastral"><b>#{type_txt_eleito}</b></li>
+                </ul>
+              </div>
+            </a>
+          </div>"""
+
+      if(cnt % 3 == 0)
+        data += """</div></div><div class="row">"""
+      else
+        data += '</div>'
+      cnt++;
+    ).bind this
+    data += '</div>'
+    @pDadosFiltrados.html data
+
+
+
+class ViewObject
+  constructor: (@siteUrl, @urlTema) ->
+    @viewPaginacao = new ViewPaginacao()
+    @viewDadosFiltrados = new ViewDadosFiltrados @siteUrl, @urlTema
+
+    @pBody = jQuery("body")
+    @cResultado = jQuery("#resultado")
     # Paineil de Botoes
     @pBotoes = jQuery("#botoes");
     # Painel de dados de Estado
@@ -56,52 +109,10 @@ class ViewObject
 
   # Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados)
   # @param mensagem Mensagem a ser apresentada
-  desenhaDadosFiltradosVazio: (mensagem) ->
-    saida = jQuery "<h3>", {text: mensagem}
-    @pDadosFiltrados.html saida
+  desenhaDadosFiltradosVazio: ->
     @pBody.addClass 'resposta-vazia'
 
 
-  # Desenha os dados na tabela
-  # @param dados dados a serem apresentados
-  # @return Painel contendo os dados
-  _desenhaTabelaDados: (dados) ->
-    data = '<div class="row">';
-    cnt = 1;
-    jQuery(dados).each (idx,r) ->
-      type_css_eleito = ''
-      type_txt_eleito = ''
-      if r["situacao_eleitoral"]?
-        type_css_eleito = if ((r["situacao_eleitoral"].toLowerCase() == 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() == 'eleito por qp')) then ' eleito' else ''
-        type_txt_eleito = if ((r["situacao_eleitoral"].toLowerCase() == 'eleito por média') || (r["situacao_eleitoral"].toLowerCase() == 'eleito por qp')) then 'Eleito' else r["situacao_eleitoral"].toLowerCase()
-
-      data += """
-        <div class="col-md-4">
-          <div class="panel panel-default#{type_css_eleito}">
-            <a target="_blank" href="#{siteUrl}/politicos/?cand_id=#{r['id_candidatura']}">
-              <div class="panel-body">"""
-      if(!!r["fb_id"])
-        data += "<img src='//graph.facebook.com/v2.6/#{r["fb_id"]}/picture?type=large' class='img-responsive img-rounded' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
-      else
-        data += "<img src='/wp-content/themes/integral/images/default-profile.jpg' class='img-responsive img-circle' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
-      data +=  """
-                <h4 class="title-name-politic">#{r['nome_urna']}</h4>
-                <ul class="list-unstyled">
-                  <li>#{r['sigla_partido'].toUpperCase()}</li>
-                  <li><b>#{r['nome_cidade'].toUpperCase()}/#{r['sigla_estado'].toUpperCase()}</b></li>
-                  <li><b>Votos:</b>#{r['votos_recebidos'].toLowerCase()}</li>
-                  <li class="data_situacao_cadastral"><b>#{type_txt_eleito}</b></li>
-                </ul>
-              </div>
-            </a>
-          </div>"""
-
-      if(cnt % 3 == 0)
-        data += """</div></div><div class="row">"""
-      else
-        data += '</div>'
-      cnt++;
-    data += '</div>'
 
   # Desenha o link de download
   # @return Painel contendo o link
@@ -115,13 +126,13 @@ class ViewObject
   # @param resultado Resultado retornado na pesquisa
   # @return Painel contendo o link
   desenhaDadosFiltrados: (resultado, downloadAllData, queryBuscaPoliticos) ->
-    @pDadosFiltrados.html @_desenhaTabelaDados(resultado.data)
+    @viewDadosFiltrados.desenhaTabelaDados(resultado.data)
     @viewPaginacao.desenhaPainelPaginas(resultado.ids, Number(resultado.pagination), queryBuscaPoliticos) if resultado.ids
     @pBotoes.html @_desenhaLinkDownload(downloadAllData)
     @viewPaginacao.marcaPagina 1
 
   redrawPoliticians: (pagina, dados) ->
-    @pDadosFiltrados.html @_desenhaTabelaDados(dados)
+    @viewDadosFiltrados.desenhaTabelaDados(dados)
     @viewPaginacao.marcaPagina pagina
 
   _desmarcaAlvo: (selecao, alvo) ->

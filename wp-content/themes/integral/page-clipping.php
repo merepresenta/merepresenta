@@ -14,6 +14,7 @@
 <?php
   get_header();
 ?>
+<div class="spacer"></div>
 
 <div class="container">
   

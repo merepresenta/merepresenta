@@ -14,16 +14,20 @@
       return $this->input['revisaoFiltros'];
     }
 
-    function generateUnlimitedQuery() {
-      return "select * " . $this->genericQuery();
+    function generateIndexQuery() {
+      return "select id_candidatura " . $this->genericQuery();      
     }
 
     function generateCountQuery() {
       return "select count(*) as contagem " . $this->genericQuery();
     }
 
-    function generateDistinctFieldQuery($field_list, $extraWhere = nil) {
+    function generateDistinctFieldQuery($field_list, $extraWhere = null) {
       return "select distinct $field_list " . $this->genericDistinctQuery($extraWhere);
+    }
+
+    function generateUnlimitedQuery($extraWhere = null) {
+      return "select * " . $this->genericQuery($extraWhere);
     }
 
     function generateQuery() {
@@ -52,10 +56,11 @@
       return  ($r) ? $r : 10;
     }
 
-    private function genericQuery() {
+    private function genericQuery($extraWhere = null) {
       $sql = "from all_data";
 
       $where = array();
+      if ($extraWhere) $where[] = $extraWhere;
 
       foreach ($this->input['query'] as $key => $value) {
         if (($key == 'sigla_estado')||($key == 'cor_tse')||($key=='situacao_eleitoral')) {

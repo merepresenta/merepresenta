@@ -132,7 +132,10 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
       </div>
     </div>
     <div id="resultado" class="col-md-12">
-      <div id="dados_filtrados">
+      <div id="dados">
+        <div id="dados_filtrados"></div>
+        <div id="paginacao"></div>
+        <div id="botoes"></div>
       </div>
       <div class="resposta-em-branco">
         <img src="<?= get_template_directory_uri() ?>/images/sadface.svg" alt="Carinha triste">
@@ -144,173 +147,9 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
 </div>
 </main>
 
+<script>
+  var siteUrl = "<?= site_url() ?>";
+</script>
+
 <script type='text/javascript' src="<?= get_template_directory_uri() ?>/js/representou_query.js"></script>
 <script type='text/javascript' src="<?= get_template_directory_uri() ?>/js/quemterepresenta.js"></script>
-<script>
-var siteUrl = "<?= site_url() ?>";
-
-jQuery(function ($) {
-  var checkList = $('.dropdown-check-list');
-  checkList.on('click', 'span.anchor', function(event){
-    var element = $(this).parent();
-    if ( element.hasClass('visible') ) {
-      element.removeClass('visible');
-    } else {
-      element.addClass('visible');
-    }
-  });
-});
-
-var query = null;
-var quantidade_pagina = 12;
-var spinner = jQuery("#spinner-home");
-var necessitaRevisaoFiltros = false;
-var viewObject = new ViewObject(siteUrl);
-viewObject.criaFuncoesDesmarque();
-var downloadAllData = function() {
-  var frm = jQuery("#download-files");
-  jQuery("#download-files input").remove();
-  Object.keys(query).forEach(function(field,y) {
-    var o = jQuery("<input>", {type: "hidden", name: field,value: JSON.stringify(query[field])}).appendTo(frm);
-  });
-  frm.submit();
-};
-
-var requisitaDados = function(inicial) {
-  spinner.removeClass("invisible");
-  jQuery.ajax({
-    url: "/api/v1/merepresenta.php",
-    data: JSON.stringify({
-      query: query,
-      limites: {primeiro: (inicial - 1) * quantidade_pagina , quantidade: quantidade_pagina},
-      revisaoFiltros: (inicial > 1) ? false : necessitaRevisaoFiltros
-    }),
-    dataType: "json",
-    contentType: "application/json; charset=utf-8",
-    type: "post",
-    complete: function() {
-      spinner.addClass("invisible");
-    },
-    success: function(resultado) {
-      jQuery("#filtros").removeClass("col-md-12").addClass("col-md-4");
-      jQuery("#resultado").removeClass("col-md-12").addClass("col-md-8");
-      jQuery(".doble").children().removeClass("col-md-6").addClass("col-md-12");
-      jQuery("body").addClass('resposta');
-      jQuery("body").removeClass('resposta-vazia');
-
-      if(resultado.data.length > 0) {
-        viewObject.desenhaDadosFiltrados(resultado);
-        if (typeof(resultado.filter_data) != 'undefined') {
-          viewObject.atualizaFiltros(resultado.filter_data);
-          viewObject.marcaFiltro(resultado.query);
-          query = resultado.query;
-        }
-      } else {
-        viewObject.desenhaDadosFiltradosVazio("");
-        jQuery("body").addClass('resposta-vazia');
-      }
-      jQuery('html, body').animate({
-        scrollTop: jQuery("#resultado").offset().top
-    }, 1500);
-    }
-  });
-}
-var configuraQuery = function() {
-  var oldPautas = ((! query)||(typeof(query.pautas) == "undefined")) ? [] : query.pautas;
-  query =  { };
-  var estados = jQuery(".chk-estado:checked").map(function(i,obj){return obj.value}).toArray();
-  if (estados.length>0) query.sigla_estado = estados;
-
-  var cidades = jQuery(".chk-cidade:checked").map(function(i,obj){return jQuery(obj).attr("cid_id")}).toArray();
-  if (cidades.length>0) query.id_cidade = cidades;
-
-  var partidos = jQuery(".chk-partido:checked").map(function(i,obj){return obj.value}).toArray();
-  if (partidos.length>0) query.id_partido = partidos;
-
-  var pautas = jQuery(".chk-pauta:checked").map(function(i,obj){return obj.value}).toArray();
-  if (pautas.length>0) query.pautas = pautas;
-
-  necessitaRevisaoFiltros = !(typeof(oldPautas) == typeof(query.pautas) && oldPautas.length==query.pautas.length && oldPautas.every(function(v,i) { return v === query.pautas[i]}));
-
-  var genero = jQuery(".chk-genero:checked").map(function(i,obj){return obj.value}).toArray();
-  if (genero.length>0) query.genero = genero;
-
-  var cores = jQuery(".chk-cor:checked").map(function(i,obj){return obj.value}).toArray();
-  if (cores.length>0) query.cor_tse = cores;
-
-  var situacoesEleitorais = jQuery(".chk-sit-eleit:checked").map(function(i,obj){return obj.value}).toArray();
-  if (situacoesEleitorais.length>0) query.situacao_eleitoral = situacoesEleitorais;
-};
-
-jQuery(window).on("load",function(){
-  var cBusca = jQuery("#filtro-cidade-escolha");
-  var cBtnCity = jQuery("#btn-add-city");
-  var cBtnFiltro = jQuery("#bt_filtro");
-  var cPnlCities = jQuery("#cidades-escolhidas");
-  cBtnCity.prop("disabled", true);
-  cBusca.autocomplete({
-    source: function( request, response ) {
-      function dadosCidades() {
-        var dados = { nome: request.term };
-        if (query && typeof(query.pautas) != 'undefined')
-          dados.pautas = query.pautas.join(',');
-
-        return dados;
-      }
-      jQuery.ajax({
-        url: "/api/v1/cidades.php",
-        method: "get",
-        accept: "application/json",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: dadosCidades(),
-        success: function( data ) {
-          response( data.map(function(valor){
-          return {
-            label: valor.nome_cidade + ', ' + valor.uf,
-            value: valor.id
-          };
-          }));//data.map
-        }
-      });//jQuery.ajax
-    },//source
-    minLength: 2,
-    focus: function(event,ui){
-      return false;
-    },
-    change: function(event, ui){
-      if(ui.item) {
-        var lbl = jQuery("<label>", {text: ui.item.label}).appendTo(cPnlCities);
-        var checkbox = jQuery("<input>", {type: "checkbox", checked: "checked", cid_id: ui.item.value, class: "chk-cidade"}).appendTo(lbl);
-        checkbox.on("click", mataCheckbox);
-      }
-      cBusca.val("");
-      return false;
-    },
-    select: function( event, ui ){
-      cBusca.val(ui.item.label);
-      cBusca.prop("cid_id", ui.item.value);
-      cBtnCity.prop("disabled", false);
-      return false;
-    }
-  });
-
-  var mataCheckbox = function(event){
-    jQuery(event.currentTarget).parent().remove();
-  };
-
-  cBtnCity.on("click", function(){
-    var lbl = jQuery("<label>", {text: cBusca.val()}).appendTo(cPnlCities);
-    var checkbox = jQuery("<input>", {type: "checkbox", checked: "checked", cid_id: cBusca.prop("cid_id"), class: "chk-cidade"}).appendTo(lbl);
-    checkbox.on("click", mataCheckbox);
-    cBusca.prop("cid_id", null);
-    cBusca.val("");
-    cBtnCity.prop("disabled", true);
-  });
-
-  cBtnFiltro.on("click", function() {
-    configuraQuery();
-    requisitaDados(1);
-  });
-});
-</script>

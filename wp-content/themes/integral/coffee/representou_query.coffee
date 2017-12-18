@@ -1,7 +1,13 @@
 class ViewObject
   constructor: (@siteUrl) ->
+    @pBody = jQuery("body")
+    @cResultado = jQuery("#resultado")
     # Painel que conterá a tabela com dados filtrados
     @pDadosFiltrados = jQuery("#dados_filtrados")
+    # Painel de Paginacao
+    @pPaginacao = jQuery('#paginacao');
+    # Paineil de Botoes
+    @pBotoes = jQuery("#botoes");
     # Painel de dados de Estado
     @pUf = jQuery("#filtro_estado")
     # Painel de dados de partido
@@ -12,12 +18,15 @@ class ViewObject
     @pCores = jQuery("#filtro_cor")
     # Painel com dados de situações eleitorais
     @pSituacoes = jQuery("#filtro_sit_eleitoral")
+    @pSpinner = jQuery "#spinner-home"
 
   # Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados)
   # @param mensagem Mensagem a ser apresentada
   desenhaDadosFiltradosVazio: (mensagem) ->
     saida = jQuery "<h3>", {text: mensagem}
     @pDadosFiltrados.html saida
+    @pBody.addClass 'resposta-vazia'
+
 
   # Desenha os dados na tabela
   # @param dados dados a serem apresentados
@@ -64,12 +73,13 @@ class ViewObject
   # Desenha os links de paginação (Painel de dados)
   # @param pagination Dados de paginação
   # @return Painel contendo os links
-  _desenhaPainelPaginas: (pagination) ->
+  _desenhaPainelPaginas: (ids, pagination, queryBuscaPoliticos) ->
     painel = jQuery '<nav aria-label="Navegacion">'
-    paginaAtual = (pagination.first / pagination.quantity)+1
+
+    paginaAtual = 0;
     page_list_ul = jQuery('<ul>', {class:"pagination"})
 
-    Array.apply(null, {length: Math.ceil(pagination.count / pagination.quantity)})
+    Array.apply(null, {length: Math.ceil(ids.length / pagination)})
       .map(Number.call, Number).
       forEach (rec) ->
         pagina = rec + 1
@@ -80,7 +90,7 @@ class ViewObject
         else
           c = jQuery "<a>", {text: pagina, href: '#'}
           c.on "click", () ->
-            requisitaDados pagina
+            queryBuscaPoliticos pagina, ids.slice rec * 12,  pagina * 12
         c.appendTo page_list_li
         page_list_li.appendTo page_list_ul
     page_list_ul.appendTo painel
@@ -89,19 +99,23 @@ class ViewObject
 
   # Desenha o link de download
   # @return Painel contendo o link
-  _desenhaLinkDownload: () ->
+  _desenhaLinkDownload: (downloadAllData) ->
     lnkDownload = jQuery("<a>", {text: "download", href: "#", class:"btn btn-default"})
-    lnkDownload.on "click", downloadAllData
+    lnkDownload.on "click", () -> downloadAllData()
+    lnkDownload
 
 
   # Desenha no painel de dados os dados de tabela, links de paginação e link de download.
   # @param resultado Resultado retornado na pesquisa
   # @return Painel contendo o link
-  desenhaDadosFiltrados: (resultado) ->
-    @pDadosFiltrados.html this._desenhaTabelaDados(resultado.data)
-    @pDadosFiltrados.append this._desenhaPainelPaginas(resultado.pagination)
-    @pDadosFiltrados.append this._desenhaLinkDownload()
+  desenhaDadosFiltrados: (resultado, downloadAllData, queryBuscaPoliticos) ->
+    @pDadosFiltrados.html @_desenhaTabelaDados(resultado.data)
+    @pPaginacao.html @_desenhaPainelPaginas(resultado.ids, Number(resultado.pagination), queryBuscaPoliticos) if resultado.ids
+    @pBotoes.html @_desenhaLinkDownload(downloadAllData)
 
+
+  redrawPoliticians: (pagina, dados) ->
+    @pDadosFiltrados.html @_desenhaTabelaDados(dados)
 
   _desmarcaAlvo: (selecao, alvo) ->
     jQuery(selecao).on 'click', () ->
@@ -249,3 +263,29 @@ class ViewObject
     this._marcaRaca(query.cor_tse)
     this._marcaSituacoesEleitorais(query.situacao_eleitoral)
     null
+
+  reformatScreen: () ->
+    jQuery("#filtros").removeClass("col-md-12").addClass("col-md-4")
+    @cResultado.removeClass("col-md-12").addClass("col-md-8")
+    jQuery(".doble").children().removeClass("col-md-6").addClass("col-md-12")
+    @pBody.addClass('resposta')
+    @pBody.removeClass('resposta-vazia')
+
+  scrollToTop: ->
+    jQuery('html, body').animate { scrollTop: @cResultado.offset().top }, 1500
+
+  updateFormFieldsForDownload: (query) ->
+    frm = jQuery("#download-files")
+    jQuery("#download-files input").remove()
+    for key, value of query
+      jQuery("<input>",
+        type: "hidden"
+        name: key
+        value: JSON.stringify value
+      ).appendTo(frm)
+
+  startSearch: ->
+    @pSpinner.removeClass "invisible"
+
+  completeSearch: ->
+    @pSpinner.addClass "invisible"

@@ -76,6 +76,30 @@
         return $retorno;
     }
 
+    function empacota2($ids, $dados, $por_pagina, $query = null, $partidos = null, $estados = null, $generos = null, $cores = null, $situacoes_eleitorais = null) {
+
+        $retorno = [];
+        $pagination = [];
+
+        $retorno['ids'] = $ids;
+        $retorno['data'] = $dados;
+        $retorno['pagination'] = $por_pagina;
+        
+        if ($query != null) {
+          $filtros = [];
+          $filtros['partidos'] = $partidos;
+          $filtros['estados'] = $estados;
+          $filtros['generos'] = $generos;
+          $filtros['cores'] = $cores;
+          $filtros['situacoes_eleitorais'] = $situacoes_eleitorais;
+
+          $retorno['filter_data'] = $filtros;          
+          $retorno['query'] = $query;          
+        }
+
+        return $retorno;
+    }
+
     function emailSender() {
       return new EmailSender();
     }

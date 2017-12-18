@@ -88,14 +88,10 @@ class ViewObject
       .map(Number.call, Number).
       forEach (rec) ->
         pagina = rec + 1
-        le_class =  if pagina == paginaAtual then "active" else ""
-        page_list_li = jQuery('<li>',{class: le_class})
-        if pagina == paginaAtual
-          c = jQuery "<a>", {text: pagina}
-        else
-          c = jQuery "<a>", {text: pagina, href: '#'}
-          c.on "click", () ->
-            queryBuscaPoliticos pagina, ids.slice rec * 12,  pagina * 12
+        page_list_li = jQuery('<li>')
+        c = jQuery "<a>", {text: pagina, href: '#', class: "pagina-#{pagina}"}
+        c.on "click", () ->
+          queryBuscaPoliticos pagina, ids.slice rec * 12,  pagina * 12
         c.appendTo page_list_li
         page_list_li.appendTo page_list_ul
     page_list_ul.appendTo painel
@@ -117,10 +113,11 @@ class ViewObject
     @pDadosFiltrados.html @_desenhaTabelaDados(resultado.data)
     @pPaginacao.html @_desenhaPainelPaginas(resultado.ids, Number(resultado.pagination), queryBuscaPoliticos) if resultado.ids
     @pBotoes.html @_desenhaLinkDownload(downloadAllData)
-
+    @_marcaPagina 1
 
   redrawPoliticians: (pagina, dados) ->
     @pDadosFiltrados.html @_desenhaTabelaDados(dados)
+    @_marcaPagina pagina
 
   _desmarcaAlvo: (selecao, alvo) ->
     jQuery(selecao).on 'click', () ->
@@ -324,3 +321,8 @@ class ViewObject
 
   configuraBotaoFiltro: (evento) ->
     jQuery('#bt_filtro').on 'click', evento
+
+
+  _marcaPagina: (pagina) ->
+    jQuery('.pagination>li>a').removeClass('active')
+    jQuery(".pagina-#{pagina}").addClass('active')

@@ -1,11 +1,42 @@
+class ViewPaginacao
+  constructor: ->
+    # Painel de Paginacao
+    @pPaginacao = jQuery('#paginacao');
+
+  # Desenha os links de paginação (Painel de dados)
+  # @param pagination Dados de paginação
+  # @return Painel contendo os links
+  desenhaPainelPaginas: (ids, pagination, queryBuscaPoliticos) ->
+    painel = jQuery '<nav aria-label="Navegacion">'
+    paginaAtual = 0;
+    page_list_ul = jQuery('<ul>', {class:"pagination"})
+
+    Array.apply(null, {length: Math.ceil(ids.length / pagination)})
+      .map(Number.call, Number).
+      forEach (rec) ->
+        pagina = rec + 1
+        page_list_li = jQuery('<li>')
+        c = jQuery "<a>", {text: pagina, href: '#', class: "pagina-#{pagina}"}
+        c.on "click", () ->
+          queryBuscaPoliticos pagina, ids.slice rec * 12,  pagina * 12
+        c.appendTo page_list_li
+        page_list_li.appendTo page_list_ul
+    page_list_ul.appendTo painel
+    @pPaginacao.html painel
+
+  # Coloca o link relativo à paginação
+  marcaPagina: (pagina) ->
+    jQuery('.pagination>li>a').removeClass('active')
+    jQuery(".pagina-#{pagina}").addClass('active')
+
+
 class ViewObject
   constructor: (@siteUrl) ->
+    @viewPaginacao = new ViewPaginacao()
     @pBody = jQuery("body")
     @cResultado = jQuery("#resultado")
     # Painel que conterá a tabela com dados filtrados
     @pDadosFiltrados = jQuery("#dados_filtrados")
-    # Painel de Paginacao
-    @pPaginacao = jQuery('#paginacao');
     # Paineil de Botoes
     @pBotoes = jQuery("#botoes");
     # Painel de dados de Estado
@@ -21,8 +52,6 @@ class ViewObject
     @pSpinner = jQuery "#spinner-home"
     @pPnlCities = jQuery "#cidades-escolhidas"
     @pBusca = jQuery("#filtro-cidade-escolha")
-
-  
 
 
   # Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados)
@@ -74,30 +103,6 @@ class ViewObject
       cnt++;
     data += '</div>'
 
-
-  # Desenha os links de paginação (Painel de dados)
-  # @param pagination Dados de paginação
-  # @return Painel contendo os links
-  _desenhaPainelPaginas: (ids, pagination, queryBuscaPoliticos) ->
-    painel = jQuery '<nav aria-label="Navegacion">'
-
-    paginaAtual = 0;
-    page_list_ul = jQuery('<ul>', {class:"pagination"})
-
-    Array.apply(null, {length: Math.ceil(ids.length / pagination)})
-      .map(Number.call, Number).
-      forEach (rec) ->
-        pagina = rec + 1
-        page_list_li = jQuery('<li>')
-        c = jQuery "<a>", {text: pagina, href: '#', class: "pagina-#{pagina}"}
-        c.on "click", () ->
-          queryBuscaPoliticos pagina, ids.slice rec * 12,  pagina * 12
-        c.appendTo page_list_li
-        page_list_li.appendTo page_list_ul
-    page_list_ul.appendTo painel
-    painel
-
-
   # Desenha o link de download
   # @return Painel contendo o link
   _desenhaLinkDownload: (downloadAllData) ->
@@ -111,13 +116,13 @@ class ViewObject
   # @return Painel contendo o link
   desenhaDadosFiltrados: (resultado, downloadAllData, queryBuscaPoliticos) ->
     @pDadosFiltrados.html @_desenhaTabelaDados(resultado.data)
-    @pPaginacao.html @_desenhaPainelPaginas(resultado.ids, Number(resultado.pagination), queryBuscaPoliticos) if resultado.ids
+    @viewPaginacao.desenhaPainelPaginas(resultado.ids, Number(resultado.pagination), queryBuscaPoliticos) if resultado.ids
     @pBotoes.html @_desenhaLinkDownload(downloadAllData)
-    @_marcaPagina 1
+    @viewPaginacao.marcaPagina 1
 
   redrawPoliticians: (pagina, dados) ->
     @pDadosFiltrados.html @_desenhaTabelaDados(dados)
-    @_marcaPagina pagina
+    @viewPaginacao.marcaPagina pagina
 
   _desmarcaAlvo: (selecao, alvo) ->
     jQuery(selecao).on 'click', () ->
@@ -323,6 +328,3 @@ class ViewObject
     jQuery('#bt_filtro').on 'click', evento
 
 
-  _marcaPagina: (pagina) ->
-    jQuery('.pagination>li>a').removeClass('active')
-    jQuery(".pagina-#{pagina}").addClass('active')

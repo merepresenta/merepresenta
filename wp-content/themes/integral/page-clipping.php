@@ -13,18 +13,44 @@
 ?>
 <?php
   get_header();
+
+  // Busca todos os video-counts de uma só vez, para diminiuir o tráfego:
+
 ?>
 <div class="spacer"></div>
 
 <div class="container">
-  
 
   <h2 class="entry-title"><?php the_title(); ?></h2>
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
   <p><?php the_content(); ?></p>
-  <?php endwhile;?>
-  <?php endif; ?>
+  <?php endwhile; endif; ?>
+
+
+  <?php
+    // - - - - - - - - - - - - - - - - - - Y O U T U B E - - - - - - - - - - - - - - - - - -
+    // Busca todos os video-counts de uma só vez, para diminiuir o tráfego:
+
+    wp_reset_query();
+    query_posts( 'cat=3' );// for videos
+    $ids = [];
+
+    while(have_posts()) {
+      the_post();
+
+      $urlVideo = get_post_meta( get_the_ID(), 'video' )[0];
+      $videoId = substr($urlVideo,-11);
+      $ids[] = $videoId;
+    }
+    $result = file_get_contents("https://www.googleapis.com/youtube/v3/videos?part=statistics&id=" . implode('%2C', $ids) . '&key=' . getenv('GOOGLE_API_YOUTUBE'));
+    wp_reset_query();
+
+    $resultData = json_decode($result);
+
+    $viewList = array_merge(...array_map(function($dt){return array($dt->id => number_format(intval($dt->statistics->viewCount), 0, ',', '.'));}, $resultData->items));
+  ?>
+
 
   <div class="container carousel slide" id="page-video" data-ride="carousel"  data-interval="false">
     <!-- destacado -->
@@ -45,6 +71,7 @@
         <div class="col-md-4">
           <h4><?=the_title();?></h4>
           <h5><?php the_time('d/m/Y'); ?></h5>
+          <h5><?= $viewList[$embed_video] ?> Visualizações</h5>
           <?=the_content()?>
         </div>
       </div>

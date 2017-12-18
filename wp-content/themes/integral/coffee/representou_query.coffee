@@ -1,31 +1,50 @@
-class ViewObject
-  constructor: (@siteUrl) ->
+# View, focada na parte de paginação dos dados
+class ViewPaginacao
+  constructor: ->
+    # Painel de Paginacao
+    @pPaginacao = jQuery('#paginacao');
+
+  # Desenha os links de paginação (Painel de dados)
+  # @param pagination Dados de paginação
+  # @return Painel contendo os links
+  desenhaPainelPaginas: (ids, pagination, queryBuscaPoliticos) ->
+    painel = jQuery '<nav aria-label="Navegacion">'
+    paginaAtual = 0;
+    page_list_ul = jQuery('<ul>', {class:"pagination"})
+
+    Array.apply(null, {length: Math.ceil(ids.length / pagination)})
+      .map(Number.call, Number).
+      forEach (rec) ->
+        pagina = rec + 1
+        page_list_li = jQuery('<li>')
+        c = jQuery "<a>", {text: pagina, href: '#', class: "pagina-#{pagina}"}
+        c.on "click", () ->
+          queryBuscaPoliticos pagina, ids.slice rec * 12,  pagina * 12
+        c.appendTo page_list_li
+        page_list_li.appendTo page_list_ul
+    page_list_ul.appendTo painel
+    @pPaginacao.html painel
+
+  # Coloca o link relativo à paginação
+  marcaPagina: (pagina) ->
+    jQuery('.pagination>li>a').removeClass('active')
+    jQuery(".pagina-#{pagina}").addClass('active')
+
+
+
+#View focada na parte de apresentação dos dados filtrados
+class ViewDadosFiltrados
+  constructor: (@siteUrl, @urlTema) ->
     # Painel que conterá a tabela com dados filtrados
     @pDadosFiltrados = jQuery("#dados_filtrados")
-    # Painel de dados de Estado
-    @pUf = jQuery("#filtro_estado")
-    # Painel de dados de partido
-    @pPartidos = jQuery("#filtro_partido")
-    # Painel com dados de gênero
-    @pGeneros = jQuery("#filtro_genero")
-    # Painel com dados de pigmentação da raça
-    @pCores = jQuery("#filtro_cor")
-    # Painel com dados de situações eleitorais
-    @pSituacoes = jQuery("#filtro_sit_eleitoral")
-
-  # Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados)
-  # @param mensagem Mensagem a ser apresentada
-  desenhaDadosFiltradosVazio: (mensagem) ->
-    saida = jQuery "<h3>", {text: mensagem}
-    @pDadosFiltrados.html saida
 
   # Desenha os dados na tabela
   # @param dados dados a serem apresentados
   # @return Painel contendo os dados
-  _desenhaTabelaDados: (dados) ->
+  desenhaTabelaDados: (dados) ->
     data = '<div class="row">';
     cnt = 1;
-    jQuery(dados).each (idx,r) ->
+    jQuery(dados).each ((idx,r) ->
       type_css_eleito = ''
       type_txt_eleito = ''
       if r["situacao_eleitoral"]?
@@ -35,12 +54,12 @@ class ViewObject
       data += """
         <div class="col-md-4">
           <div class="panel panel-default#{type_css_eleito}">
-            <a target="_blank" href="#{siteUrl}/politicos/?cand_id=#{r['id_candidatura']}">
+            <a target="_blank" href="#{@siteUrl}/politicos/?cand_id=#{r['id_candidatura']}">
               <div class="panel-body">"""
       if(!!r["fb_id"])
         data += "<img src='//graph.facebook.com/v2.6/#{r["fb_id"]}/picture?type=large' class='img-responsive img-rounded' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
       else
-        data += "<img src='/wp-content/themes/integral/images/default-profile.jpg' class='img-responsive img-circle' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
+        data += "<img src='#{@urlTema}/images/default-profile.jpg' class='img-responsive img-circle' alt='#{r["nome_candidato"]}' title='#{r["nome_candidato"]}'>"
       data +=  """
                 <h4 class="title-name-politic">#{r['nome_urna']}</h4>
                 <ul class="list-unstyled">
@@ -58,50 +77,63 @@ class ViewObject
       else
         data += '</div>'
       cnt++;
+    ).bind this
     data += '</div>'
+    @pDadosFiltrados.html data
 
 
-  # Desenha os links de paginação (Painel de dados)
-  # @param pagination Dados de paginação
-  # @return Painel contendo os links
-  _desenhaPainelPaginas: (pagination) ->
-    painel = jQuery '<nav aria-label="Navegacion">'
-    paginaAtual = (pagination.first / pagination.quantity)+1
-    page_list_ul = jQuery('<ul>', {class:"pagination"})
 
-    Array.apply(null, {length: Math.ceil(pagination.count / pagination.quantity)})
-      .map(Number.call, Number).
-      forEach (rec) ->
-        pagina = rec + 1
-        le_class =  if pagina == paginaAtual then "active" else ""
-        page_list_li = jQuery('<li>',{class: le_class})
-        if pagina == paginaAtual
-          c = jQuery "<a>", {text: pagina}
-        else
-          c = jQuery "<a>", {text: pagina, href: '#'}
-          c.on "click", () ->
-            requisitaDados pagina
-        c.appendTo page_list_li
-        page_list_li.appendTo page_list_ul
-    page_list_ul.appendTo painel
-    painel
+class ViewObject
+  constructor: (@siteUrl, @urlTema) ->
+    @viewPaginacao = new ViewPaginacao()
+    @viewDadosFiltrados = new ViewDadosFiltrados @siteUrl, @urlTema
+
+    @pBody = jQuery("body")
+    @cResultado = jQuery("#resultado")
+    # Paineil de Botoes
+    @pBotoes = jQuery("#botoes");
+    # Painel de dados de Estado
+    @pUf = jQuery("#filtro_estado")
+    # Painel de dados de partido
+    @pPartidos = jQuery("#filtro_partido")
+    # Painel com dados de gênero
+    @pGeneros = jQuery("#filtro_genero")
+    # Painel com dados de pigmentação da raça
+    @pCores = jQuery("#filtro_cor")
+    # Painel com dados de situações eleitorais
+    @pSituacoes = jQuery("#filtro_sit_eleitoral")
+    @pSpinner = jQuery "#spinner-home"
+    @pPnlCities = jQuery "#cidades-escolhidas"
+    @pBusca = jQuery("#filtro-cidade-escolha")
+
+
+  # Apresenta mensagem no painel de dados (no lugar da tabela de dados filtrados)
+  # @param mensagem Mensagem a ser apresentada
+  desenhaDadosFiltradosVazio: ->
+    @pBody.addClass 'resposta-vazia'
+
 
 
   # Desenha o link de download
   # @return Painel contendo o link
-  _desenhaLinkDownload: () ->
+  _desenhaLinkDownload: (downloadAllData) ->
     lnkDownload = jQuery("<a>", {text: "download", href: "#", class:"btn btn-default"})
-    lnkDownload.on "click", downloadAllData
+    lnkDownload.on "click", () -> downloadAllData()
+    lnkDownload
 
 
   # Desenha no painel de dados os dados de tabela, links de paginação e link de download.
   # @param resultado Resultado retornado na pesquisa
   # @return Painel contendo o link
-  desenhaDadosFiltrados: (resultado) ->
-    @pDadosFiltrados.html this._desenhaTabelaDados(resultado.data)
-    @pDadosFiltrados.append this._desenhaPainelPaginas(resultado.pagination)
-    @pDadosFiltrados.append this._desenhaLinkDownload()
+  desenhaDadosFiltrados: (resultado, downloadAllData, queryBuscaPoliticos) ->
+    @viewDadosFiltrados.desenhaTabelaDados(resultado.data)
+    @viewPaginacao.desenhaPainelPaginas(resultado.ids, Number(resultado.pagination), queryBuscaPoliticos) if resultado.ids
+    @pBotoes.html @_desenhaLinkDownload(downloadAllData)
+    @viewPaginacao.marcaPagina 1
 
+  redrawPoliticians: (pagina, dados) ->
+    @viewDadosFiltrados.desenhaTabelaDados(dados)
+    @viewPaginacao.marcaPagina pagina
 
   _desmarcaAlvo: (selecao, alvo) ->
     jQuery(selecao).on 'click', () ->
@@ -249,3 +281,61 @@ class ViewObject
     this._marcaRaca(query.cor_tse)
     this._marcaSituacoesEleitorais(query.situacao_eleitoral)
     null
+
+  reformatScreen: () ->
+    jQuery("#filtros").removeClass("col-md-12").addClass("col-md-4")
+    @cResultado.removeClass("col-md-12").addClass("col-md-8")
+    jQuery(".doble").children().removeClass("col-md-6").addClass("col-md-12")
+    @pBody.addClass('resposta')
+    @pBody.removeClass('resposta-vazia')
+
+  scrollToTop: ->
+    jQuery('html, body').animate { scrollTop: @cResultado.offset().top }, 1500
+
+  updateFormFieldsForDownload: (query) ->
+    frm = jQuery("#download-files")
+    jQuery("#download-files input").remove()
+    for key, value of query
+      jQuery("<input>",
+        type: "hidden"
+        name: key
+        value: JSON.stringify value
+      ).appendTo(frm)
+
+  startSearch: ->
+    @pSpinner.removeClass "invisible"
+
+  completeSearch: ->
+    @pSpinner.addClass "invisible"
+
+  _addSelectedCity: (cityId, cityName) ->
+    lbl = jQuery("<label>", {text: cityName}).appendTo @pPnlCities
+    checkbox = jQuery("<input>",
+      type: "checkbox"
+      checked: "checked"
+      cid_id: cityId
+      class: "chk-cidade"
+    ).appendTo lbl 
+    # Mata o checkbox, no click
+    checkbox.on "click", () -> jQuery(event.currentTarget).parent().remove()
+
+  _selecionaCidade: (event, ui) ->
+    if ui.item
+      @_addSelectedCity ui.item.value, ui.item.label
+      @pBusca.val ""
+      @pBusca.focus()
+    false
+
+  configuraAutoComplete: (source) ->
+    @pBusca.autocomplete
+      source: source
+      minLength: 2,
+      focus: (event,ui) -> false
+      change: @_selecionaCidade.bind(this)
+      select: @_selecionaCidade.bind(this)
+
+
+  configuraBotaoFiltro: (evento) ->
+    jQuery('#bt_filtro').on 'click', evento
+
+

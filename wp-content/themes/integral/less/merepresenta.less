@@ -810,91 +810,118 @@ body .content .entry-title:after,
   padding-left: 33%;
 }
 /*                         P Á G I N A   D E   P E S Q U I S A   2                    */
-/**
- * Corpo
- */
-.page-id-6.resposta .navbar-brand {
-  background-image: url('../images/logo_horizon.png');
-}
-.page-id-6.resposta .panel-body .data_situacao_cadastral {
-  text-transform: capitalize;
-}
 .page-id-6.resposta {
+  /**
+   * Corpo
+   */
   background-color: @cor-amarela;
   color: @cor-roxa;
-}
-.page-id-6.resposta .form-control {
-  background-color: @cor-amarela;
-}
-/**
- * Barra de navegação
- */
-.page-id-6.resposta .navbar {
-  background-color: @cor-amarela;
-  color: @cor-branca;
-}
-/*
- * Candidatos pesquisados
- */
-.page-id-6 #dados_filtrados .panel {
-  border-color: @cor-roxa;
-}
-.page-id-6 #dados_filtrados .panel-body {
-  background-color: @cor-roxa;
-  color: @cor-branca;
-}
-.page-id-6 #dados_filtrados .panel-body:hover {
-  background-color: @cor-roxa-clara;
-}
-.page-id-6 #dados_filtrados .panel.eleito {
-  border-color: @cor-verde-claro;
-}
-.page-id-6 #dados_filtrados .panel.eleito .panel-body {
-  background-color: @cor-verde-claro;
-}
-.page-id-6 #dados_filtrados .panel.eleito .panel-body:hover {
-  background-color: @cor-verde-clarinho;
-}
-.page-id-6 #dados_filtrados .panel-body a {
-  color: @cor-branca;
-  text-decoration: underline;
-  text-transform: uppercase;
-}
-#dados_filtrados .panel>a:hover {
-  text-decoration: none;
-}
-/**
- * Elementos de paginação
- */
-.page-id-6 .container .pagination>li>a {
-  background-color: @cor-verde-escuro;
-  border-color:  @cor-amarela-clara;
-  color: @cor-branca;
-}
-.page-id-6 .container .pagination>li>a:hover {
-  background-color: @cor-verde-claro;
-  border-color: @cor-amarela-clara;
-}
-.page-id-6 .container .pagination>li.active>a {
-  background-color: @cor-roxa;
-}
-/* Botão download */
-.page-id-6 #dados_filtrados>.btn {
-  background-color: @cor-verde-escuro;
-  border-color: @cor-verde-escuro;
-  color: #fff;
-  font-weight: bold;
-  min-width: 150px;
-  width: 20%;
-}
-/**
- * Mensagem de não encontrado
- */
-.page-id-6 .resposta-em-branco>.alerta {
-    text-align: justify;
-}
-.page-id-6 .resposta-em-branco {
-    text-align: center;
+
+  .form-control {
+    background-color: @cor-amarela;
+  }
+  .navbar-brand {
+    background-image: url('../images/logo_horizon.png');
+  }
+  .panel-body .data_situacao_cadastral {
+    text-transform: capitalize;
+  }
+
+  /**
+   * Barra de navegação
+   */
+  .navbar {
+    background-color: @cor-amarela;
+    color: @cor-branca;
+  }
+
+  /**
+   * Menu de Pesquisa
+   */
+  #filtro_genero .frm-label>a:hover,
+  #filtro_cor .frm-label>a:hover {
+    color: @cor-verde-escuro;
+  }
+  #bt_filtro {
+    color: @cor-branca;
+  }
+
+  /*
+   * Candidatos pesquisados
+   */
+  #dados_filtrados {
+    .panel {
+      border-color: @cor-roxa;
+    }
+    .panel-body {
+      background-color: @cor-roxa;
+      color: @cor-branca;
+    }
+    .panel-body:hover {
+      background-color: @cor-roxa-clara;
+    }
+    .panel.eleito {
+      border-color: @cor-verde-claro;
+    }
+    .panel.eleito .panel-body {
+      background-color: @cor-verde-claro;
+    }
+    .panel.eleito .panel-body:hover {
+      background-color: @cor-verde-clarinho;
+    }
+    .panel-body a {
+      color: @cor-branca;
+      text-decoration: underline;
+      text-transform: uppercase;
+    }
+    .panel>a:hover {
+      text-decoration: none;
+    }
+    
+  }
+
+  /**
+   * Elementos de paginação
+   */
+  #paginacao {
+    li>a {
+      background-color: @cor-verde-escuro;
+      border-color:  @cor-amarela-clara;
+      color: @cor-branca;
+    }
+    li>a:hover {
+      background-color: @cor-verde-claro;
+      border-color: @cor-amarela-clara;
+    }
+    li>a.active {
+      background-color: @cor-roxa;
+    }
+  }
+
+  /* Botão download */
+  #botoes {
+    >.btn {
+      background-color: @cor-verde-escuro;
+      border-color: @cor-verde-escuro;
+      color: #fff;
+      font-weight: bold;
+      min-width: 150px;
+      width: 20%;
+    }
+    >.btn:hover {
+      background-color: @cor-verde-claro;
+      border-color: @cor-verde-claro;
+    }
+  }
+  /**
+   * Mensagem de não encontrado
+   */
+  .resposta-em-branco>.alerta {
+      text-align: justify;
+  }
+  .resposta-em-branco {
+      text-align: center;
+  }
 }
 
 

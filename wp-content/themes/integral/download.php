@@ -26,7 +26,7 @@
   }
 
   $politicianQuery = new PoliticianQuery(array('query' => $query));
-  $sql = $politicianQuery->generateQuery();
+  $sql = $politicianQuery->generateUnlimitedQuery();
   $dados = $queryRunner->get_results($sql);
 
   ($ambiente->exporter(EXP_CSV))->exporta(PoliticianQuery::freeUnexportedFields($dados));

@@ -112,8 +112,6 @@
 
 
 
-
-
   <div id="carousel-clipping" class="carousel" data-ride="carousel" data-interval="false">
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
@@ -197,9 +195,6 @@
 
 
 
-
-
-
   <div class="container carousel slide" id="page-fbvideo" data-ride="carousel"  data-interval="false">
     <!-- destacado -->
     <div class="row carousel-inner" role="listbox">
@@ -212,7 +207,7 @@
       <div class="item <?=($cnt==0)?'active':''?>">
         <div class="col-md-8">
           <div class="facebook-responsive">
-            <iframe src="https://www.facebook.com/plugins/video.php?href=<?= urlencode($url_video) . '&mute=0&show_text=0&width=476'?>" width="476" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
+            <iframe src="https://www.facebook.com/plugins/video.php?href=<?= urlencode($url_video) . '&mute=0&show_text=0&width=730&height=411'?>" width="730" height="411" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
           </div>
         </div>
         <div class="col-md-4">
@@ -240,9 +235,9 @@
       <div class="col-md-2" data-target="#page-fbvideo" data-slide-to="<?=$cnt?>">
         <div class="panel panel-default">
           <div class="panel-body">
-            <div class="imagem-clipping">
-              <?php if (has_post_thumbnail()): the_post_thumbnail(array( 200, 300 )); else: ?>
-              <img src="https://graph.facebook.com/<?=$video_id?>/picture" alt="Video image">
+            <div class="imagem-clipping-fb">
+              <?php if (has_post_thumbnail()): the_post_thumbnail(array( 160, 160 )); else: ?>
+              <img src="https://graph.facebook.com/<?=$video_id?>/picture?height=160&type=small&width=160" alt="Video image">
               <?php endif ?>
             </div>
             <h4><?=the_title();?></h4>
@@ -257,10 +252,6 @@
       ?> 
     </div><!-- .row -->
   </div>
-
-
-
-
 
 </div>
 

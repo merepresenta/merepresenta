@@ -342,7 +342,7 @@ class ViewObject
       class: "chk-cidade"
     ).appendTo lbl 
     # Mata o checkbox, no click
-    checkbox.on "click", () -> jQuery(event.currentTarget).parent().remove()
+    checkbox.on "click", (event) -> jQuery(event.currentTarget).parent().remove()
 
   _selecionaCidade: (event, ui) ->
     if ui.item
@@ -362,5 +362,4 @@ class ViewObject
 
   configuraBotaoFiltro: (evento) ->
     jQuery('#bt_filtro').on 'click', evento
-
 

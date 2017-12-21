@@ -26,9 +26,14 @@ class ViewPaginacao
     @pPaginacao.html painel
 
   # Coloca o link relativo à paginação
+  # @param pagina numéro da pagina a ser marcada (inicia em 1)
   marcaPagina: (pagina) ->
     jQuery('.pagination>li>a').removeClass('active')
     jQuery(".pagina-#{pagina}").addClass('active')
+
+  # Limpa a tela de paginação
+  clear: ->
+    @pPaginacao.html ''
 
 
 
@@ -37,6 +42,9 @@ class ViewDadosFiltrados
   constructor: (@siteUrl, @urlTema) ->
     # Painel que conterá a tabela com dados filtrados
     @pDadosFiltrados = jQuery("#dados_filtrados")
+
+  # Limpa a view de dados filtrados
+  clear: -> @pDadosFiltrados.html ''
 
   # Desenha os dados na tabela
   # @param dados dados a serem apresentados
@@ -131,10 +139,18 @@ class ViewObject
     @pBotoes.html @_desenhaLinkDownload(downloadAllData)
     @viewPaginacao.marcaPagina 1
 
+  # Atualiza os dados filtrados e o número de página sendo acessado
+  # @param pagina Número de página (iniciando em 1)
+  # @param dados dados a serem mostrados
   redrawPoliticians: (pagina, dados) ->
     @viewDadosFiltrados.desenhaTabelaDados(dados)
     @viewPaginacao.marcaPagina pagina
 
+  # Obriga o alvo a desmarcar os itens de um grupo e vice-versa.
+  # Se um item de um grupo for marcado, automaticamente tirará a marcação do item alvo
+  # Se o item-alvo for marcado, imediatamente desmarcará os itens do grupo da seleção
+  # @param selecao Grupo que desmarcará (e será desmarcado peo alvo)
+  # @param alvo componente que será desmarcado e que desmarcará um grupo
   _desmarcaAlvo: (selecao, alvo) ->
     jQuery(selecao).on 'click', () ->
       if (jQuery("#{selecao}:checked").size() > 0)
@@ -145,14 +161,16 @@ class ViewObject
     jQuery(alvo).on 'click', () ->
       jQuery("#{selecao}:checked").attr 'checked', false if(jQuery(alvo).attr 'checked')
 
-
+  # Cria as funções de desmarque em cada um dos grupos de componentes:
+  # - Estados
+  # - Partidos
+  # - Gêneros
+  # - 'Raças'
   criaFuncoesDesmarque: () ->
-    this._desmarcaAlvo ".chk-pauta", "#filtro_pauta .check-all"
     this._desmarcaAlvo ".chk-estado", "#filtro_estado .check-all"
     this._desmarcaAlvo ".chk-partido", "#filtro_partido .check-all"
     this._desmarcaAlvo ".chk-genero", "#filtro_genero .check-all"
     this._desmarcaAlvo ".chk-cor", "#filtro_cor .check-all"
-
 
   # Cria header
   _createHeader: (title)->
@@ -303,6 +321,13 @@ class ViewObject
       ).appendTo(frm)
 
   startSearch: ->
+    # Limpa a tela de pesquisa anteriores
+    @pBody.removeClass 'resposta-vazia'
+    @viewDadosFiltrados.clear()
+    @viewPaginacao.clear()
+    @pBotoes.html ''
+
+    # Coloca spinner
     @pSpinner.removeClass "invisible"
 
   completeSearch: ->

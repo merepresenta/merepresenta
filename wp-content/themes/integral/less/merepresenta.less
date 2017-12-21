@@ -933,11 +933,19 @@ body .content .entry-title:after,
   /**
    * Mensagem de não encontrado
    */
-  .resposta-em-branco>.alerta {
-      text-align: justify;
-  }
   .resposta-em-branco {
-      text-align: center;
+    text-align: center;
+
+    >.alerta {
+        text-align: justify;
+    }
+    .btn {
+      border-radius: 1rem;
+      font-size: 1.5rem;
+      font-weight: bolder;
+      padding: 1.5rem;
+      text-transform: uppercase;
+    }
   }
 }
 

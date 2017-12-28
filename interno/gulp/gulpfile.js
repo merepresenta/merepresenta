@@ -51,20 +51,18 @@ gulp.task('server', function(){
   })
 });
 
-gulp.task('min-img-jpg', function(){
-  gulp.src('../imagens/jpg/**/*.jpg')
-    .pipe(imagemin())
-    .pipe(gulp.dest('../../wp-content/themes/integral/images'));
-});
-
-gulp.task('min-img-png', function(){
-  gulp.src('../imagens/png/**/*.png')
-    .pipe(imagemin())
-    .pipe(gulp.dest('../../wp-content/themes/integral/images'));
-});
-
-gulp.task('copy-img', ['min-img-jpg', 'min-img-png'],  function(){
-  gulp.src('../imagens/svg/**/*.svg')
+gulp.task('min-img', function(){
+  gulp.src(['../imagens/jpg/**/*.jpg', '../imagens/png/**/*.png', '../imagens/svg/**/*.svg'])
+    .pipe(imagemin([
+      imagemin.jpegtran(),
+      imagemin.optipng(),
+      imagemin.svgo({
+        plugins: [
+          {removeViewBox: true},
+          {cleanupIDs: false}
+        ]
+      })
+    ]))
     .pipe(gulp.dest('../../wp-content/themes/integral/images'));
 });
 
@@ -85,6 +83,6 @@ gulp.task('coffeec', function() {
     .pipe(gulp.dest('../../wp-content/themes/integral/js'));
 });
 
-gulp.task('default', ["copy-img", "lessc", "coffeec"] , function() {
+gulp.task('default', ["min-img", "lessc", "coffeec"] , function() {
   
 });

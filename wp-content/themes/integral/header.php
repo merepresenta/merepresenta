@@ -24,7 +24,6 @@
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 <link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/jquery-ui.min.css">
-<!-- <link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/merepresenta.min.css"> -->
 <link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/open-sans.css">
 <link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/merepresenta.css">
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png" />

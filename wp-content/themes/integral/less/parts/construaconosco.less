@@ -1,0 +1,99 @@
+/*                  C O N S T R U A   C O M   A   G E N T E               */
+/**
+ * Conteúdo
+ */
+.page-id-93 {
+  background-color: @cor-verde-claro;
+  background-image: url(../images/FALE-COM-A-GENTE.jpg);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: @cor-roxa;
+}
+/* Título */
+.page-id-93 .entry-title {
+  color: @cor-roxa;
+}
+/**
+ * Menu
+ */
+.page-id-93>.navbar {
+  background-color: @cor-verde-claro;
+}
+.page-id-93 .navbar-default li a,
+.page-id-93 .navbar-default .navbar-nav > li > a {
+  color: @cor-branca;
+}
+.page-id-93 .navbar-default .navbar-nav > li > a:hover {
+  border-color: @cor-amarela;
+  color: @cor-amarela;
+}
+.page-id-93 .navbar-default .navbar-nav > .active > a,
+.page-id-93 .navbar-default .navbar-nav > .active > a:hover {
+  border-color: #666;
+  color: #666;
+}
+/* Copyright */
+.page-id-93 .copyright,
+.page-id-93 .copyright a,
+.page-id-93 .copyright .copyrightinfo {
+  background-color: @cor-roxa;
+  color: @cor-branca;
+}
+/**
+ * Formulário
+ */
+.page-id-93 form label {
+  text-transform: uppercase;
+  width: 100%;
+}
+.page-id-93 form .form-control {
+  background-color: transparent;
+  border-color: @cor-roxa;
+  border-style: solid;
+  border-radius: .25rem;
+}
+.page-id-93 form .contribuicoes,
+.page-id-93 form .pautas {
+  padding: 4em 0 2em 0;
+}
+.page-id-93 form label>input[type=checkbox]+span+input {
+  display: inline-block;
+  background-color: @cor-verde-claro;
+}
+.page-id-93 form label>input[type=checkbox]:checked+span+input {
+  background-color: transparent;
+}
+.page-id-93 form .btn {
+  background-color: @cor-amarela;
+  color: @cor-roxa;
+  font-weight: bolder;
+  min-width: 10ch;
+  text-transform: uppercase;
+  width: 60%;
+}
+.page-id-93  {
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  input[type='checkbox'] + span::before {
+    background-image: url(@chk_open);
+    background-size: cover;
+    content: '';
+    display: inline-block;
+    height: 1.5rem;
+    left: -2px;  
+    position: relative;
+    top: 5px;
+    width: 1.5rem;
+  }
+
+  input[type='checkbox']:checked + span::before {
+    background-image: url(@chk_closed);
+  }
+
+  form>div.envia {
+    text-align: center;
+  }
+}

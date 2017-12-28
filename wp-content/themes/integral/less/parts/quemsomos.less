@@ -1,0 +1,130 @@
+/*                                 Q U E M   S O M O S                          */
+/**
+ * Conteúdo da página
+ */
+.page-id-114 .expansao img {
+  opacity: .2;
+  display: inline-block;
+  width: 13rem;
+}
+.page-id-114 .expansao a img {
+  opacity: 1;
+}
+.page-id-114 .parc>div {
+  display: inline-block;
+  padding-right: 2em;
+}
+.page-id-114 .parc {
+  padding-left: 3em;
+}
+.page-id-114 {
+  background-color: @cor-roxa;
+  color: @cor-branca;
+  min-width: 300px;
+}
+/* link de contato */
+.page-id-114 .contato {
+  color: @cor-amarela;
+}
+/* Todo conteúdo é recuado. */
+.page-id-114 p,
+.page-id-114 h2,
+.page-id-114 h3,
+.page-id-114 h4,
+.page-id-114 ul {
+  padding-left: 5rem;
+}
+/* Final deve grudar com a barra de copyright */
+.page-id-114 .content {
+  padding-bottom: 0;
+}
+/**
+ * Barra de menu
+ */
+.page-id-114>nav.navbar {
+  background-color: @cor-roxa;
+}
+.page-id-114 .navbar-default li a,
+.page-id-114 .navbar-default .navbar-nav > li > a {
+  color: @cor-branca;
+}
+.page-id-114 .navbar-default .navbar-nav > li > a:hover {
+  border-color: @cor-amarela;
+  color: @cor-amarela;
+}
+.page-id-114 .navbar-default .navbar-nav > .active > a,
+.page-id-114 .navbar-default .navbar-nav > .active > a:hover {
+  border-color: @cor-branca-escura;
+  color: @cor-branca-escura;
+}
+/**
+ * Título principal
+ */
+.page-id-114 .entry-title {
+  color: @cor-amarela;
+}
+/**
+ * Expansões
+ */
+.page-id-114 .expansao {
+  position: relative;
+}
+.page-id-114 .expansao>div {
+  display: grid;
+  position: relative;
+  width: 100%;
+}
+.page-id-114 .expansao>.ano2017 {
+  background-color: @cor-amarela;
+  color: @cor-branca;
+}
+.page-id-114 .expansao>.ano2018 {
+  background-color: @cor-verde-claro;
+  color: @cor-branca;
+}
+.page-id-114 .btn {
+  color: @cor-amarela;
+  background-color: @cor-roxa;
+  font-weight: bolder;
+}
+.page-id-114 .expansao::before {
+  background-color: white;
+  bottom: 0;
+  content: '';
+  left: 1rem;
+  position: absolute;
+  top: 11rem ;
+  width: 3px;
+  z-index: 15;
+}
+@media screen and (min-width: 631px) {
+  .page-id-114 .expansao::before {
+    top: 9rem ;
+  }
+}
+@media screen and (min-width: 619px) {
+  .page-id-114 .expansao::before {
+    top: 6rem ;
+  }
+}
+.page-id-114 .expansao>.ano2016::before {
+  background-color: white;
+  border-radius: 50%;
+  content: '';
+  height: 10px;
+  left: .7rem;
+  position: absolute;
+  top: 2rem;
+  width: 10px;
+  z-index: 15;
+}
+.page-id-114 .expansao>.ano2017::before,
+.page-id-114 .expansao>.ano2018::before {
+  background-color: white;
+  content: '';
+  height: 2px;
+  left: 1rem;
+  position: absolute;
+  top: 2.3rem;
+  width: 3rem;
+}

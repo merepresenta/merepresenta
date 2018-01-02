@@ -8,7 +8,9 @@ var
   , cssmin = require('gulp-cssmin')
   , browserSync = require('browser-sync')
   , uglify = require('gulp-uglify')
-  , coffee = require('gulp-coffee');
+  , coffee = require('gulp-coffee')
+  , imageminMozjpeg = require('imagemin-mozjpeg')
+  ;
 
 gulp.task('server', function(){
   browserSync.init({
@@ -54,13 +56,17 @@ gulp.task('server', function(){
 gulp.task('min-img', function(){
   gulp.src(['../imagens/jpg/**/*.jpg', '../imagens/png/**/*.png', '../imagens/svg/**/*.svg'])
     .pipe(imagemin([
-      imagemin.jpegtran(),
+      imagemin.jpegtran({progressive: true}),
       imagemin.optipng(),
       imagemin.svgo({
         plugins: [
           {removeViewBox: true},
           {cleanupIDs: false}
         ]
+      }),
+      //jpg very light lossy, use vs jpegtran
+      imageminMozjpeg({
+          quality: 70
       })
     ]))
     .pipe(gulp.dest('../../wp-content/themes/integral/images'));

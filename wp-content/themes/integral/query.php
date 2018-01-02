@@ -151,6 +151,6 @@ $situacoesEleitorais = $queryRunner->get_results("select distinct situacao_eleit
   var siteUrl = "<?= site_url() ?>";
   var temaUrl = "<?= get_template_directory_uri() ?>";
 </script>
-
+<script type="text/javascript" src="<?= get_template_directory_uri()?>/js/jquery-ui.min.js"></script>
 <script type='text/javascript' src="<?= get_template_directory_uri() ?>/js/representou_query.js"></script>
 <script type='text/javascript' src="<?= get_template_directory_uri() ?>/js/quemterepresenta.js"></script>

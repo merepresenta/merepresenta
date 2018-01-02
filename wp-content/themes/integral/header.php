@@ -28,7 +28,6 @@
 <link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/merepresenta.css">
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png" />
 <?php wp_head(); ?>
-<script type="text/javascript" src="<?= get_template_directory_uri()?>/js/jquery-ui.min.js"></script>
 </head>
 
 <body id="page-top" <?php body_class(); ?>>    

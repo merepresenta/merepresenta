@@ -10,6 +10,7 @@ var
   , uglify = require('gulp-uglify')
   , coffee = require('gulp-coffee')
   , imageminMozjpeg = require('imagemin-mozjpeg')
+  , imageminPngquant = require('imagemin-pngquant')
   ;
 
 gulp.task('server', function(){
@@ -67,6 +68,9 @@ gulp.task('min-img', function(){
       //jpg very light lossy, use vs jpegtran
       imageminMozjpeg({
           quality: 70
+      }),
+      imageminPngquant({
+        quality: 80
       })
     ]))
     .pipe(gulp.dest('../../wp-content/themes/integral/images'));

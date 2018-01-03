@@ -8,7 +8,10 @@ var
   , cssmin = require('gulp-cssmin')
   , browserSync = require('browser-sync')
   , uglify = require('gulp-uglify')
-  , coffee = require('gulp-coffee');
+  , coffee = require('gulp-coffee')
+  , imageminMozjpeg = require('imagemin-mozjpeg')
+  , imageminPngquant = require('imagemin-pngquant')
+  ;
 
 gulp.task('server', function(){
   browserSync.init({
@@ -51,20 +54,25 @@ gulp.task('server', function(){
   })
 });
 
-gulp.task('min-img-jpg', function(){
-  gulp.src('../imagens/jpg/**/*.jpg')
-    .pipe(imagemin())
-    .pipe(gulp.dest('../../wp-content/themes/integral/images'));
-});
-
-gulp.task('min-img-png', function(){
-  gulp.src('../imagens/png/**/*.png')
-    .pipe(imagemin())
-    .pipe(gulp.dest('../../wp-content/themes/integral/images'));
-});
-
-gulp.task('copy-img', ['min-img-jpg', 'min-img-png'],  function(){
-  gulp.src('../imagens/svg/**/*.svg')
+gulp.task('min-img', function(){
+  gulp.src(['../imagens/jpg/**/*.jpg', '../imagens/png/**/*.png', '../imagens/svg/**/*.svg'])
+    .pipe(imagemin([
+      imagemin.jpegtran({progressive: true}),
+      imagemin.optipng(),
+      imagemin.svgo({
+        plugins: [
+          {removeViewBox: true},
+          {cleanupIDs: false}
+        ]
+      }),
+      //jpg very light lossy, use vs jpegtran
+      imageminMozjpeg({
+          quality: 70
+      }),
+      imageminPngquant({
+        quality: 80
+      })
+    ]))
     .pipe(gulp.dest('../../wp-content/themes/integral/images'));
 });
 
@@ -85,6 +93,6 @@ gulp.task('coffeec', function() {
     .pipe(gulp.dest('../../wp-content/themes/integral/js'));
 });
 
-gulp.task('default', ["copy-img", "lessc", "coffeec"] , function() {
+gulp.task('default', ["min-img", "lessc", "coffeec"] , function() {
   
 });

@@ -2,22 +2,32 @@
 /**
  * Conteúdo da página
  */
-.page-id-114 .expansao img {
-  display: inline-block;
-  width: 13rem;
-  padding: 2em 0;
+.page-id-114 .expansao {
+  img {
+    display: inline;
+    padding: 2em 0;
+    width: 139px;
+  }
+  .msampa > img, .mrecife > img, .mpoa > img, .meurio > img {
+    width: 112px;
+  }
+  .defemde > img {
+    width: 172px;
+  }
 }
 @media screen and (min-width: 500px) {
   .page-id-114 .expansao img {
     padding: .5em 0;
   }
 }
-.page-id-114 .parc>div {
-  display: inline-block;
-  padding-right: 2em;
-}
 .page-id-114 .parc {
   padding-left: 3em;
+  >div {
+    display: inline-block;
+    text-align: center;
+    min-width: fit-content;
+    width: 19%;
+  }
 }
 .page-id-114 {
   background-color: @cor-roxa;

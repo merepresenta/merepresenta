@@ -29,6 +29,17 @@
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png" />
 <?php wp_head(); ?>
 <script type="text/javascript" src="<?= get_template_directory_uri()?>/js/jquery-ui.min.js"></script>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Descubra alianças nas pautas de direitos humanos!" />
+<meta name="twitter:description" content="Você pode usar nossa base de dados para lutar pelos seus direitos. Conheça o #MeRepresenta!" />
+<meta name="twitter:image" content="https://s3.amazonaws.com/hub-central/uploads/1473183975_thumb_Meme_Minha_Sampa_1024.jpg" />
+<meta property="twitter:url" content="https://www.merepresenta.org.br" />
+<meta property="fb:app_id" content="1881510138743297" />
+<meta property="og:title" content="Descubra alianças nas pautas de direitos humanos!" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.merepresenta.org.br" />
+<meta property="og:description" content="Você pode usar nossa base de dados para lutar pelos seus direitos. Conheça o #MeRepresenta!">
+<meta property="og:image" content="https://s3.amazonaws.com/hub-central/uploads/1473183975_thumb_Meme_Minha_Sampa_1024.jpg" />
 </head>
 
 <body id="page-top" <?php body_class(); ?>>    

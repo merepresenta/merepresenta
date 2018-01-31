@@ -29,6 +29,7 @@
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png" />
 <?php wp_head(); ?>
 <script type="text/javascript" src="<?= get_template_directory_uri()?>/js/jquery-ui.min.js"></script>
+<meta name="description" content="Em 2016, o #MeRepresenta mapeou candidaturas pró direitos humanos em todo o Brasil. São quase 1000 perfis de todas as regiões do país, de todos os partidos, se manifestando em relação a diversas pautas de direitos humanos. Agora você pode utilizar esses dados para encontrar aliados para lutar pelos seus direitos.">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Descubra alianças nas pautas de direitos humanos!" />
 <meta name="twitter:description" content="Você pode usar nossa base de dados para lutar pelos seus direitos. Conheça o #MeRepresenta!" />
@@ -40,6 +41,7 @@
 <meta property="og:url" content="https://www.merepresenta.org.br" />
 <meta property="og:description" content="Você pode usar nossa base de dados para lutar pelos seus direitos. Conheça o #MeRepresenta!">
 <meta property="og:image" content="https://s3.amazonaws.com/hub-central/uploads/1473183975_thumb_Meme_Minha_Sampa_1024.jpg" />
+<meta name="google-site-verification" content="YfocTwUB44qdckWVMSkPUF_1S3zwXz87mTRP505KNl0" />
 </head>
 
 <body id="page-top" <?php body_class(); ?>>    

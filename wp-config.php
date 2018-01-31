@@ -37,6 +37,8 @@ define('DB_CHARSET', 'utf8');
 /** O tipo de Collate do banco de dados. Não altere isso se tiver dúvidas. */
 define('DB_COLLATE', '');
 
+if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+   $_SERVER['HTTPS']='on';
 /**#@+
  * Chaves únicas de autenticação e salts.
  *

@@ -28,7 +28,7 @@
   else {
     $sql = "select c.id, c.nome as nome_cidade, e.sigla as uf
     from Cidade c
-    inner join Estado e on (e.id = c.estado_id) where c.nome like '%$nome%' order by 1";
+    inner join Estado e on (e.id = c.estado_id) where c.nome like '%$nome%' order by 2";
   }
   $dados = $queryRunner->get_results($sql);
 

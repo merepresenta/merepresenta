@@ -320,11 +320,11 @@ class ViewObject
         value: JSON.stringify value
       ).appendTo(frm)
 
-  startSearch: ->
+  startSearch: (limpaPaginacao = true) ->
     # Limpa a tela de pesquisa anteriores
     @pBody.removeClass 'resposta-vazia'
     @viewDadosFiltrados.clear()
-    @viewPaginacao.clear()
+    @viewPaginacao.clear() if limpaPaginacao
     @pBotoes.html ''
 
     # Coloca spinner

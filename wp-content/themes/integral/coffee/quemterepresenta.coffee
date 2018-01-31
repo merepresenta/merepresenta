@@ -9,7 +9,7 @@ class RequestInformations
 
   # Pesquisa apenas os dados do político, sem realizar a query novamente
   _queryPoliticiansInfo: (pageNumber, dados) ->
-    @viewObject.startSearch()
+    @viewObject.startSearch(false)
     jQuery.ajax
       url: "/api/v1/politicos.php"
       data: JSON.stringify

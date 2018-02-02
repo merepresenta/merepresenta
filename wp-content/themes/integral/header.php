@@ -19,12 +19,21 @@
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113464209-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-113464209-1');
+</script>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 <link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/jquery-ui.min.css">
-<link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/open-sans.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 <link rel="stylesheet" href="<?= get_template_directory_uri()?>/css/merepresenta.css">
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png" />
 <?php wp_head(); ?>

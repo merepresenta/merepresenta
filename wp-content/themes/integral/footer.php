@@ -52,20 +52,6 @@
         <?php get_template_part('sections/custom'); ?>
 
         <?php wp_footer(); ?>
-
-        <!-- PrettyPhoto Code START -->
-        <script type="text/javascript" charset="utf-8">
-                jQuery(document).ready(function($){
-                    $("a[rel^='prettyPhoto']").prettyPhoto({
-                        social_tools: false,
-                        theme: 'light_rounded',
-                        show_title: false,
-                        callback: function(){}
-                    });
-                });
-        </script>
-        <!-- PrettyPhoto Code END -->
-    
-    </body>
+   </body>
 
 </html>

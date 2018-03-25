@@ -26,7 +26,7 @@ class EmailSender {
   function setTo($_to) {
     $this->to = $_to;
   }
-
+  
   function send() {
     date_default_timezone_set('America/Sao_Paulo');//corrige hora local
     $mail = new PHPMailer();
@@ -53,7 +53,7 @@ class EmailSender {
     // $mail->From = get_option('smtp_user');
     // $mail->FromName = get_option('blogname');
     // $mail->Subject = '['. get_option('blogname') .'] ' . $this->subject;
-    // $mail->AddReplyTo = $_POST['contact_email'];
+    $mail->AddReplyTo($this->from, $this->from);
     // $mail->Sender = get_option('smtp_user');
     // //SMTP Config
 

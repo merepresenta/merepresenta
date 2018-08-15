@@ -73,8 +73,8 @@ gulp.task('lessc', function(){
     .pipe(less()).on('error', function(error){
       console.log(error.message);
     })
-    .pipe(autoprefixer())
-    .pipe(cssmin())
+//    .pipe(autoprefixer())
+//    .pipe(cssmin())
     .pipe(gulp.dest('../../wp-content/themes/integral/css'));
 });
 
